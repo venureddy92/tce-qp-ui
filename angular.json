@@ -1,0 +1,180 @@
+{
+  "version": 1,
+  "projects": {
+    "question-paper": {
+      "projectType": "library",
+      "root": "libs/question-paper",
+      "sourceRoot": "libs/question-paper/src",
+      "prefix": "tce-qp",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/question-paper"],
+          "options": {
+            "jestConfig": "libs/question-paper/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/question-paper/src/**/*.ts",
+              "libs/question-paper/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "questionpaper": {
+      "projectType": "application",
+      "root": "apps/questionpaper",
+      "sourceRoot": "apps/questionpaper/src",
+      "prefix": "tce-qp",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/questionpaper",
+            "index": "apps/questionpaper/src/index.html",
+            "main": "apps/questionpaper/src/main.ts",
+            "polyfills": "apps/questionpaper/src/polyfills.ts",
+            "tsConfig": "apps/questionpaper/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/questionpaper/src/favicon.ico",
+              "apps/questionpaper/src/assets"
+            ],
+            "styles": ["apps/questionpaper/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/questionpaper/src/environments/environment.ts",
+                  "with": "apps/questionpaper/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "questionpaper:build:production"
+            },
+            "development": {
+              "browserTarget": "questionpaper:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "questionpaper:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/questionpaper/src/**/*.ts",
+              "apps/questionpaper/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/questionpaper"],
+          "options": {
+            "jestConfig": "apps/questionpaper/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "questionpaper-e2e": {
+      "root": "apps/questionpaper-e2e",
+      "sourceRoot": "apps/questionpaper-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/questionpaper-e2e/cypress.json",
+            "tsConfig": "apps/questionpaper-e2e/tsconfig.e2e.json",
+            "devServerTarget": "questionpaper:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "questionpaper:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/questionpaper-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "questionpaper"
+}

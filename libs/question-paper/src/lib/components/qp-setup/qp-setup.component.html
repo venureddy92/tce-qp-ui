@@ -1,0 +1,76 @@
+
+  <ng-template #content let-c="close" let-d="dismiss">
+    <!-- <div> -->
+
+    <div class="modal-header pb-3">
+      <h4 class="modal-title" id="modal-basic-title">Setup your Question Paper 
+    </h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0C18.6274 0 24 5.37258 24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0ZM16.5818 7.41818C16.0195 6.85585 15.1078 6.85585 14.5455 7.41818L11.9997 9.96256L9.45451 7.41818L9.34518 7.31933C8.77961 6.85805 7.94539 6.891 7.4182 7.41818L7.31936 7.52754C6.85807 8.09311 6.89103 8.92736 7.4182 9.45454L9.96258 11.9997L7.4182 14.5455C6.85588 15.1078 6.85588 16.0195 7.4182 16.5818C7.98053 17.1441 8.89219 17.1441 9.45451 16.5818L11.9997 14.0358L14.5455 16.5818L14.6548 16.6807C15.2204 17.1419 16.0546 17.109 16.5818 16.5818L16.6806 16.4725C17.1419 15.9069 17.109 15.0726 16.5818 14.5455L14.0358 11.9997L16.5818 9.45454C17.1441 8.89222 17.1441 7.98051 16.5818 7.41818Z" fill="white"/>
+          </svg>
+          </span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="new-question">
+            
+
+            <div class="mb-3">
+                <select class="subject-select">
+                    <option>Maths</option>
+                    <option>Science</option>        
+                </select>
+            </div>
+        
+
+            <div class="mb-3">
+              <label class="form-label">Question Paper Title</label>
+              <input type="input" class="form-control" value="CBSE Class 10 Science (Standard) Question Paper 2020 Set 1">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Question Paper Format</label>
+              
+              <select class="form-control form-select">
+                <option>Maths</option>
+                <option>Science</option>
+              </select>
+
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <label class="form-label">Time</label>
+                    <select class="form-control form-select">
+                        <option>Please Select</option>
+                        <option>30 Min</option>
+                        <option>60 Min</option>
+                    </select>
+              </div>
+              <div class="col">
+                <label class="form-label">Marks</label>
+                    <select class="form-control form-select">
+                        <option>Please Select</option>
+                        <option>Each question 10 marks</option>
+                        <option>Each question 5 marks</option>
+                    </select>
+              </div>               
+            </div>
+  
+        
+           
+        </div> 
+    </div>
+    <div class="modal-footer justify-content-between">
+        <p>or  <button class="btn btn-sm btn-link fbold btn-link-white" (click)="continueWithoutTemplate();c('Save click')">CONTINUE WITHOUT TEMPLATE</button></p>
+        <button style='text-transform: uppercase;' class="btn btn btn-primary  btn-lg" (click)="defineTemplate(contentqpeditor);c('Save click')">define template</button>
+
+      <!-- <button type="button" class="btn btn btn-primary" (click)="c('Save click')">Save</button> -->
+    </div>
+  <!-- </div> -->
+
+  </ng-template>
+  
+  <tce-qp-qp-editor #contentqpeditor></tce-qp-qp-editor>
+

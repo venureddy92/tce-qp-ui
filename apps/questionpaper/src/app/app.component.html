@@ -1,0 +1,7 @@
+<tce-qp-qp-setup #content></tce-qp-qp-setup>
+<!-- <tce-qp-qp-toolbar></tce-qp-qp-toolbar> -->
+<button class="btn btn-lg btn-outline-primary qp-setup-button" (click)="open(content)">Setup Form</button>
+
+<div class="qp-container" *ngIf="questionPaperService.isQpEditor">
+    <tce-qp-question-paper-template-editior #qptemplateeditor></tce-qp-question-paper-template-editior>
+</div>

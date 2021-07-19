@@ -1,0 +1,51 @@
+
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header align-items-center">
+      <button class="btn btn-link btn-link-white mr-3">
+        <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5.43388 9.46773C5.12417 9.7627 4.63479 9.75363 4.33621 9.4474L0.680647 5.6981C0.301981 5.30972 0.301981 4.69028 0.680648 4.3019L4.33621 0.552601C4.63479 0.246364 5.12417 0.237301 5.43388 0.532268C5.74644 0.82994 5.75822 1.32472 5.4602 1.63693L2.25 5L5.4602 8.36307C5.75822 8.67528 5.74644 9.17006 5.43388 9.46773Z" fill="white"/>
+          </svg>
+          
+      </button>
+      <h4 class="modal-title" id="modal-basic-title"> Define Template
+    </h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0C18.6274 0 24 5.37258 24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0ZM16.5818 7.41818C16.0195 6.85585 15.1078 6.85585 14.5455 7.41818L11.9997 9.96256L9.45451 7.41818L9.34518 7.31933C8.77961 6.85805 7.94539 6.891 7.4182 7.41818L7.31936 7.52754C6.85807 8.09311 6.89103 8.92736 7.4182 9.45454L9.96258 11.9997L7.4182 14.5455C6.85588 15.1078 6.85588 16.0195 7.4182 16.5818C7.98053 17.1441 8.89219 17.1441 9.45451 16.5818L11.9997 14.0358L14.5455 16.5818L14.6548 16.6807C15.2204 17.1419 16.0546 17.109 16.5818 16.5818L16.6806 16.4725C17.1419 15.9069 17.109 15.0726 16.5818 14.5455L14.0358 11.9997L16.5818 9.45454C17.1441 8.89222 17.1441 7.98051 16.5818 7.41818Z" fill="white"/>
+          </svg></span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="mb-3">
+        <label class="form-label">Template</label>
+              
+          <select #re class="form-control form-select">
+            
+            <option>Select Your template</option>
+
+            <option>Templat1 1</option>
+            <option>Templat1 10</option>
+
+            <option>Templat1 100</option>
+            <option>Templat1 1000</option>
+            <option>Templat1 10000</option>
+
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Preview</label>
+        <div class="form-control preview-template">
+          {{re.value}}
+        </div>
+    </div>
+         
+
+
+    
+         
+    </div>
+    <div class="modal-footer">
+      <button style='text-transform: uppercase;' class="btn btn btn-primary btn-lg" (click)="c('Save click')">CREATE QUESTION PAPER</button>
+    </div>
+  </ng-template>
