@@ -83,3 +83,78 @@ border-radius: 5px;
     font-size: 16px;
     font-weight: 600;
 }
+
+
+
+
+
+.bg-sec{
+    background: #F6F6F6;
+    min-height: 100vh;
+    padding: 100px 0 0;
+}
+.editor-section-outer{
+    margin: 0 auto;
+    max-width: 740px;
+}
+    .editor-section{
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 18px;    
+}
+
+
+
+
+.templlate-label{
+    font-size: 14px;
+line-height: 17px;
+ 
+color: rgba(0, 0, 0, 0.25);
+}
+
+
+
+.tool-bar{
+    background: #22262A;
+    border-radius: 6px;
+    position: fixed;
+    right: 10%;
+    top: 20%;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0;
+    button{
+        background: none;
+        border: 0;
+        padding: 10px;
+        outline: none;
+        margin:0 5px;
+    }
+    .sep{
+        text-align: center;
+        padding: 2px 0;
+    }
+}
+
+
+
+.bottom-option{
+    background: #22262A;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: #fff;
+   h4{
+       font-weight: bold;
+       padding: 0;
+       margin: 0;
+       font-size: 15px;
+   } 
+    .col{
+    }
+}
