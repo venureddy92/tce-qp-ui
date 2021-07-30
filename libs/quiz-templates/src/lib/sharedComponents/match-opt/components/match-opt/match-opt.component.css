@@ -1,0 +1,86 @@
+.pull-right {
+  float: right;
+}
+
+/* 
+.optionsText {
+    height: 40px;
+    width: 90%;
+    border: 1px solid #ccc;
+    font-size: 13px;
+}
+
+.remove {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -11px;
+} */
+/* .ql-toolbar, .ql-container {
+    width: 90%;
+    float: left
+} */
+.span-div {
+  position: absolute;
+  right: 7px;
+  bottom: auto;
+  top: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.original {
+  /* border-left: none; */
+}
+
+.options-label {
+  display: block;
+  overflow: hidden;
+  word-wrap: break-word;
+  margin-bottom: 0px;
+}
+
+.fa-check {
+  color: green;
+  background: #fff;
+  border: 2px solid green;
+  font-size: 10px;
+  padding: 3px;
+  border-radius: 50%;
+}
+
+.fa-times {
+  color: red;
+  background: #fff;
+  border: 2px solid red;
+  font-size: 10px;
+  line-height: 9px;
+  padding: 3px 4px;
+  border-radius: 50%;
+}
+
+.li-green {
+  color: green;
+}
+
+.li-red {
+  color: red;
+}
+
+.optDiv {
+  min-width: 70%;
+  margin: 0;
+  word-break: break-word;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 4px 0px;
+}
+/*# sourceMappingURL=match-opt.component.css.map */

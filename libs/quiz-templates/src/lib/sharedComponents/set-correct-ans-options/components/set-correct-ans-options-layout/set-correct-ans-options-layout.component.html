@@ -1,0 +1,18 @@
+<div>
+  <input
+    [type]="inputType"
+    (change)="checkValue($event)"
+    [value]="optData.value"
+    id="{{ inputName }}-{{ optData.value }}-mcq-option"
+    name="{{ inputName }}-{{ optData.value }}-mcq-option"
+    [checked]="getInputStatus(optData.value)"
+  />
+
+  <!-- <input *ngIf="inputType == 'checkbox'" [type]="inputType" (change)="checkValue($event)" [value]="optData.value" id="{{inputName}}-{{optData.value}}-mcq-option" [name]="inputName"> -->
+
+  <label
+    #myContentOptions
+    for="{{ inputName }}-{{ optData.value }}-mcq-option"
+    >{{ optData.label }}</label
+  >
+</div>

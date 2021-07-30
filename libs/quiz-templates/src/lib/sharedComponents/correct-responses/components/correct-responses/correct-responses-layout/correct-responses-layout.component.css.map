@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,EAAE,CAAA;EACA,aAAa,EAAC,IAAI;CACnB;;AACD,AAAA,aAAa,CAAA;EACX,OAAO,EAAC,IAAI;EAEZ,MAAM,EAAE,SAAS;EACjB,YAAY,EAAE,IAAI;EAClB,OAAO,EAAE,GAAG;EACZ,YAAY,EAAE,IAAI;CAQnB;;AAdD,AAOE,aAPW,CAOX,IAAI,CAAA;EACF,OAAO,EAAE,QAAQ;EACjB,UAAU,EAAE,IAAI;CACjB;;AAVH,AAWE,aAXW,CAWX,IAAI,AAAA,WAAW,CAAA;EACb,UAAU,EAAC,IAAI;CAChB",
+    "sources": [
+        "correct-responses-layout.component.scss"
+    ],
+    "names": [],
+    "file": "correct-responses-layout.component.css"
+}

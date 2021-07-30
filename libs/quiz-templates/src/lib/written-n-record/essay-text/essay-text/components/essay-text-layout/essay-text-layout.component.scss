@@ -1,0 +1,428 @@
+@import 'bootstrap';
+@import 'libs/question-bank/src/lib/assets/css/common.scss';
+
+.mobile {
+  @extend .col-md-4;
+  @extend .offset-md-4;
+  -webkit-box-shadow: 0px 0px 27px -22px rgba(0, 0, 0, 0.72);
+  -moz-box-shadow: 0px 0px 27px -22px rgba(0, 0, 0, 0.72);
+  box-shadow: 0px 0px 27px -22px rgba(0, 0, 0, 0.72);
+  .mobile-image-div {
+    display: table;
+    margin: 0 auto;
+    padding-bottom: 25px;
+  }
+  .qb-qstem {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    @extend .col-md-12, .pd-0;
+  }
+  .qb-options-div {
+    @extend .col-md-12;
+    @extend .order-last;
+    .qb-options {
+      @extend .col-md-6;
+      @extend .col-12;
+    }
+  }
+  .o-image {
+    @extend .col-md-12;
+  }
+  .pointsDiv {
+    @extend .col-md-12;
+    @extend .col-sm-12;
+    @extend .col-12;
+    margin-top: 15px;
+  }
+}
+.mobile-ls {
+  @extend .col-md-8;
+  @extend .offset-md-2;
+  -webkit-box-shadow: 0px 0px 27px -22px rgba(0, 0, 0, 0.72);
+  -moz-box-shadow: 0px 0px 27px -22px rgba(0, 0, 0, 0.72);
+  box-shadow: 0px 0px 27px -22px rgba(0, 0, 0, 0.72);
+  padding: 10px;
+  .mobile-image-div {
+    display: table;
+    margin: 0 auto;
+    padding-bottom: 25px;
+  }
+  .qb-qstem {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    @extend .col-md-12, .pd-0;
+  }
+  .qb-options-div {
+    @extend .col-md-12;
+    @extend .order-last;
+    padding-left: 20px;
+    .qb-options {
+      @extend .col-md-6;
+    }
+  }
+  .o-image {
+    @extend .col-md-6;
+  }
+  .shuffle-div-row {
+    background: $off-grey;
+    padding: 20px 130px 12px 0;
+  }
+}
+.qb-main-div {
+  margin: 0px 0 0;
+  background-color: transparent;
+  box-shadow: none;
+  .row {
+    margin: auto !important;
+  }
+}
+:host ::ng-deep .ql-editor {
+  min-width: 140px;
+}
+
+:host ::ng-deep .qb-qstem .ql-container.ql-snow,
+:host ::ng-deep .qb-qstem .quill-editor {
+  border: 0px;
+}
+.qb-qstem-border {
+  border-bottom: 1px solid rgba(48, 52, 57, 0.1);
+}
+.qb-qstem {
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  @extend .col-md-12, .pd-0;
+  @extend .col-sm-12, .pd-0;
+  @extend .col-12;
+}
+.shuffle-div-row,
+.pointsDiv {
+  display: flex;
+  justify-content: flex-end;
+}
+.shuffle-div-row {
+  background: $off-grey;
+  padding: 20px 5px 15px 15px;
+}
+input,
+select {
+  margin-bottom: 25px !important;
+  margin-right: -3px;
+  border: 1px solid $light-white-one;
+  border-radius: 4px;
+  min-height: 20px;
+  padding: 10px;
+  outline: 0 !important;
+}
+select {
+  width: 60%;
+}
+input {
+  width: 100%;
+}
+.qb-option-incorrect-div {
+  background: #ffdada;
+  border-color: #e14747;
+}
+.qb-option-correct-div {
+  background: #ebf6e7;
+  border-color: #65a00d;
+}
+.wrong-answer,
+.correct-answer {
+  padding-left: 10px;
+  position: absolute;
+  top: 13px;
+  right: 15px;
+}
+.correct-answer {
+  color: #65a00d;
+}
+.wrong-answer {
+  color: #e14747;
+}
+.fa-check,
+.fa-times {
+  display: none;
+}
+.correct-answer.fa-check,
+.wrong-answer.fa-times {
+  display: block;
+}
+
+.preview-ptdiv {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  background: $off-grey;
+  padding-right: 10px;
+  align-items: center;
+  .btn-list {
+    .btn {
+      background: transparent;
+      border-color: transparent;
+      border-radius: 0px;
+      color: #333;
+    }
+    .btn:focus,
+    .btn:hover,
+    .btn:active {
+      box-shadow: inset 0 0 0 1px $off-white, inset 0px 2px 12px #888;
+      background-color: $off-white !important;
+      border-color: $off-white;
+      color: $white;
+    }
+  }
+}
+.qb-textarea-wrapper {
+  padding: 0 11px;
+  textarea {
+    width: 100%;
+    padding: 15px;
+    min-height: 120px;
+    resize: none;
+    max-height: 350px;
+    overflow: auto;
+    border: 1px solid $off-grey;
+    outline: none !important;
+    background: #f8f8f8;
+    border-radius: 10px;
+    height: calc(100vh - 525px);
+    font-size: 18px;
+  }
+  .qb-word-count {
+    width: 99%;
+    background: #f8f8f8;
+    padding: 2px;
+    top: -25px;
+    border-radius: 20px;
+    margin: 0 auto;
+    p {
+      float: right;
+    }
+  }
+  .qb-sample-answer {
+    color: $dark-black;
+
+    h6 {
+      color: #248ef6;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    p {
+      font-size: 18px;
+      line-height: 1.4em;
+      font-weight: 500;
+      // max-height: calc(100vh - 400px);
+      overflow: auto;
+    }
+  }
+}
+
+.plain-text-div {
+  p {
+    margin-bottom: 10px;
+  }
+  .para-div {
+    margin-bottom: 17px;
+  }
+  select {
+    width: 100%;
+  }
+  .radio-div {
+    width: 30%;
+    padding: 0px 15px;
+    input {
+      width: auto;
+      margin-top: 2px;
+      margin-right: 5px;
+      top: 0px;
+      left: 25px;
+    }
+    @include checkbox(
+      2px,
+      18px,
+      2px,
+      2px,
+      2px,
+      2px,
+      $white,
+      $white,
+      $blue,
+      $blue,
+      $blue,
+      $dark-black,
+      $blue
+    );
+  }
+}
+.qb-over-word-limit {
+  textarea {
+    background: #ffdada;
+    border: 1px solid #e14747;
+  }
+  .qb-word-count {
+    background: #ffdada;
+  }
+}
+.qb-icons-div {
+  text-align: center;
+  margin-bottom: 15px;
+  padding: 5px 5px;
+  i {
+    padding: 10px 5px;
+    width: 100%;
+    border: 1px solid #d9d9d9;
+  }
+}
+.active {
+  background: #e6e6e6;
+  color: #1877b1;
+}
+
+.col-div-p {
+  p {
+    padding: 5px;
+    text-align: right;
+    border: 1px solid $off-white;
+    border-top: 0px;
+  }
+}
+.qb-feedback-padding-left {
+  padding-left: 11px;
+}
+.qb-addOptDiv {
+  padding: 10px 24px 0 24px;
+  z-index: 1;
+  .answers {
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 500;
+  }
+}
+::ng-deep .qb-qstem-font .ql-container .ql-editor p,
+::ng-deep .qb-qstem-font .ql-container .ql-editor.ql-blank::before {
+  font-size: 25px !important;
+  line-height: 31px;
+}
+::ng-deep .qb-opt-font .ql-container .ql-editor p,
+::ng-deep .qb-opt-font .ql-container .ql-editor.ql-blank::before {
+  font-size: 18px !important;
+  line-height: 40px;
+}
+.qb-word-settings {
+  position: absolute;
+  bottom: 75px;
+  padding: 10px 24px 0 24px;
+  color: $dark-black;
+  font-size: 15px;
+  .qb-word-limit {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: $dark-black;
+    opacity: 0.5;
+  }
+}
+::ng-deep .correct-points .form-control,
+.qb-essay-controls {
+  height: 50px !important;
+  border: 1px solid #d8d8d8;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 15px;
+}
+.custom-switch {
+  bottom: 4px;
+  .custom-control-label {
+    cursor: pointer;
+  }
+}
+.custom-switch .custom-control-label::before {
+  border-radius: 100px;
+  width: 42px;
+  height: 24px;
+  background: $blue-green-grad;
+  opacity: 0.5;
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+  background: $blue-green-grad;
+  opacity: 1;
+}
+.custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+  transform: translateX(1.2rem);
+}
+.custom-switch .custom-control-label::after,
+.custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+  background-color: $white;
+  width: 18px;
+  height: 18px;
+  border-radius: 18px;
+  margin-top: 1px;
+}
+:host ::ng-deep .qb-sample-answer-edit .qb-feedback-div textarea {
+  padding-left: 0 !important;
+  font-size: 18px !important;
+  line-height: 22px;
+  max-height: calc(100vh - 610px);
+  min-height: calc(100vh - 610px);
+  resize: none;
+}
+
+.qb-qstem-img {
+  img {
+    border-radius: 9px;
+    max-width: 150;
+    max-height: 100;
+    // transition: all 0.3s; // check qb-animation.scss
+  }
+  .qb-adjust-img-size {
+    span {
+      cursor: pointer;
+      right: 4px;
+      top: 4px;
+      border: 1px solid $off-white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      background-color: #ffffff57;
+      nb-icon {
+        position: relative;
+        top: -1px;
+        font-size: 14px;
+        color: #567dfcb8;
+      }
+    }
+  }
+  .qb-up-arrow {
+    border-color: $light-black transparent;
+    border-style: solid;
+    border-width: 0px 10px 10px 10px;
+    height: 0px;
+    width: 0px;
+    top: 26px;
+    right: 4px;
+    z-index: 1;
+  }
+  .qb-size-dropdown {
+    top: 36px;
+    right: -38px;
+    background: $light-black;
+    padding: 10px 15px 12px 15px;
+    border-radius: 5px;
+    z-index: 10;
+    -webkit-box-shadow: 4px 24px 32px -9px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 4px 24px 32px -9px rgba(0, 0, 0, 0.6);
+    box-shadow: 4px 24px 32px -9px rgba(0, 0, 0, 0.6);
+    ul {
+      width: 75px;
+      li {
+        color: $white;
+        line-height: 2.2em;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -1,0 +1,123 @@
+<ngx-smart-modal #{{name}} identifier="{{ name }}" (onClose)="closeModal()">
+  <form *ngIf="imageUploadform" [formGroup]="imageUploadform" #formDir="ngForm">
+    <div class="modal-header">
+      <h4 class="modal-title">Upload Image</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row text-left">
+        <div class="form-group col-md-12">
+          <!-- <input type="file" (change)="getFiles()"> -->
+          <!-- <input #file type="file" accept='image/*' (change)="preview(file.files)" /> -->
+          <!-- <img [src]="imgURL" height="200" *ngIf="imagePath && !linkImageUrl"> -->
+          <!-- <div class="upload-btn-wrapper"> -->
+          <button class="btn btn-sm btn-block upload-btn-wrapper">
+            <input #file type="file" accept="image/x-png,image/gif,image/jpeg" (change)="upload(file.files)" /><i
+              class="fa fa-upload"></i>
+            Upload Image
+          </button>
+          <!-- </div> -->
+        </div>
+
+        <!-- <div class="form-group col-md-12">
+          <div class="row">
+            <div class="col-md-8 col-sm-8 col-12 pd-r-0">
+              <input
+                type="text"
+                class="form-control"
+                #linkImgInput
+                placeholder="Enter Image url"
+              />
+            </div>
+            <div class="col-md-4 col-sm-4 col-12">
+              <button
+                class="btn btn-primary pull-right fetch-btn"
+                (click)="getURL()"
+              >
+                Fetch URL
+              </button>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="form-group col-md-12" *ngIf="imgURL">
+          <img #linkImg [src]="imgURL" height="200" />
+        </div>
+        <div class="alert alert-danger col-md-12" *ngIf="wrongImage">
+          Unable to process image. Try again
+        </div>
+        <div class="form-group col-md-12" *ngIf="imgURL">
+          <!-- <ng-container *ngIf="imageUploadform.value.componentType == 'editor'">
+                        <label>Alternative Text</label>
+                        <input type="text" class="form-control" formControlName="altText">
+
+                        <label>Image Alignment</label>
+                        <select class="form-control" formControlName="imageAlt">
+                            <option value="none">None</option>
+                            <option value="left">Left</option>
+                            <option value="center">Center</option>
+                            <option value="right">Right</option>
+                        </select>
+
+                        <br>
+                    </ng-container> -->
+
+          <div *ngIf="imageLoad" class="loader">Loading...</div>
+
+          <!-- <div class="col-md-12 pd-0 upload-form-div">
+            <ng-container *ngIf="!imageLoad">
+              <h5 class="mb-15 padding-15">Override image dimensions</h5>
+              <div class="padding-15">
+                <label>Width / Height (%)</label>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  formControlName="percent"
+                  (click)="setPercentWidth()"
+                  class="form-control slider mb-15"
+                />
+                <span>{{ imageUploadform.value.percent }} %</span>
+                <br /><br />
+
+                <label>Width (px)</label>
+                <input
+                  type="text"
+                  class="form-control mb-15"
+                  (keyup)="setWidth()"
+                  formControlName="width"
+                  step="0.1"
+                />
+                <div *ngIf="invalidWidth" class="alert alert-danger">
+                  Width must be less than {{ imgWidth + 1 }}
+                </div>
+
+                <label>Height (px)</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  (keyup)="setHeight()"
+                  formControlName="height"
+                  step="0.1"
+                />
+                <div *ngIf="invalidHeight" class="alert alert-danger">
+                  Height must be less than
+                  {{ imgHeight + 1 }}
+                </div>
+              </div>
+            </ng-container>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" [disabled]="
+          imageUploadform.invalid || !allowUpload
+        " (click)="uploadImage()">
+        OK
+      </button>
+      <button (click)="closeImageModal(); close()" class="btn btn-primary">
+        Close
+      </button>
+    </div>
+  </form>
+</ngx-smart-modal>

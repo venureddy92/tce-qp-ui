@@ -1,0 +1,288 @@
+// @import "bootstrap/variables";
+// @import "bootstrap/mixins";
+@import 'bootstrap';
+@import 'libs/question-bank/src/lib/assets/css/common.scss';
+// @import '../../../../../apps/tce-app/src/assets/themes/common.scss';
+.qb-main-div {
+  margin: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+.qb-main-div .row {
+  margin: auto !important;
+}
+.qb-dashboard-edit-div {
+  @extend .col-md-11;
+  min-height: 260px;
+}
+.qb-mcq-div {
+  @extend .col-md-12;
+  @extend .mb-15;
+}
+.mb-15 {
+  margin-bottom: 15px;
+}
+.pd-0 {
+  padding: 0px;
+}
+p {
+  color: #fff;
+  background: #4caf50;
+  padding: 1rem;
+  margin: 0;
+  margin-bottom: 0.2rem;
+  border-radius: 0.2rem;
+}
+.qb-options {
+  border: none;
+  .opt-innerdiv {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+  }
+}
+.qb-drag-icon-div {
+  background: transparent;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  right: 12px;
+}
+.qb-icon-div {
+  display: flex;
+  nb-icon {
+    color: #d8d8d8;
+  }
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+.qb-option-div {
+  position: relative;
+  padding: 0px;
+  padding-left: 0;
+  display: flex;
+}
+.qb-option-correct-div {
+  @extend .qb-option-div;
+  border: 1px solid green !important;
+}
+.qb-option-incorrect-div {
+  @extend .qb-option-div;
+  border: 1px solid red !important;
+}
+.correct {
+  border: 1px solid green !important;
+}
+
+.incorrect {
+  border: 1px solid red !important;
+}
+
+:host ::ng-deep .ql-editor {
+  min-width: 140px;
+  padding-left: 0;
+}
+
+:host ::ng-deep .qb-qstem .ql-container.ql-snow,
+:host ::ng-deep .qb-qstem .quill-editor {
+  border: 0px;
+}
+.qb-qstem-border {
+  border-bottom: 1px solid rgba(48, 52, 57, 0.1);
+}
+.qb-feedback-padding-left {
+  padding-left: 11px;
+}
+.qb-option-element {
+  flex: 1;
+}
+.qb-addOptDiv {
+  padding: 10px 24px 0 24px;
+  z-index: 1;
+  .qb-answers {
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 500;
+  }
+}
+.qb-feedback-text {
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: 500;
+}
+.qb-option-done {
+  position: absolute;
+  right: 0;
+  top: -15px;
+  z-index: 10;
+  cursor: pointer;
+  // transition: all 0.5s; // check qb-animation.scss
+  h6 {
+    font-size: 14px;
+    span:first-child {
+      background: linear-gradient(90deg, #6d71ff 0%, #248ef6 100%);
+      width: 20px;
+      height: 20px;
+      border-radius: 20px;
+      display: inline-block;
+      text-align: center;
+      top: 3px;
+      nb-icon {
+        color: #fff;
+      }
+    }
+    span:last-child {
+      color: #000;
+      font-weight: bold;
+    }
+  }
+  h6.qb-firstDone {
+    margin: 0;
+    position: relative;
+    top: -2px;
+  }
+}
+.qb-qstem {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  @extend .col-md-12, .pd-0;
+}
+.qb-options-div-maxht {
+  overflow: auto;
+  padding: 0 23px !important;
+}
+.qb-options-preview-div {
+  padding: 0 23px;
+  overflow: auto;
+}
+.qb-drag-drop-text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 0 23px;
+}
+.qb-options-div-maxht::-webkit-scrollbar,
+.qb-options-preview-div::-webkit-scrollbar {
+  width: 4px;
+}
+.qb-options-div-maxht::-webkit-scrollbar-track,
+.qb-options-preview-div::-webkit-scrollbar-track {
+  background-color: #f9f9f9;
+}
+.qb-options-div-maxht::-webkit-scrollbar-thumb,
+.qb-options-preview-div::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+}
+.shuffle-div-row,
+.pointsDiv {
+  display: flex;
+  justify-content: space-between;
+}
+.shuffle-div-row {
+  background: #f0f0f0;
+  padding: 20px 50px 15px 15px;
+}
+.vertical {
+  position: relative;
+  // .mobile-image-div{display: table;margin: 0 auto;padding-bottom: 25px;}
+  // padding:2%;
+  .qb-options-div {
+    @extend .col-md-8;
+    @extend .col-sm-8;
+    @extend .col-6;
+
+    .qb-options {
+      @extend .col-md-12;
+      @extend .col-sm-12;
+      @extend .col-12;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .pointsDiv {
+    @extend .col-md-3;
+    @extend .col-sm-3;
+    @extend .col-3;
+    .qb-add-opt-btn {
+      width: 100%;
+      margin-top: -3px;
+    }
+  }
+}
+
+.gButtons {
+  padding-left: 10%;
+}
+
+.qb-qstem {
+  @extend .col-md-6;
+  @extend .col-sm-6;
+  @extend .col-12;
+}
+.q-image {
+  @extend .col-md-6;
+  @extend .col-sm-6;
+  @extend .col-12;
+}
+
+.mobile {
+  @extend .col-md-4;
+  @extend .offset-md-4;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 5px;
+  .qb-qstem {
+    @extend .col-md-12;
+  }
+  .qb-options-div {
+    @extend .col-md-10;
+    .qb-options {
+      @extend .col-md-5;
+    }
+  }
+  .o-image {
+    @extend .col-md-6;
+  }
+}
+
+.mobile-ls {
+  @extend .col-md-8;
+  @extend .offset-md-2;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 5px;
+  .qb-qstem {
+    @extend .col-md-12;
+  }
+  .qb-options-div {
+    @extend .col-md-10;
+    .qb-options {
+      @extend .col-md-5;
+    }
+  }
+  .o-image {
+    @extend .col-md-6;
+  }
+}
+
+.remove-icon {
+  color: red;
+  margin-left: 10px;
+  margin-right: -5px;
+}
+
+.drag-icon {
+  color: blue;
+}
+::ng-deep .qb-qstem-font .ql-container .ql-editor p,
+::ng-deep .qb-qstem-font .ql-container .ql-editor.ql-blank::before {
+  font-size: 25px !important;
+  line-height: 31px;
+}
+::ng-deep .qb-opt-font .ql-container .ql-editor p,
+::ng-deep .qb-opt-font .ql-container .ql-editor.ql-blank::before {
+  font-size: 18px !important;
+  line-height: 40px;
+}
+::ng-deep .qb-match-opt-div .qb-options-label {
+  padding: 20px 30px;
+}

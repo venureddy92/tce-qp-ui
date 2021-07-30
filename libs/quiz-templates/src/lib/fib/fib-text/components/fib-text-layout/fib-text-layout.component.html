@@ -1,0 +1,210 @@
+<div [class]="layout" [ngClass]="{
+    mobile: deviceView == 'mobile',
+    'mobile-ls': deviceView == 'mobile_ls'
+  }" class="container p-0">
+  <div class="qb-main-div p-0">
+    <h5 *ngIf="this.dashboardPreviewState">{{ templateName }}</h5>
+    <div class="row">
+      <div class="p-0" [ngClass]="{
+          'qb-dashboard-edit-div': !dashboardPreviewShow,
+          'qb-mcq-div': dashboardPreviewShow
+        }">
+        <div *ngIf="!previewShow" class="qb-cust-quill" id="cust_quill" style="width:100%;">
+          <tce-quill-toolbar [templateType]="templateMainType"></tce-quill-toolbar>
+        </div>
+
+        <div class="row" [ngClass]="{ 'qb-qstem-border pt-2': previewShow === false }">
+          <div class="qb-qstem m-0 px-2 pb-2">
+            <div class="d-flex align-items-center">
+              <div *ngIf="qstem['image'] || this.questionImage" class="qb-qstem-img position-relative">
+                <img [src]="loadQuestionImage()" #qstemImgRef />
+                <div *ngIf="!previewShow">
+                  <div class="qb-adjust-img-size" (click)="openImgSizes = !openImgSizes">
+                    <span id="imageResize" class="position-absolute">
+                      <nb-icon icon="arrow-ios-downward-outline"></nb-icon>
+                    </span>
+                  </div>
+                  <div *ngIf="openImgSizes">
+                    <div class="qb-up-arrow position-absolute"></div>
+                    <div class="qb-size-dropdown position-absolute">
+                      <ul class="mb-0">
+                        <li (click)="getImage('small')">Small</li>
+                        <li (click)="getImage('medium')">Medium</li>
+                        <li (click)="getImage('large')">Large</li>
+                        <li (click)="deleteImage()">Delete</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="w-100" #qstemRef>
+                <dc-qstem [qstem]="qstem" [previewState]="previewShow" [stemName]="'qstem'"
+                  (onQstemContentUpdate)="onQstemContentUpdate($event)">
+                </dc-qstem>
+                <!-- <div *ngIf="!previewShow" class="qb-feedback-padding-left">
+                <feedback-layout
+                  [showAnsState]="getShowAnsState"
+                  [feedback]="qstem"
+                  [previewState]="previewShow"
+                  (feedbackUpdate)="feedbackStemUpdate($event)"
+                  [placeholder]="'Type question’s feedback here..'"
+                >
+                </feedback-layout>
+              </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div #answers class="d-flex align-items-center justify-content-between w-100 qb-add-opt-div"
+            *ngIf="!previewShow">
+            <div class="qb-answers" id="answers" #answers>
+              <!-- Answers : -->
+              <h6 class="heading" *ngIf="templateType === 'fib-text' && templateMarkUpData">Set Correct Answer(s)</h6>
+            </div>
+
+            <div [hidden]="!allowAddResponse" (click)="addResponseTag('RESPONSE')">
+              <h6 class="qb-header-six m-0">
+                <span class="position-relative">
+                  <nb-icon icon="plus-outline"></nb-icon>
+                </span>
+                &nbsp;&nbsp;<span>Add Blank Option</span>
+
+              </h6>
+            </div>
+            <!-- <span (click)="get()">add</span> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="qb-options qb-fib-options qb-options-div px-0 py-1" #optionsDivMaxHt>
+            <div [hidden]="previewShow || quillLoaded">
+              <app-template-markup-layout [source]="sourceData" [type]="templateType"
+                [possibleResponses]="possibleResponses" (pushSelectedAns)="getSelectedAns($event)"
+                [templateData]="templateMarkUpData" [previewState]="previewState" [inputName]="inputName"
+                [templateType]="templateType" (onContentUpdate)="onContentUpdate($event)">
+              </app-template-markup-layout>
+            </div>
+            <div [hidden]="previewShow || !templateMarkUpData" class="heading">
+              <h6 *ngIf="templateType === 'fib-drag-drop'">Possible Response</h6>
+
+              <div class=" ">
+                <div *ngFor="let opts of possibleResponses; index as i">
+                  <h6>
+                    Responses {{ i + 1 }}
+
+                  </h6>
+
+                  <div class=" " cdkDropList #optsContainer cdkDropListOrientation="vertical"
+                    (cdkDropListDropped)="responseDropped($event, i)" *ngIf="!previewShow">
+
+                    <div class="">
+                      <div cdkDrag *ngFor="let opt of opts; index as oIndex" class="">
+                        <div class="options-rows">
+                          <div class="qb-icon-div" [hidden]="templateType==='fib-drag-drop'">
+                            <i cdkDragHandle class="fa fa-bars drag-icon"></i>
+                            <span class="tooltiptext">Drag</span>
+                          </div>
+                          <div class="mid-info">
+                            <dc-opt [optData]="opt" [previewState]="previewState" [inputName]="'input-' + i"
+                              [optValue]="selectedAnswers" [showAnsState]="getShowAnsState"
+                              (onContentUpdate)="onOptUpdate($event, i, oIndex)">
+                            </dc-opt>
+                          </div>
+                          <div class="qb-icon-div">
+                            <i class="fa fa-trash remove-icon" (click)="deleteResponse(opt, i, oIndex)"
+                              *ngIf="!previewShow"></i>
+                          </div>
+                        </div>
+                        <br />
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm btn-10" *ngIf="templateType === 'fib-dropdown'"
+                      (click)="addResponse(i, opts)"><i class="fa fa-plus"></i> Add</button>
+                  </div>
+                </div>
+                <button type="button" *ngIf="templateType === 'fib-drag-drop'" class="btn btn-primary btn-sm btn-10"
+                  (click)="addDragResponse()"><i class="fa fa-plus"></i> Add</button>
+              </div>
+            </div>
+            <div class="qb-fib-paragraph" *ngIf="quillLoaded || previewShow || templateType !== 'fib-text'">
+              <h6 class="heading" *ngIf="templateMarkUpData && !previewShow">Set Correct Answer(s)</h6>
+              <h6 class="heading" *ngIf="templateMarkUpData && previewShow">Select Correct Answer(s)</h6>
+              <app-fib-set-correct-ans-options-layout [possibleResponses]="possibleResponses"
+                (possibleResPreviewEmitter)="updatePreviewRes($event)" (allowSubmit)="allowSubmitFunc($event)"
+                [updateResponse]="updateResponse" (pushSelectedAns)="getSelectedAns($event)"
+                [showAnsState]="getShowAnsState" (correctPoints)="correctPoints($event)" [type]="templateType"
+                [templateMarkUpData]="templateMarkUpData" [sourceData]="sourceData" [previewState]="previewState"
+                [inputName]="inputName">
+              </app-fib-set-correct-ans-options-layout>
+            </div>
+            <div class="col-md-12 responsesDiv" id="responsesDiv"
+              *ngIf="templateType === 'fib-drag-drop' && possibleResponses.length>0" (click)="classifyClick($event)">
+              <!-- <div class="qb-options-row" > -->
+              <div *ngIf="!previewShow" class="items">
+                <div *ngFor="let response of possibleResponses" (click)="clickOpt(response)">
+                  <app-classify-option [totalOPTData]="templateData" [optData]="response"
+                    (onContentUpdate)="onResponseClick($event)">
+                  </app-classify-option>
+
+                </div>
+              </div>
+              <div *ngIf="previewShow" class="items">
+                <div *ngFor="let response of possibleResponsesPreview" (click)="clickOpt(response)">
+                  <app-classify-option [totalOPTData]="templateData" [optData]="response"
+                    (onContentUpdate)="onResponseClick($event)">
+                  </app-classify-option>
+
+                </div>
+                <!-- </div> -->
+              </div>
+            </div>
+
+
+            <!-- This is points layout.maybe required in future
+          <div class="col-md-12">
+            <button (click)="addResponseTag('Response')">Add response</button>
+            <div class="shuffle-div-row" *ngIf="!previewShow">
+              <app-set-correct-ans-layout
+                [previewState]="previewState"
+                (pushEnteredPoints)="getPointsValue($event)"
+                [points]="points"
+              >
+              </app-set-correct-ans-layout>
+            </div>
+          </div> -->
+          </div>
+        </div>
+
+        <!-- <ng-container *ngIf="!previewShow && templateType === 'fib-drag-drop'">
+         
+        </ng-container> -->
+        <div class="row">
+          <ng-container *ngIf="
+              previewShow &&
+              showAnsStateFlag &&
+              this.correctAnsPoints != this.points
+            ">
+            <div class="col-md-12">
+              <div class="qb-correct-response-div" *ngIf="templateType == 'fib-text'">
+                <app-correct-responses-layout [responses]="selectedAnswers">
+                </app-correct-responses-layout>
+              </div>
+              <div class="qb-correct-response-div" *ngIf="templateType != 'fib-text'">
+                <app-correct-responses-layout [responses]="selectedAnswersLabels">
+                </app-correct-responses-layout>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="col-md-1 col-sm-1 col-1 pd-0 qb-col-dashboard-edit-div">
+        <button class="btn btn-outline-primary qb-edit-btn" *ngIf="!dashboardPreviewShow" (click)="editRedirect()">
+          <li class="fa fa-edit"></li>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <br />
+</div>

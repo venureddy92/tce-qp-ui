@@ -1,0 +1,16 @@
+p {
+  color: #fff;
+  background: #673ab7;
+  padding: 1rem;
+  margin: 0;
+  margin-bottom: 0.2rem;
+  border-radius: 0.2rem;
+}
+
+.grid-wrapper {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 150px 150px;
+  grid-template-columns: 150px 150px;
+}
+/*# sourceMappingURL=template2-layout.component.css.map */

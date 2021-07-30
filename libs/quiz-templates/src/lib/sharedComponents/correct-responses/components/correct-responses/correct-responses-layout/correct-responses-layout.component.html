@@ -1,0 +1,12 @@
+<h6>Correct Answers:</h6>
+
+<div class="qb-correct-answers-wrapper">
+  <div *ngFor="let response of responses; let i = index" class="responseSpan">
+    <span>{{ i + 1 }}</span
+    ><span [innerHTML]="response"></span>
+  </div>
+</div>
+<!-- <span class="responseSpan" [innerHTML]="response">
+  <span>{{i+1}}</span>
+</span> -->
+<!-- &nbsp;&nbsp; -->

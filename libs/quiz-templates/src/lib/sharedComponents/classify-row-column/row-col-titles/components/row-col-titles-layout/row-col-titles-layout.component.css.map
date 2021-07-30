@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,cAAc,CAAC;EACX,OAAO,EAAC,KAAK;EACb,QAAQ,EAAE,MAAM;EAChB,SAAS,EAAE,UAAU;CACxB;;AAED,AAAA,OAAO,CAAA;EACH,SAAS,EAAE,GAAG;EACd,KAAK,EAAE,IAAI;EACX,UAAU,EAAE,UAAU;CACzB;;AAED,AAAA,KAAK,CAAC;EACF,UAAU,EAAE,IAAI;CACnB",
+    "sources": [
+        "row-col-titles-layout.component.scss"
+    ],
+    "names": [],
+    "file": "row-col-titles-layout.component.css"
+}

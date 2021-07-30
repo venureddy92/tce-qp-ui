@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,MAAM,CAAA;EACJ,YAAY,EAAE,EAChB;CAAC",
+    "sources": [
+        "mcq-matrix-standard-layout.component.scss"
+    ],
+    "names": [],
+    "file": "mcq-matrix-standard-layout.component.css"
+}

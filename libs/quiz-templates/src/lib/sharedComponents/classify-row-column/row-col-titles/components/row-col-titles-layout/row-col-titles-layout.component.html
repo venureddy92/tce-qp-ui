@@ -1,0 +1,21 @@
+<div class="optDiv">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt20 pd-0 row-title-div">
+    <div [hidden]="!mode">
+      <label
+        class="options-label"
+        #myContent
+        (click)="onContainerClick()"
+      ></label>
+      <label
+        class="options-label"
+        #myContent
+        *ngIf="!data"
+        (click)="onContainerClick()"
+        >&nbsp;&nbsp;&nbsp;&nbsp;</label
+      >
+    </div>
+    <div [hidden]="mode" style="border: 1px solid #ddd;border-radius: 10px;">
+      <ng-template #quillContainer></ng-template>
+    </div>
+  </div>
+</div>

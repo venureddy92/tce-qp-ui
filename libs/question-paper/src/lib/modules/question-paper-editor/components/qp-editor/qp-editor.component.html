@@ -1,11 +1,10 @@
 
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header align-items-center">
-      <button class="btn btn-link btn-link-white mr-3">
+      <button class="btn btn-link btn-link-white mr-3" (click)="qpSetup()">
         <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M5.43388 9.46773C5.12417 9.7627 4.63479 9.75363 4.33621 9.4474L0.680647 5.6981C0.301981 5.30972 0.301981 4.69028 0.680648 4.3019L4.33621 0.552601C4.63479 0.246364 5.12417 0.237301 5.43388 0.532268C5.74644 0.82994 5.75822 1.32472 5.4602 1.63693L2.25 5L5.4602 8.36307C5.75822 8.67528 5.74644 9.17006 5.43388 9.46773Z" fill="white"/>
-          </svg>
-          
+          </svg>          
       </button>
       <h4 class="modal-title" id="modal-basic-title"> Define Template
     </h4>
@@ -19,7 +18,7 @@
       <div class="mb-3">
         <label class="form-label">Template</label>
               
-          <select #re class="form-control form-select">
+          <select #re class="form-control form-select" [formControl]="template">
             
             <option>Select Your template</option>
 
@@ -38,14 +37,9 @@
         <div class="form-control preview-template">
           {{re.value}}
         </div>
-    </div>
-         
-
-
-    
-         
+    </div>           
     </div>
     <div class="modal-footer">
-      <button style='text-transform: uppercase;' class="btn btn btn-primary btn-lg" (click)="c('Save click')">CREATE QUESTION PAPER</button>
+      <button style='text-transform: uppercase;' [disabled]="!template.valid" class="btn btn btn-primary btn-lg" (click)="createQP();c('Save click')">CREATE QUESTION PAPER</button>
     </div>
   </ng-template>

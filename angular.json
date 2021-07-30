@@ -25,6 +25,37 @@
           }
         }
       }
+    },   "quiz-templates": {
+      "projectType": "library",
+      "root": "libs/quiz-templates",
+      "sourceRoot": "libs/quiz-templates/src",
+      "prefix": "tce",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/quiz-templates/tsconfig.lib.json",
+              "libs/quiz-templates/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/quiz-templates/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/quiz-templates/jest.config.js",
+            "tsConfig": "libs/quiz-templates/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/quiz-templates/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     },
     "questionpaper": {
       "projectType": "application",

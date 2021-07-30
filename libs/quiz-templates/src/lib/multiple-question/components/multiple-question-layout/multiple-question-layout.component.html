@@ -1,0 +1,221 @@
+<div
+  [class]="layout"
+  [ngClass]="{
+    mobile: deviceView == 'mobile',
+    'mobile-ls': deviceView == 'mobile_ls'
+  }"
+  class="container"
+>
+  <div class="main-div">
+    <br />
+    <h5 *ngIf="this.dashboardPreviewState">{{ templateName }}</h5>
+    <div class="row">
+      <div class="qstem">
+        <dc-qstem
+          [qstem]="qstem"
+          [stemName]="'qstem'"
+          [previewState]="previewState"
+          (onQstemContentUpdate)="onQstemContentUpdate($event)"
+          [multipleQuestionToolbarOption]="multipleQuestionToolbarOption"
+          [qstemResponse]="defaultArray"
+          [randomIndex]="randomIndex"
+        >
+        </dc-qstem>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" *ngIf="!previewShow && defaultArray.length > 0">
+        <div class="row">
+          <div class="col-md-8">
+            <button
+              (click)="addVariable()"
+              class="add-btn d-flex mb-25 btn btn-outline-primary btn-sm"
+            >
+              <i class="fa  fa-plus"></i>
+            </button>
+          </div>
+          <div
+            class="col-md-8 col-8-div mb-25"
+            *ngFor="let defaultItem of defaultArray; let i = index"
+          >
+            <!-- {{ i+1 }} -->
+            <div class="row">
+              <div class="col-md-12">
+                <h6>
+                  <span>Variable {{ i + 1 }}</span>
+                </h6>
+              </div>
+              <!-- <h5>{{default}}</h5> -->
+              <div
+                class="col-md-6 col-sm-6 d-flex multi-qtns-col-div mb-25"
+                *ngFor="
+                  let number of defaultItem;
+                  let numIndex = index;
+                  trackBy: trackByFn
+                "
+              >
+                <!-- ------ {{ number }} -->
+                <span style="padding-right:5px;">{{ numIndex + 1 }}</span>
+                <input type="text" [(ngModel)]="defaultArray[i][numIndex]" />
+                <div class="icon-div" (click)="removeVariable(numIndex)">
+                  <i class="fa fa-trash pointer"></i>
+                </div>
+                <!-- <button (click)="removeVariable(numIndex)">Remove</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br /><br />
+      <div
+        class="optionsDiv"
+        cdkDropList
+        #optsContainer
+        cdkDropListOrientation="{{ layout }}"
+        (cdkDropListDropped)="dropped($event)"
+      >
+        <div class="row" *ngIf="!previewShow">
+          <div
+            cdkDrag
+            *ngFor="let opt of opts; index as oIndex"
+            class="options mb-15"
+          >
+            <!-- marb-35 -->
+            <div class="option-div">
+              <dc-opt
+                [optData]="opt"
+                [labels]="labels[oIndex]"
+                [previewState]="previewState"
+                [inputType]="inputType"
+                [inputName]="inputName"
+                [optValue]="selectedAnswers"
+                [showAnsState]="getShowAnsState"
+                (onContentUpdate)="onContentUpdate($event, oIndex)"
+                (onSelectedAnswersPreview)="onSelectedAnswersPreview($event)"
+                [randomIndex]="randomIndex"
+                [multipleQuestionToolbarOption]="multipleQuestionToolbarOption"
+              >
+              </dc-opt>
+              <div class="icon-div">
+                <i
+                  class="fa fa-trash mar10-r pointer"
+                  [hidden]="quillLoaded"
+                  (click)="removeOption(opt)"
+                  *ngIf="!mode"
+                ></i>
+                <i
+                  cdkDragHandle
+                  [hidden]="quillLoaded"
+                  class="fa fa-bars drag-icon grab"
+                ></i>
+              </div>
+            </div>
+            <div
+              class="row mb-15 option-row-div"
+              *ngIf="opt.response.length > 0"
+            >
+              <div
+                class="col-md-4 mb-15 d-flex optn-col-4"
+                *ngFor="
+                  let option of opt.response;
+                  let i = index;
+                  trackBy: trackByFn
+                "
+              >
+                <span style="padding-right:5px;">{{ i + 1 }}</span>
+                <!-- {{ i+1 }} <button (click)="addVariable(i)">Add</button> -->
+                <!-- <div *ngFor="let number of defaultItem; let numIndex = index"> -->
+                <!-- ------ {{ number }} -->
+                <input type="text" [(ngModel)]="opt.response[i]" />
+                <!-- </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-1 col-sm-1 col-1" *ngIf="!dashboardPreviewShow">
+          <button class="btn btn-outline-primary" (click)="editRedirect()">
+            <li class="fa fa-edit"></li></button
+          ><br />
+        </div>
+        <div *ngIf="previewShow">
+          <div class="row">
+            <div
+              *ngFor="let opt of optsPreview; index as oIndex"
+              class="options mb-15"
+            >
+              <div
+                class="option-div"
+                [ngClass]="{
+                  'option-correct-div':
+                    getAnswerStatus(opt) == 'correct' && showAnsStateFlag,
+                  'option-incorrect-div':
+                    getAnswerStatus(opt) == 'incorrect' && showAnsStateFlag
+                }"
+              >
+                <p class="correct-div">CORRECT</p>
+                <p class="incorrect-div">INCORRECT</p>
+                <dc-opt
+                  [optData]="opt"
+                  [labels]="labels[oIndex]"
+                  [previewState]="previewState"
+                  [inputType]="inputType"
+                  [inputName]="inputName"
+                  (removeOption)="removeOption($event)"
+                  [optValue]="selectedAnswers"
+                  [selectedAnswersPreviewData]="selectedAnswersPreview"
+                  [showAnsState]="getShowAnsState"
+                  [randomIndex]="randomIndex"
+                  (onContentUpdate)="onContentUpdate($event, oIndex)"
+                  (onSelectedAnswersPreview)="onSelectedAnswersPreview($event)"
+                  [multipleQuestionToolbarOption]="
+                    multipleQuestionToolbarOption
+                  "
+                >
+                </dc-opt>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12" *ngIf="!previewShow">
+      <div class="row shuffle-div-row">
+        <dc-shuffle
+          [inputName]="inputName"
+          [mode]="mode"
+          [shuffleCheck]="shuffleCheck"
+          (onShuffleChange)="onShuffleChange($event)"
+        ></dc-shuffle>
+        <div class="pointsDiv pull-left">
+          <app-set-correct-ans-layout
+            [previewState]="previewState"
+            (pushEnteredPoints)="getPointsValue($event)"
+            [points]="points"
+          >
+          </app-set-correct-ans-layout>
+          <app-add-options-layout
+            (pushOptions)="pushOptions($event)"
+            [type]="'option'"
+            [opts]="opts"
+            [previewState]="previewState"
+            class="add-opt-btn"
+          >
+          </app-add-options-layout>
+        </div>
+      </div>
+    </div>
+    <br />
+  </div>
+</div>
+<app-source-json-layout
+  (changeSourceState)="changeSourceState($event)"
+  [sourceModalOpen]="sourceModalOpen"
+  [sourceData]="sourceData"
+></app-source-json-layout>
+<app-metadata-layout
+  [metaData]="metaData"
+  (toggleSidebar)="toggleSidebar($event)"
+  [sidebarShow]="navbarOpen"
+>
+</app-metadata-layout>

@@ -1,0 +1,89 @@
+@import 'libs/question-bank/src/lib/assets/css/common.scss';
+
+.quill-editor {
+  border: 1px solid $light-white-one;
+  border-radius: 10px;
+  padding: 0px;
+  min-width: 140px;
+}
+:host ::ng-deep .ql-editor {
+  padding-left: 0px;
+}
+.ql-editor p {
+  font-size: 16px;
+  font-weight: 600;
+}
+.qb-qstem-wrapper {
+  max-height: 300px;
+  overflow: auto;
+}
+.qb-qstem-wrapper::-webkit-scrollbar {
+  width: 4px;
+}
+.qb-qstem-wrapper::-webkit-scrollbar-track {
+  background-color: #f4f4f4;
+}
+.qb-qstem-wrapper::-webkit-scrollbar-thumb {
+  background-color: #d4d4d4;
+}
+::ng-deep .ql-editor.ql-blank::before {
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.qb-qstem-img {
+  img {
+    border-radius: 9px;
+    max-width: 150;
+    max-height: 100;
+    // transition: all 0.3s; // check qb-animation.scss
+  }
+  .qb-adjust-img-size {
+    span {
+      cursor: pointer;
+      right: 4px;
+      top: 4px;
+      border: 1px solid $off-white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      background-color: #ffffff57;
+      nb-icon {
+        position: relative;
+        top: -1px;
+        font-size: 14px;
+        color: #567dfcb8;
+      }
+    }
+  }
+  .qb-up-arrow {
+    border-color: $light-black transparent;
+    border-style: solid;
+    border-width: 0px 10px 10px 10px;
+    height: 0px;
+    width: 0px;
+    top: 26px;
+    right: 4px;
+    z-index: 1;
+  }
+  .qb-size-dropdown {
+    top: 36px;
+    right: -38px;
+    background: $light-black;
+    padding: 10px 15px 12px 15px;
+    border-radius: 5px;
+    z-index: 10;
+    -webkit-box-shadow: 4px 24px 32px -9px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 4px 24px 32px -9px rgba(0, 0, 0, 0.6);
+    box-shadow: 4px 24px 32px -9px rgba(0, 0, 0, 0.6);
+    ul {
+      width: 75px;
+      li {
+        color: $white;
+        line-height: 2.2em;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
+  }
+}

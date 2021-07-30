@@ -1,0 +1,70 @@
+<div [class]="layout">
+  <h4>{{ layout | titlecase }} View</h4>
+  <dc-qstem [qstem]="qstem" [previewState]="previewState"></dc-qstem>
+  <div class="options" *ngIf="previewShow">
+    <app-choice-matrix-layout
+      [optData]="opts"
+      [type]="'inline'"
+      [stemData]="stems"
+      [previewState]="previewState"
+      [inputType]="inputType"
+      [inputName]="inputName"
+    >
+    </app-choice-matrix-layout>
+  </div>
+
+  <div *ngIf="!previewShow">
+    <h4>Stems</h4>
+    <!-- <app-stems-layout *ngFor="let stem of stems; let sIndex of index" [stemData]="stem" [previewState]="previewState"
+      [inputType]="'inputType'" [inputName]="inputName" (removeStem)="removeStem(sIndex,$event)"></app-stems-layout> -->
+  </div>
+
+  <app-add-options-layout
+    (pushStems)="pushStems($event)"
+    [type]="'stem'"
+    [opts]="stems"
+    [previewState]="previewState"
+  >
+  </app-add-options-layout>
+
+  <div *ngIf="!previewShow">
+    <h4>Options</h4>
+    <!-- <dc-opt *ngFor="let opt of opts" [optData]="opt" [previewState]="previewState" [inputType]="'radio'"
+      [inputName]="inputName" (removeOption)="removeOption($event)"></dc-opt> -->
+  </div>
+
+  <app-add-options-layout
+    (pushOptions)="pushOptions($event)"
+    [type]="'option'"
+    [opts]="opts"
+    [previewState]="previewState"
+  >
+  </app-add-options-layout>
+
+  <br />
+
+  <div class="options" *ngIf="!previewShow">
+    <app-set-correct-ans-layout
+      [previewState]="previewState"
+      (pushEnteredPoints)="getPointsValue($event)"
+      [points]="points"
+    ></app-set-correct-ans-layout>
+
+    <app-choice-matrix-layout
+      [optData]="opts"
+      [type]="'inline'"
+      [stemData]="stems"
+      [previewState]="previewState"
+      [inputType]="inputType"
+      [inputName]="inputName"
+      (pushSelectedAns)="getSelectedAns($event)"
+    >
+    </app-choice-matrix-layout>
+  </div>
+
+  <app-source-json-layout
+    (changeSourceState)="changeSourceState($event)"
+    [sourceModalOpen]="sourceModalOpen"
+    [sourceData]="sourceData"
+  ></app-source-json-layout>
+</div>

@@ -1,0 +1,22 @@
+/* #points {
+    width: 20px;
+} */
+.correct-points {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.correct-points label {
+  margin-right: 10px;
+}
+
+.correct-points .form-control {
+  width: 100px;
+  margin-right: 10px;
+  margin-top: -6px;
+}
+/*# sourceMappingURL=set-correct-ans-layout.component.css.map */

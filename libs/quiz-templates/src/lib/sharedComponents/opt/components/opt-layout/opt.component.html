@@ -1,0 +1,82 @@
+<div class="qb-opt-container w-100">
+  <div class="qb-opt-input-order" *ngIf="mode" [hidden]="layout === 'horizontal'">
+    <p>{{ labels }}</p>
+  </div>
+  <div [ngClass]="{ 'qb-opt-radio-div-preview': mode, 'qb-opt-radio-div': !mode }"
+    [hidden]="layout === 'horizontal' && mode">
+    <div [hidden]="(editOptMode === optIndex || !optData.label) && !mode">
+      <input [ngClass]="{ hide: !inputType }" #opt [type]="inputType" [value]="optData.value"
+        id="{{ inputName }}-{{ optData.value }}-mcq" [name]="inputName" (change)="getSelectedAnswers($event)"
+        [checked]="getInputStatus(optData.value)" />
+      <label *ngIf="inputType === 'radio'" for="{{ inputName }}-{{ optData.value }}-mcq" [ngClass]="{
+          'normal-checkbox': !submitAnsShow || !mode || (!opt.checked && mode),
+          'checkbox-tick-label':
+            submitAnsShow &&
+            getOptionClass() == 'correct' &&
+            (opt.checked && mode),
+          'checkbox-cross-label':
+            opt.checked &&
+            submitAnsShow &&
+            getOptionClass() == 'incorrect' &&
+            mode
+        }" (click)="getRadiolabelClass()"></label>
+      <label *ngIf="inputType === 'checkbox'" for="{{ inputName }}-{{ optData.value }}-mcq" [ngClass]="{
+          'normal-checkbox': !submitAnsShow || !mode || (!opt.checked && mode),
+          'checkbox-tick-label':
+            submitAnsShow &&
+            getOptionClass() === 'correct' &&
+            (opt.checked && mode),
+          'checkbox-cross-label':
+          opt.checked &&
+            submitAnsShow &&
+            getOptionClass() === 'incorrect' &&
+            mode
+        }" (click)="getRadiolabelClass()"></label>
+    </div>
+  </div>
+  <div class="w-100">
+    <div *ngIf="mode" [ngClass]="layout === 'horizontal' ? 'imageQtnPd' : ''">
+      <label class="qb-options-label pointer" #myContent *ngIf="optData.label" (click)="onContainerClick()"></label>
+      <label class="qb-options-label pointer" #myContent *ngIf="!optData.label" (click)="onContainerClick()">
+      </label>
+    </div>
+    <div *ngIf="!mode" (click)="editOption(optIndex)">
+      <ng-template #quillContainer></ng-template>
+    </div>
+  </div>
+
+  <!-- Radio Button Below Option For Images -->
+  <div class="position-absolute w-100 text-center qb-image-options-radio-div imageRadioDiv"
+    [ngClass]="{ 'qb-opt-radio-div-preview': mode, 'qb-opt-radio-div': !mode }"
+    [hidden]="layout !== 'horizontal' || !mode">
+    <div [hidden]="(editOptMode === optIndex || !optData.label) && !mode">
+      <input [ngClass]="{ hide: !inputType }" #optHorizontal [type]="inputType" [value]="optData.value"
+        id="{{ inputName }}-{{ optData.value }}-mcq-horizontal" name="{{inputName}}-horizontal"
+        (change)="getSelectedAnswers($event)" [checked]="getInputStatus(optData.value)" />
+      <label *ngIf="inputType === 'radio'" for="{{ inputName }}-{{ optData.value }}-mcq-horizontal" [ngClass]="{
+          'normal-checkbox': !submitAnsShow || !mode || (!opt.checked && mode),
+          'checkbox-tick-label':
+            submitAnsShow &&
+            getOptionClass() == 'correct' &&
+            (optHorizontal.checked && mode),
+          'checkbox-cross-label':
+          optHorizontal.checked &&
+            submitAnsShow &&
+            getOptionClass() == 'incorrect' &&
+            mode
+        }" (click)="getRadiolabelClass()"></label>
+      <label *ngIf="inputType === 'checkbox'" for="{{ inputName }}-{{ optData.value }}-mcq-horizontal" [ngClass]="{
+          'normal-checkbox': !submitAnsShow || !mode || (!opt.checked && mode),
+          'checkbox-tick-label':
+            submitAnsShow &&
+            getOptionClass() === 'correct' &&
+            (optHorizontal.checked && mode),
+          'checkbox-cross-label':
+          optHorizontal.checked &&
+            submitAnsShow &&
+            getOptionClass() === 'incorrect' &&
+            mode
+        }" (click)="getRadiolabelClass()"></label>
+    </div>
+  </div>
+</div>

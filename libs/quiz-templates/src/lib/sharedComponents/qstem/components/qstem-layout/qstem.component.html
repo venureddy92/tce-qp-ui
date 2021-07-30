@@ -1,0 +1,30 @@
+<!-- <div *ngIf="qstem['image']" class="qb-qstem-img position-relative">
+  <img [src]="loadQuestionImage()" #qstemImgRef />
+  <div *ngIf="!previewShow">
+    <div class="qb-adjust-img-size" (click)="openImgSizes = !openImgSizes">
+      <span id="imageResize" class="position-absolute">
+        <nb-icon icon="arrow-ios-downward-outline"></nb-icon>
+      </span>
+    </div>
+    <div *ngIf="openImgSizes">
+      <div class="qb-up-arrow position-absolute"></div>
+      <div class="qb-size-dropdown position-absolute">
+        <ul class="mb-0">
+          <li (click)="getImage('small')">Small</li>
+          <li (click)="getImage('medium')">Medium</li>
+          <li (click)="getImage('large')">Large</li>
+          <li (click)="deleteImage()">Delete</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="col-md-12 col-sm-12 col-12 qb-qstem-wrapper" [ngClass]="{ 'ql-editor pl-3': mode }" id="qstemRef">
+  <div *ngIf="!mode" class="quill-editor">
+    <ng-template #quillContainer></ng-template>
+  </div>
+
+  <div *ngIf="mode">
+    <p #myContent></p>
+  </div>
+</div>

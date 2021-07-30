@@ -1,0 +1,176 @@
+@import 'bootstrap';
+@import 'libs/question-bank/src/lib/assets/css/common.scss';
+
+.qb-main-div {
+  margin: 0px 0 0;
+  background-color: transparent;
+  box-shadow: none;
+  .row {
+    margin: auto !important;
+  }
+}
+p {
+  color: #fff;
+  background: #4caf50;
+  padding: 1rem;
+  margin: 0;
+  margin-bottom: 0.2rem;
+  border-radius: 0.2rem;
+}
+.qb-cust-quill {
+  @extend .col-md-12, .pd-0;
+}
+.qb-qstem {
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  @extend .col-md-12, .pd-0;
+  @extend .col-sm-12, .pd-0;
+  @extend .col-12;
+}
+.qb-qstem {
+  @extend .col-md-12;
+  @extend .col-sm-12;
+  @extend .col-12;
+}
+.qb-dashboard-edit-div {
+  @extend .col-md-11;
+  min-height: 260px;
+}
+.qb-mcq-div {
+  @extend .col-md-12;
+  @extend .mb-15;
+}
+.qb-btn-div {
+  display: flex;
+  align-items: center;
+  .qb-btn-list {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    button {
+      background: transparent;
+      border: none;
+      padding: 0;
+      .qb-btn-svg-div {
+        background: linear-gradient(90deg, #6d71ff 0%, #248ef6 100%);
+        border-radius: 50%;
+        display: inline-block;
+        padding: 4px 6px;
+        svg {
+          width: 16px;
+          height: 16px;
+          fill: $white;
+        }
+      }
+      &:hover {
+        background: none;
+        border: none;
+        box-shadow: none;
+        outline: none !important;
+      }
+    }
+    .qb-inner-buttons {
+      button {
+        &:last-child {
+          margin-right: 0px;
+        }
+      }
+    }
+
+    .qb-hotspot-icon-text {
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 19px;
+    }
+    /*may need in future*/
+    // button:focus,
+    // button:hover,
+    // button:active {
+    //   box-shadow: inset 0 0 0 1px #ccc, inset 0px 2px 12px #888;
+    //   background-color: #ccc !important;
+    //   border-color: #ccc;
+    //   color: #fff;
+    //   outline: none !important;
+    // }
+  }
+}
+.qb-qstem-border {
+  border-bottom: 1px solid rgba(48, 52, 57, 0.1);
+}
+.prl-10 {
+  padding: 0px 10px;
+}
+
+:host ::ng-deep .qb-qstem .ql-container.ql-snow,
+:host ::ng-deep .qb-qstem .quill-editor {
+  border: 0px;
+}
+.qb-hotspot-wrapper {
+  max-height: calc(100vh - 435px);
+  overflow-y: auto;
+
+  .qb-hotspot-div {
+    position: relative;
+    .qb-hotspot-svg {
+      // border: 1px solid #eee;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      // max-height: inherit;
+      display: none;
+    }
+  }
+  .qb-hotspot-btn-div {
+    position: relative;
+    width: 100%;
+    min-height: 250px;
+    overflow: auto;
+    background: #ececec;
+    border: 1px solid#e0e0e0;
+    border-radius: 10px;
+    height: 100%;
+    cursor: pointer;
+    // display: none;
+    h6 {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      span:first-child {
+        background: linear-gradient(90deg, #6d71ff 0%, #248ef6 100%);
+        border-radius: 50%;
+        display: inline-block;
+        padding: 4px 6px;
+        nb-icon {
+          width: 16px;
+          height: 16px;
+          color: $white;
+          line-height: 10px;
+          top: -2px;
+          position: relative;
+        }
+      }
+    }
+    .qb-hotspot-add-image {
+      font-weight: 700;
+      font-size: 15px;
+    }
+  }
+}
+.qb-feedback-padding-left {
+  padding-left: 11px;
+}
+.p-23 {
+  padding: 0 23px;
+}
+::ng-deep .qb-qstem-font .ql-container .ql-editor p,
+::ng-deep .qb-qstem-font .ql-container .ql-editor.ql-blank::before {
+  font-size: 25px !important;
+  line-height: 31px;
+}
+::ng-deep .qb-opt-font .ql-container .ql-editor p,
+::ng-deep .qb-opt-font .ql-container .ql-editor.ql-blank::before {
+  font-size: 18px !important;
+  line-height: 40px;
+}

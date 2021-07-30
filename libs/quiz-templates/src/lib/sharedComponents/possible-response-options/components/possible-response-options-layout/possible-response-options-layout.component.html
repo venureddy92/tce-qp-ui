@@ -1,0 +1,13 @@
+<ng-template #quillContainer></ng-template>
+
+<div [hidden]="mode">
+  <div
+    type="text"
+    id="{{ inputName }}-{{ optData.value }}-fib"
+    (click)="onContainerClick()"
+    [hidden]="quillLoaded"
+  >
+    {{ optData.label }}
+  </div>
+  <button (click)="remove(optData)">Remove</button>
+</div>

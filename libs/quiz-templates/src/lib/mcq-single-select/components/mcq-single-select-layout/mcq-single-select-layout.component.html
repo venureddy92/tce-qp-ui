@@ -1,0 +1,263 @@
+<div [class]="layout" [ngClass]="{
+    mobile: deviceView == 'mobile',
+    'mobile-ls': deviceView == 'mobile_ls'
+  }" class="container p-0">
+  <div class="qb-main-div p-0">
+    <h5 *ngIf="this.dashboardPreviewState">{{ templateName }}</h5>
+    <div class="row">
+      <div class="p-0" [ngClass]="{
+          'qb-dashboard-edit-div': !dashboardPreviewShow,
+          'qb-mcq-div': dashboardPreviewShow
+        }">
+        <div *ngIf="!previewShow" class="qb-cust-quill" id="cust_quill" style="width:100%;">
+          <tce-quill-toolbar></tce-quill-toolbar>
+        </div>
+
+        <div class="row" [ngClass]="{ 'qb-qstem-border pt-3': previewShow === false }">
+          <div class="qb-qstem m-0 px-4 pb-3">
+            <div class="d-flex align-items-center">
+              <div *ngIf="qstem['image'] || this.questionImage" class="qb-qstem-img position-relative">
+                <img [src]="loadQuestionImage()" #qstemImgRef />
+                <div *ngIf="!previewShow">
+                  <div class="qb-adjust-img-size" (click)="openImgSizes = !openImgSizes">
+                    <span id="imageResize" class="position-absolute">
+                      <nb-icon icon="arrow-ios-downward-outline"></nb-icon>
+                    </span>
+                  </div>
+                  <div *ngIf="openImgSizes">
+                    <div class="qb-up-arrow position-absolute"></div>
+                    <div class="qb-size-dropdown position-absolute">
+                      <ul class="mb-0">
+                        <li (click)="getImage('small')">Small</li>
+                        <li (click)="getImage('medium')">Medium</li>
+                        <li (click)="getImage('large')">Large</li>
+                        <li (click)="deleteImage()">Delete</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div [hidden]="qstem['image'] || this.questionImage || !qstem['image']"
+                class="qb-qstem-img position-relative">
+                <img
+                  src="https://i.picsum.photos/id/521/150/150.jpg?hmac=LgXY8sRtcZMepPeH1D2k7JyVCLQ_L-8IcYCVz5flIP8" />
+              </div> -->
+              <div class="w-100">
+                <dc-qstem [qstem]="qstem" [previewState]="previewShow" [stemName]="'qstem'"
+                  (onQstemContentUpdate)="onQstemContentUpdate($event)">
+                </dc-qstem>
+
+                <!-- <div *ngIf="!previewShow" class="qb-feedback-padding-left">
+                  <feedback-layout
+                    [showAnsState]="answerState"
+                    [feedback]="qstem"
+                    [previewState]="previewShow"
+                    (feedbackUpdate)="feedbackStemUpdate($event)"
+                    [placeholder]="'Type question’s feedback here..'"
+                  >
+                  </feedback-layout>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="d-flex align-items-center justify-content-between w-100 qb-addOptDiv" *ngIf="!previewShow">
+            <div class="answers" #answers>
+              Answers :
+            </div>
+
+            <div [hidden]="templateType == 'mcq-tf' || !opts[0].label">
+              <div [hidden]="editingOpt === 0 && opts.length < 2">
+                <app-add-options-layout (pushOptions)="pushOptions($event)" [type]="'option'" [opts]="opts"
+                  class="qb-add-opt-btn">
+                </app-add-options-layout>
+              </div>
+              <div class="qb-option-done qb-option-first-done text-right overflow-auto"
+                [hidden]="editingOpt !== 0 || opts.length > 1" (click)="doneOption()">
+                <h6 class="qb-firstDone">
+                  <span class="position-relative">
+                    <nb-icon icon="checkmark-outline"></nb-icon>
+                  </span>
+                  &nbsp;&nbsp;<span>Done</span>
+                </h6>
+              </div>
+            </div>
+          </div>
+          <div class="row w-100">
+            <div class="p-0" [ngClass]="
+                optionImageLayout ? 'qb-options-divimage' : 'qb-options-div'
+              " cdkDropList #optsContainer cdkDropListOrientation="{{ layout }}"
+              (cdkDropListDropped)="dropped($event)">
+              <div class="qb-options-div-maxht row {{ optionGridWrapper }}" #optionsDivMaxHt *ngIf="!previewShow">
+                <div cdkDrag *ngFor="let opt of opts; index as oIndex" class="qb-options p-0 {{ optionGrid }}">
+                  <div class="qb-option-done text-right overflow-auto" [ngStyle]="{
+                      opacity:
+                        editingOpt !== oIndex ||
+                        !opt.label ||
+                        previewShow ||
+                        opts.length < 2
+                          ? 0
+                          : 1
+                    }" (click)="doneOption(null, oIndex)">
+                    <h6>
+                      <span class="position-relative">
+                        <nb-icon icon="checkmark-outline"></nb-icon>
+                      </span>
+                      &nbsp;&nbsp;<span>Done</span>
+                    </h6>
+                  </div>
+                  <div class="qb-option-div flex justify-content-between" style="margin-top: 15px;">
+                    <dc-opt [optData]="opt" [showAnsState]="answerState" [previewState]="previewState"
+                      [labels]="labels[oIndex]" [inputType]="inputType" [templateType]="templateType"
+                      [inputName]="inputName" [optValue]="selectedAnswers" (onContentUpdate)="onContentUpdate($event)"
+                      [layout]="layout" (onSelectedAnswersPreview)="
+                        onSelectedAnswersPreview($event)
+                      " [editOptMode]="editingOpt" [optIndex]="oIndex" class="qb-option-element">
+                    </dc-opt>
+                    <div (click)="toggleMenus(oIndex, $event)" [ngClass]="{
+                        'd-none': editingOpt === oIndex || !opt.label
+                      }" class="qb-icon-div position-relative align-items-center">
+                      <button cdkDragHandle class="qb-drag-icon-div">
+                        <nb-icon icon="menu-outline"></nb-icon>
+                      </button>
+
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
+                        style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                        <g>
+                          <g>
+                            <g>
+                              <circle cx="256" cy="256" r="64" />
+                              <circle cx="256" cy="448" r="64" />
+                              <circle cx="256" cy="64" r="64" />
+                            </g>
+                          </g>
+                        </g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                      </svg>
+                    </div>
+                    <div class="qb-menu-list" [ngClass]="{
+                        'd-block': selectedOpt == oIndex,
+                        'd-none': selectedOpt !== oIndex
+                      }">
+                      <ul class="mb-0">
+                        <li (click)="
+                            toggle[oIndex] = !toggle[oIndex];
+                            addFeedback(oIndex)
+                          ">
+                          <span *ngIf="!toggle[oIndex]">Add Feedback</span>
+                          <span *ngIf="toggle[oIndex]">Remove Feedback</span>
+                        </li>
+                        <li [hidden]="opts.length < 2" (click)="removeOption(opt, oIndex)">
+                          Remove
+                        </li>
+                        <!-- <li>
+                          Duplicate
+                        </li> -->
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="pl-35" *ngIf="toggle[oIndex]">
+                    <div class="pb-1 pl-1 qb-feedback-text">Feedback:</div>
+                    <feedback-layout [showAnsState]="answerState" [feedback]="opt" [previewState]="previewShow"
+                      (feedbackUpdate)="feedbackOptUpdate($event, oIndex)"
+                      [placeholder]="'Type answer’s feedback here..'">
+                    </feedback-layout>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="previewShow">
+                <div class="row qb-options-preview-div pt-2 pb-1" #optionsPreviewDivHeight [ngClass]="
+                    layout === 'horizontal' ? 'imageHoriPrevieDiv' : ''
+                  ">
+                  <div *ngFor="let opt of optsPreview; index as oIndex" class="mb-15 pl-0 {{ optionGrid }}"
+                    [hidden]="!opt.label" [ngClass]="{
+                      'qb-horizontal-div': templateType === 'mcq-tf',
+                      'qb-options': templateType != 'mcq-tf',
+                      'pl-0': oIndex === 0 && templateType === 'mcq-tf',
+                      'pr-0': oIndex === 1 && templateType === 'mcq-tf'
+                    }">
+                    <img *ngIf="opt['image']" [src]="opt['image']" />
+                    <div class="qb-option-div qb-preview-options w-100" [ngClass]="{
+                        'qb-option-correct-div':
+                          getAnswerStatus(opt) == 'correct' && showAnsStateFlag,
+                        'qb-option-incorrect-div':
+                          getAnswerStatus(opt) == 'incorrect' &&
+                          showAnsStateFlag,
+                        'qb-blue-border':
+                          getAnswerStatus(opt) == 'checkedOption'
+                      }">
+                      <div *ngIf="showAnsStateFlag" class="position-absolute w-100 text-center qb-answer-in-words">
+                        <span *ngIf="getAnswerStatus(opt) == 'correct'" [ngClass]="{
+                            'qb-correct-text': getAnswerStatus(opt) == 'correct'
+                          }">Correct</span>
+                        <span *ngIf="getAnswerStatus(opt) == 'incorrect'" [ngClass]="{
+                            'qb-incorrect-text':
+                              getAnswerStatus(opt) == 'incorrect'
+                          }">Incorrect</span>
+                      </div>
+                      <dc-opt [optData]="opt" [submitAnsShow]="showAnsStateFlag" [showAnsState]="answerState"
+                        [previewState]="previewState" [labels]="labels[oIndex]" [inputType]="inputType"
+                        [inputName]="inputName" (removeOption)="removeOption($event)" [optValue]="selectedAnswers"
+                        [layout]="layout" [selectedAnswersPreviewData]="selectedAnswersPreview"
+                        (onContentUpdate)="onContentUpdate($event)" (onSelectedAnswersPreview)="
+                          onSelectedAnswersPreview($event)
+                        " class="qb-option-element qb-option-element-preview">
+                      </dc-opt>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="qb-feedback-wrapper">
+                  <div *ngFor="let opt of optsPreview; index as oIndex"
+                    [hidden]="!showAnsStateFlag && !opt['feedbackInline']">
+                    <div class="qb-feedBack-jumbotron py-2 px-3 mt-2" [ngClass]="
+                        getAnswerStatus(opt) === 'correct'
+                          ? 'qb-correct-jumbotron'
+                          : 'qb-incorrect-jumbotron'
+                      " *ngIf="
+                        opt['feedbackInline'] &&
+                        showAnsStateFlag &&
+                        ((getAnswerStatus(opt) === 'correct' && opt.checked) ||
+                          getAnswerStatus(opt) === 'incorrect')
+                      ">
+                      <feedback-layout [showAnsState]="answerState" [answer]="getAnswerStatus(opt)" [feedback]="opt"
+                        [previewState]="previewShow">
+                      </feedback-layout>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="optionImageLayout" class="optImageClass">
+              <img [src]="optionImage" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1 col-sm-1 col-1 pd-0 qb-col-dashboard-edit-div" *ngIf="!dashboardPreviewShow">
+        <button class="btn btn-outline-primary qb-edit-btn" (click)="editRedirect()">
+          <li class="fa fa-edit"></li>
+        </button>
+        <br />
+      </div>
+      <br />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+@import 'libs/question-bank/src/lib/assets/css/common.scss';
+
+.qb-header-six {
+  cursor: pointer;
+  color: $dark-black;
+  font-size: 15px;
+  font-weight: bold;
+  svg {
+    width: 16px;
+    height: auto;
+  }
+  span:first-child {
+    background: $blue-green-grad;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    display: inline-block;
+    text-align: center;
+    top: 2px;
+    nb-icon {
+      color: $white;
+    }
+  }
+}

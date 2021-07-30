@@ -1,0 +1,194 @@
+<div
+  [class]="'horizontal'"
+  [ngClass]="{
+    mobile: deviceView == 'mobile',
+    'mobile-ls': deviceView == 'mobile_ls'
+  }"
+  class="container p-0"
+>
+  <div class="main-div p-0 m-0">
+    <h5 *ngIf="this.dashboardPreviewState">{{ templateName }}</h5>
+    <div
+      class="p-0"
+      [ngClass]="{
+        'qb-dashboard-edit-div': !dashboardPreviewShow,
+        'qb-mcq-div': dashboardPreviewShow
+      }"
+    >
+      <div
+        *ngIf="!previewState"
+        class="qb-cust-quill"
+        id="cust_quill"
+        style="width:100%;"
+      >
+        <tce-quill-toolbar></tce-quill-toolbar>
+      </div>
+
+      <div
+        class="row"
+        [ngClass]="{ 'qb-qstem-border pt-2': previewState === false }"
+      >
+        <div class="qstem m-0 px-2 pb-2">
+          <div class="d-flex align-items-center">
+            <div class="w-100">
+              <dc-qstem
+                [qstem]="qstem"
+                [templateType]="templateType"
+                [stemName]="'qstem'"
+                [previewState]="previewState"
+                (onQstemContentUpdate)="onQstemContentUpdate($event)"
+              >
+              </dc-qstem>
+              <div *ngIf="!previewState" class="qb-feedback-padding-left">
+                <feedback-layout
+                  [showAnsState]="answerState"
+                  [feedback]="qstem"
+                  [previewState]="previewState"
+                  (feedbackUpdate)="feedbackStemUpdate($event)"
+                  [placeholder]="'Type question’s feedback here..'"
+                >
+                </feedback-layout>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div
+          class="d-flex align-items-center justify-content-between w-100 qb-addOptDiv"
+          *ngIf="!previewState"
+        >
+          <div class="qb-answers" #answersDiv>
+            Enter "Highlight Mode" to set the correct answer :
+          </div>
+          <button>
+            <div class="qb-highlight-mode">
+              <svg
+                height="512pt"
+                viewBox="0 -18 512 512"
+                width="512pt"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m432 0h-352c-44.113281 0-80 35.886719-80 80v280c0 44.113281 35.886719 80 80 80h189.480469.035156.023437 21.460938c11.046875 0 20-8.953125 20-20s-8.953125-20-20-20h-11.664062l-45.984376-59.65625 145.144532-184.617188 93.503906 111.546876v23.726562c0 11.046875 8.953125 20 20 20s20-8.953125 20-20v-211c0-44.113281-35.886719-80-80-80zm-38.671875 111.152344c-3.871094-4.617188-9.628906-7.226563-15.640625-7.148438-6.027344.09375-11.6875 2.898438-15.410156 7.636719l-154.117188 196.023437-52.320312-67.875c-3.785156-4.910156-9.636719-7.789062-15.839844-7.789062-.003906 0-.007812 0-.011719 0-6.203125.003906-12.058593 2.886719-15.839843 7.804688l-44.015626 57.21875c-6.734374 8.757812-5.097656 21.3125 3.65625 28.046874 8.757813 6.738282 21.3125 5.097657 28.046876-3.65625l28.179687-36.632812 88.816406 115.21875h-148.832031c-22.054688 0-40-17.945312-40-40v-280c0-22.054688 17.945312-40 40-40h352c22.054688 0 40 17.945312 40 40v125.007812zm-253.328125-39.152344c-33.085938 0-60 26.914062-60 60s26.914062 60 60 60 60-26.914062 60-60-26.914062-60-60-60zm0 80c-11.027344 0-20-8.972656-20-20s8.972656-20 20-20 20 8.972656 20 20-8.972656 20-20 20zm283.390625 150.296875c-2.363281-2.375-5.285156-4.113281-8.496094-5.066406l-79.226562-23.410157c-6.996094-2.066406-14.558594-.164062-19.742188 4.96875-5.183593 5.132813-7.160156 12.675782-5.160156 19.691407l22.863281 80.222656c.929688 3.265625 2.675782 6.238281 5.070313 8.640625l70.875 71.082031c11.332031 11.332031 26.398437 17.574219 42.425781 17.574219s31.09375-6.242188 42.425781-17.574219 17.574219-26.398437 17.574219-42.425781-6.242188-31.09375-17.550781-42.402344zm-64.191406 20.1875 39.460937 11.660156 34.816406 34.9375-27.847656 28.738281-34.949218-35.054687zm106.941406 107.65625c-7.796875 7.796875-20.484375 7.800781-28.261719.023437l-4-4.015624 27.839844-28.730469 4.421875 4.441406c3.78125 3.777344 5.859375 8.796875 5.859375 14.140625s-2.078125 10.363281-5.859375 14.140625zm0 0"
+                />
+              </svg>
+            </div>
+            &nbsp;<span class="qb-highlight-icon-text">Highlight Mode</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-2" *ngIf="!previewState" id="template">
+        <div class=" w-100 qb-addOptDiv" *ngIf="!previewState">
+          <div class="qb-sample-answer-edit">
+            <!-- <feedback-layout [showAnsState]="answerState" [feedback]="sampleAnswerData" [previewState]="previewState"
+              (feedbackUpdate)="sampleAnswerUpdate($event)" [placeholder]="'Type sample answer here..'">
+            </feedback-layout> -->
+            <dc-qstem
+              [qstem]="qstem"
+              [stemName]="'qstem'"
+              [templateType]="templateType"
+              [previewState]="previewState"
+              (onQstemContentUpdate)="onTemplateDataUpdate($event)"
+            >
+            </dc-qstem>
+            <div>
+              <button
+                style="background-color: red;color: #fff;border:1px solid;"
+                (click)="getSelectedText()"
+              >
+                Get selected HTML
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="btn-div">
+          <div class="btn-list">
+            <button (click)="editTemplateClicked()">Edit Template</button>
+            <button (click)="editTokenClicked()">Edit Token</button>
+            <button (click)="selectAnswersClicked()">Select Answers</button>
+          </div>
+        </div> -->
+        <!-- <div *ngIf="isEditTemplate">
+          <div class="token-div">
+            <p>Template</p>
+            <div class="qstem qstem-div">
+              <dc-qstem
+                [qstem]="tokensTemplate"
+                [previewState]="previewState"
+                (onQstemContentUpdate)="onTokensTemplateUpdate($event)"
+              >
+              </dc-qstem>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div [hidden]="!isEditTokens" id="editToken">
+          <div class="token-div">
+            <div class="qstem pd-0">
+              <div>
+                <div class="btn-div">
+                  <div class="btn-list">
+                    <button (click)="breakToken('sentence')">Sentence</button>
+                    <button (click)="breakToken('para')">Paragraph</button>
+                    <button (click)="breakToken('words')">Word</button>
+                  </div>
+                </div>
+
+                <div class="qstem edit-div" id="qstemContainer">
+                  <div
+                    id="editTokenContainer"
+                    [innerHTML]="templateSafeHtml"
+                    (click)="onMouseUp($event)"
+                    contenteditable="false"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div *ngIf="isSelectAnswers" id="selectAnswers">
+          <div class="col-md-12 token-div">
+            <div class="qstem pd-0">
+              <div
+                id="selectAnswerContainer"
+                [innerHTML]="templateSafeHtml"
+                (click)="onMouseUp($event)"
+                contenteditable="false"
+              ></div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+
+      <div *ngIf="previewState">
+        <!-- <div *ngIf="isAnswer" style="padding:10px;"> -->
+        <div class="col-md-12 token-div">
+          <div class="qstem pd-0">
+            <div
+              id="editTokenContainer"
+              [innerHTML]="templateText"
+              (click)="onMouseUpPreview($event)"
+              contenteditable="false"
+            ></div>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+
+      <!-- <div class="row" *ngIf="show">
+            <div class="col-md-12">
+                <p>Set correct answer(s)</p>
+                <div class="qstem pd-0">
+                    <span *ngFor="let token of tokens; let i = index">
+                        <span (click)="tokenSelectClicked(i)" class="tokenClass" innerHTML="{{token}}"></span> &nbsp;
+                    </span>
+
+                </div>
+            </div>
+        </div> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,587 @@
+[
+  {
+    "reference": "c3805d10-0cd7-4057-a85c-4061ef2cc29e3",
+    "data": {
+      "options": [
+        {
+          "label": "[Choice A]",
+          "value": "0",
+          "feedbackInline": ""
+        },
+        {
+          "label": "[Choice B]",
+          "value": "1",
+          "feedbackInline": ""
+        },
+        {
+          "label": "[Choice C]",
+          "value": "2",
+          "feedbackInline": ""
+        },
+        {
+          "label": "[Choice D]",
+          "value": "3",
+          "feedbackInline": ""
+        }
+      ],
+      "stimulus": {
+        "label": "<p>[This is the stem.]</p>",
+        "value": "0",
+        "feedbackInline": ""
+      },
+      "stimulus_audio": "",
+      "feedback_attempts": 1,
+      "instant_feedback": false,
+      "multiple_responses": false,
+      "_comment": "",
+      "penalty_score": 0,
+      "response_id": "",
+      "type": "mcq",
+      "validation": {
+        "scoring_type": "exactMatch",
+        "valid_response": {
+          "score": 1,
+          "value": []
+        },
+        "penalty": 0
+      },
+      "ui_style": {
+        "type": "horizontal",
+        "theme": "light",
+        "_comment": ""
+      },
+      "metadata": {
+        "name": "Multiple choice – standard",
+        "template_reference": "9e8149bd-e4d8-4dd6-a751-1a113a4b9163",
+        "subjects": []
+      }
+    },
+    "type": "mcq-ss",
+    "name": "Multiple Choice - single select",
+    "widget_type": "response"
+  },
+  {
+    "reference": "c3805d10-0cd7-4057-a85c-4061ef2cc29e2",
+    "data": {
+      "options": [
+        {
+          "label": "[Choice P]",
+          "value": "0",
+          "feedbackInline": ""
+        },
+        {
+          "label": "[Choice Q]",
+          "value": "1",
+          "feedbackInline": ""
+        },
+        {
+          "label": "[Choice R]",
+          "value": "2",
+          "feedbackInline": ""
+        },
+        {
+          "label": "[Choice S]",
+          "value": "3",
+          "feedbackInline": ""
+        }
+      ],
+      "stimulus": {
+        "label": "<p>[This is the stem.]</p>",
+        "value": "0"
+      },
+      "stimulus_audio": "",
+      "penalty_score": 0,
+      "_comment": "",
+      "response_id": "",
+      "feedback_attempts": 1,
+      "instant_feedback": false,
+      "multiple_responses": false,
+      "type": "mcq",
+      "validation": {
+        "scoring_type": "exactMatch",
+        "valid_response": {
+          "score": 1,
+          "value": []
+        },
+        "penalty": 0
+      },
+      "ui_style": {
+        "type": "vertical",
+        "theme": "light",
+        "_comment": ""
+      },
+      "metadata": {
+        "name": "Multiple choice – standard",
+        "template_reference": "9e8149bd-e4d8-4dd6-a751-1a113a4b9163",
+        "subjects": []
+      }
+    },
+    "type": "mcq-ms",
+    "name": "Multiple Choice - multiple select",
+    "widget_type": "response"
+  },
+  {
+    "reference": "c3805d10-0cd7-4057-a85c-4061ef2cc29e4",
+    "data": {
+      "options": [
+        {
+          "label": "True",
+          "value": "0",
+          "feedbackInline": ""
+        },
+        {
+          "label": "False",
+          "value": "1",
+          "feedbackInline": ""
+        }
+      ],
+      "stimulus": {
+        "label": "<p>[This is the stem.]</p>",
+        "value": "0"
+      },
+      "stimulus_audio": "",
+      "penalty_score": 0,
+      "_comment": "",
+      "response_id": "",
+      "feedback_attempts": 1,
+      "instant_feedback": false,
+      "multiple_responses": false,
+      "type": "mcq",
+      "validation": {
+        "scoring_type": "exactMatch",
+        "valid_response": {
+          "score": 1,
+          "value": []
+        },
+        "penalty": 0
+      },
+      "ui_style": {
+        "type": "horizontal",
+        "theme": "light",
+        "_comment": ""
+      },
+      "metadata": {
+        "name": "Multiple choice – standard",
+        "template_reference": "9e8149bd-e4d8-4dd6-a751-1a113a4b9163",
+        "subjects": []
+      }
+    },
+    "type": "mcq-tf",
+    "name": "Multiple choice - true or false",
+    "widget_type": "response"
+  },
+  {
+    "reference": "c3805d10-0cd7-4057-a85c-4061ef2cc29e1",
+    "data": {
+      "stimulus": {
+        "label": "<p>[This is the stem.]</p>",
+        "value": "0"
+      },
+      "template": "<p>Risus {{response}}, et tincidunt turpis facilisis. Curabitur eu nulla justo. Curabitur vulputate ut nisl et bibendum. Nunc diam enim, porta sed eros vitae. {{response}} dignissim, et tincidunt turpis facilisis. Curabitur eu nulla justo. Curabitur vulputate ut nisl et bibendum.</p>",
+      "type": "fib",
+      "validation": {
+        "scoring_type": "exactMatch",
+        "valid_response": {
+          "score": 1,
+          "value": []
+        }
+      },
+      "ui_style": {
+        "type": "horizontal"
+      }
+    },
+    "metadata": {
+      "name": "Fill in the blanks – standard",
+      "template_reference": "9e8149bd-e4d8-4dd6-a751-1a113a4b9163"
+    },
+    "type": "fib-text",
+    "name": "FIB - text",
+    "widget_type": "response"
+  },
+  {
+    "reference": "c3805d10-0cd7-4057-a85c-4061ef2cc29e1",
+    "data": {
+      "stimulus": {
+        "label": "<p>[This is the stem.]</p>",
+        "value": "0"
+      },
+      "type": "hotspot",
+      "image": {
+        "src": "//assets.learnosity.com/organisations/1/bead7655-fb71-41af-aeea-9e08a47eac68.png",
+        "width": 700,
+        "height": 370
+      },
+      "areas": [
+        [
+          {
+            "x": 167,
+            "y": 22
+          },
+          {
+            "x": 132,
+            "y": 24
+          },
+          {
+            "x": 118,
+            "y": 32
+          },
+          {
+            "x": 61,
+            "y": 33
+          },
+          {
+            "x": 37,
+            "y": 38
+          },
+          {
+            "x": 20,
+            "y": 59
+          },
+          {
+            "x": 14,
+            "y": 76
+          },
+          {
+            "x": 33,
+            "y": 85
+          },
+          {
+            "x": 58,
+            "y": 71
+          },
+          {
+            "x": 71,
+            "y": 70
+          },
+          {
+            "x": 67,
+            "y": 82
+          },
+          {
+            "x": 60,
+            "y": 100
+          },
+          {
+            "x": 56,
+            "y": 126
+          },
+          {
+            "x": 66,
+            "y": 147
+          },
+          {
+            "x": 79,
+            "y": 165
+          },
+          {
+            "x": 117,
+            "y": 184
+          },
+          {
+            "x": 138,
+            "y": 200
+          },
+          {
+            "x": 130,
+            "y": 218
+          },
+          {
+            "x": 141,
+            "y": 248
+          },
+          {
+            "x": 161,
+            "y": 264
+          },
+          {
+            "x": 160,
+            "y": 294
+          },
+          {
+            "x": 163,
+            "y": 318
+          },
+          {
+            "x": 177,
+            "y": 342
+          },
+          {
+            "x": 207,
+            "y": 358
+          },
+          {
+            "x": 217,
+            "y": 348
+          },
+          {
+            "x": 203,
+            "y": 337
+          },
+          {
+            "x": 198,
+            "y": 317
+          },
+          {
+            "x": 213,
+            "y": 303
+          },
+          {
+            "x": 229,
+            "y": 277
+          },
+          {
+            "x": 247,
+            "y": 263
+          },
+          {
+            "x": 251,
+            "y": 245
+          },
+          {
+            "x": 257,
+            "y": 225
+          },
+          {
+            "x": 238,
+            "y": 208
+          },
+          {
+            "x": 214,
+            "y": 193
+          },
+          {
+            "x": 195,
+            "y": 181
+          },
+          {
+            "x": 177,
+            "y": 173
+          },
+          {
+            "x": 151,
+            "y": 170
+          },
+          {
+            "x": 194,
+            "y": 164
+          },
+          {
+            "x": 182,
+            "y": 155
+          },
+          {
+            "x": 163,
+            "y": 149
+          },
+          {
+            "x": 158,
+            "y": 132
+          },
+          {
+            "x": 188,
+            "y": 104
+          },
+          {
+            "x": 210,
+            "y": 102
+          },
+          {
+            "x": 228,
+            "y": 95
+          },
+          {
+            "x": 226,
+            "y": 80
+          },
+          {
+            "x": 220,
+            "y": 61
+          },
+          {
+            "x": 227,
+            "y": 52
+          },
+          {
+            "x": 242,
+            "y": 64
+          },
+          {
+            "x": 263,
+            "y": 66
+          },
+          {
+            "x": 285,
+            "y": 62
+          },
+          {
+            "x": 312,
+            "y": 57
+          },
+          {
+            "x": 319,
+            "y": 44
+          },
+          {
+            "x": 303,
+            "y": 38
+          },
+          {
+            "x": 324,
+            "y": 26
+          },
+          {
+            "x": 325,
+            "y": 13
+          },
+          {
+            "x": 309,
+            "y": 11
+          },
+          {
+            "x": 278,
+            "y": 11
+          },
+          {
+            "x": 256,
+            "y": 9
+          },
+          {
+            "x": 225,
+            "y": 9
+          },
+          {
+            "x": 196,
+            "y": 13
+          }
+        ],
+        [
+          {
+            "x": 425,
+            "y": 278
+          },
+          {
+            "x": 440,
+            "y": 277
+          },
+          {
+            "x": 445,
+            "y": 260
+          },
+          {
+            "x": 450,
+            "y": 238
+          },
+          {
+            "x": 436,
+            "y": 234
+          },
+          {
+            "x": 417,
+            "y": 259
+          }
+        ],
+        [
+          {
+            "x": 614,
+            "y": 238
+          },
+          {
+            "x": 598,
+            "y": 239
+          },
+          {
+            "x": 571,
+            "y": 259
+          },
+          {
+            "x": 556,
+            "y": 270
+          },
+          {
+            "x": 555,
+            "y": 303
+          },
+          {
+            "x": 590,
+            "y": 303
+          },
+          {
+            "x": 609,
+            "y": 302
+          },
+          {
+            "x": 621,
+            "y": 315
+          },
+          {
+            "x": 646,
+            "y": 311
+          },
+          {
+            "x": 658,
+            "y": 297
+          },
+          {
+            "x": 665,
+            "y": 278
+          },
+          {
+            "x": 652,
+            "y": 252
+          },
+          {
+            "x": 638,
+            "y": 233
+          },
+          {
+            "x": 630,
+            "y": 245
+          }
+        ],
+        [
+          {
+            "x": 648,
+            "y": 321
+          },
+          {
+            "x": 674,
+            "y": 309
+          },
+          {
+            "x": 684,
+            "y": 291
+          },
+          {
+            "x": 698,
+            "y": 297
+          },
+          {
+            "x": 697,
+            "y": 312
+          },
+          {
+            "x": 658,
+            "y": 335
+          }
+        ]
+      ],
+      "validation": {
+        "scoring_type": "exactMatch",
+        "valid_response": {
+          "score": 1,
+          "value": []
+        }
+      },
+      "ui_style": {
+        "type": "horizontal"
+      }
+    },
+    "metadata": {
+      "name": "Hotspot",
+      "template_reference": "9e8149bd-e4d8-4dd6-a751-1a113a4b9163"
+    },
+    "type": "highlight",
+    "name": "Hotspot",
+    "widget_type": "response"
+  }
+]

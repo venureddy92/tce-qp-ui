@@ -1,0 +1,313 @@
+<div
+  [class]="layout"
+  [ngClass]="{
+    mobile: deviceView == 'mobile',
+    'mobile-ls': deviceView == 'mobile_ls'
+  }"
+  class="container p-0"
+>
+  <!-- <app-template-buttons-layout *ngIf="!dashboardPreviewState" [layout]="layout" [deviceView]="deviceView"
+        (saveData)="saveData()" (layoutChange)="onLayoutChange($event)" (toggleSidebar)="toggleSidebar($event)"
+        (deviceViewChange)="deviceViewChange($event)" [previewShow]="previewShow">
+    </app-template-buttons-layout> -->
+  <div class="qb-main-div p-0">
+    <h5 *ngIf="this.dashboardPreviewState">{{ templateName }}</h5>
+    <div class="row">
+      <div
+        class="p-0"
+        [ngClass]="{
+          'qb-dashboard-edit-div': !dashboardPreviewShow,
+          'qb-mcq-div': dashboardPreviewShow
+        }"
+      >
+        <div
+          *ngIf="!previewShow"
+          class="qb-cust-quill"
+          id="cust_quill"
+          style="width:100%;"
+        >
+          <tce-quill-toolbar></tce-quill-toolbar>
+        </div>
+        <div
+          class="row"
+          [ngClass]="{ 'qb-qstem-border pt-2': previewShow === false }"
+        >
+          <div class="qb-qstem m-0 px-2 pb-2">
+            <div class="d-flex align-items-center">
+              <div class="w-100">
+                <dc-qstem
+                  [qstem]="qstem"
+                  [previewState]="previewShow"
+                  [stemName]="'qstem'"
+                  (onQstemContentUpdate)="onQstemContentUpdate($event)"
+                >
+                </dc-qstem>
+                <div *ngIf="!previewShow" class="qb-feedback-padding-left">
+                  <feedback-layout
+                    [showAnsState]="answerState"
+                    [feedback]="qstem"
+                    [previewState]="previewShow"
+                    (feedbackUpdate)="feedbackStemUpdate($event)"
+                    [placeholder]="'Type question’s feedback here..'"
+                  >
+                  </feedback-layout>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div
+            class="d-flex align-items-center justify-content-between w-100 qb-addOptDiv"
+            *ngIf="!previewShow"
+          >
+            <div class="qb-answers" #answersDiv>
+              Answers :
+            </div>
+
+            <div>
+              <div>
+                <app-add-options-layout
+                  (pushOptions)="pushOptions($event)"
+                  [type]="'option'"
+                  [opts]="opts"
+                  class="qb-add-opt-btn"
+                >
+                </app-add-options-layout>
+              </div>
+              <!-- <div
+                class="qb-option-done qb-option-first-done text-right overflow-auto"
+              >
+                <h6 class="qb-firstDone">
+                  <span class="position-relative">
+                    <nb-icon icon="checkmark-outline"></nb-icon>
+                  </span>
+                  &nbsp;&nbsp;<span>Done</span>
+                </h6>
+              </div> -->
+            </div>
+          </div>
+          <div class="w-100">
+            <div
+              class="qb-options-div p-0"
+              cdkDropList
+              #optsContainer
+              cdkDropListOrientation="{{ layout }}"
+              (cdkDropListDropped)="dropped($event)"
+            >
+              <div
+                class="qb-options-div-maxht"
+                *ngIf="!previewShow"
+                #optionsDivMaxHt
+              >
+                <div
+                  cdkDrag
+                  *ngFor="let ans of answers; index as oIndex"
+                  class="qb-options p-0 position-relative"
+                >
+                  <div class="qb-option-done text-right overflow-auto">
+                    <h6>
+                      <span class="position-relative">
+                        <nb-icon icon="checkmark-outline"></nb-icon>
+                      </span>
+                      &nbsp;&nbsp;<span>Done</span>
+                    </h6>
+                  </div>
+
+                  <div
+                    class="qb-option-div flex justify-content-between"
+                    style="margin-top: 15px;"
+                  >
+                    <match-opt
+                      [optData]="ans"
+                      [previewState]="previewState"
+                      [inputName]="inputName"
+                      [optArray]="answers"
+                      [optValue]="selectedAnswers"
+                      [showAnsState]="getShowAnsState"
+                      (onContentUpdate)="onContentUpdate($event)"
+                      (onSelectedAnswersPreview)="
+                        onSelectedAnswersPreview($event)
+                      "
+                      class="qb-option-element"
+                    >
+                    </match-opt>
+                    <div class="qb-icon-div align-items-center">
+                      <!-- <i
+                        class="fa fa-trash remove-icon"
+                        [hidden]="opts.length < 2"
+                        (click)="removeOption(ans)"
+                        *ngIf="!mode"
+                      ></i>
+                      &nbsp;&nbsp; -->
+                      <!-- <i
+                        cdkDragHandle
+                        [hidden]="opts.length < 2"
+                        class="fa fa-bars drag-icon"
+                      ></i> -->
+                      <button cdkDragHandle class="qb-drag-icon-div">
+                        <nb-icon icon="menu-outline"></nb-icon>
+                      </button>
+                      <svg
+                        version="1.1"
+                        id="Capa_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 512 512"
+                        style="enable-background:new 0 0 512 512;"
+                        xml:space="preserve"
+                      >
+                        <g>
+                          <g>
+                            <g>
+                              <circle cx="256" cy="256" r="64" />
+                              <circle cx="256" cy="448" r="64" />
+                              <circle cx="256" cy="64" r="64" />
+                            </g>
+                          </g>
+                        </g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                      </svg>
+                    </div>
+                    <!-- <div
+                      class="qb-menu-list"
+                      [ngClass]="{
+                        'd-block': selectedOpt == oIndex,
+                        'd-none': selectedOpt !== oIndex
+                      }"
+                    >
+                      <ul class="mb-0">
+                        <li
+                          (click)="
+                            toggle[oIndex] = !toggle[oIndex];
+                            addFeedback(oIndex)
+                          "
+                        >
+                          <span *ngIf="!toggle[oIndex]">Add Feedback</span>
+                          <span *ngIf="toggle[oIndex]">Remove Feedback</span>
+                        </li>
+                        <li
+                          [hidden]="opts.length < 2"
+                          (click)="removeOption(opt, oIndex)"
+                        >
+                          Remove
+                        </li>
+                        <li>
+                          Duplicate
+                        </li>
+                      </ul>
+                    </div> -->
+                  </div>
+                </div>
+
+                <!-- <dc-shuffle [inputName]="inputName" [mode]="mode" [shuffleCheck]="shuffleCheck" -->
+                <!-- (onShuffleChange)="onShuffleChange($event)"></dc-shuffle> -->
+              </div>
+              <div *ngIf="previewShow" class="qb-drag-drop-text mt-2">
+                Drag and drop the options to the right sequencing
+              </div>
+              <div
+                *ngIf="previewShow"
+                class="row qb-options-preview-div py-1"
+                #optionsPreviewDivHeight
+              >
+                <div
+                  cdkDrag
+                  cdkDragHandle
+                  *ngFor="let opt of opts; index as oIndex"
+                  class="qb-options w-100 mt-4"
+                >
+                  <div class="opt-innerdiv pre-inner-div d-flex">
+                    <match-opt
+                      [optData]="opt"
+                      [index]="oIndex"
+                      [previewState]="previewState"
+                      [inputName]="inputName"
+                      [optArray]="opts"
+                      [optValue]="selectedAnswers"
+                      [showAnsState]="getShowAnsState"
+                      (onContentUpdate)="onContentUpdate($event)"
+                      (onSelectedAnswersPreview)="
+                        onSelectedAnswersPreview($event)
+                      "
+                      class="qb-option-element"
+                    >
+                    </match-opt>
+                    <!-- <div class="qb-icon-div">
+                <i
+                  cdkDragHandle
+                  [hidden]="quillLoaded"
+                  class="fa fa-bars drag-icon"
+                ></i>
+              </div> -->
+                    <div class="qb-icon-div align-items-center mr-3">
+                      <button class="qb-drag-icon-div">
+                        <nb-icon icon="menu-outline"></nb-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-md-12" *ngIf="!previewShow">
+        <div class="row shuffle-div-row">
+          <dc-shuffle
+            [inputName]="inputName"
+            [mode]="mode"
+            [shuffleCheck]="shuffleCheck"
+            (onShuffleChange)="onShuffleChange($event)"
+          ></dc-shuffle>
+          <div class="pointsDiv pull-left">
+            <app-set-correct-ans-layout
+              [previewState]="previewState"
+              (pushEnteredPoints)="getPointsValue($event)"
+              [points]="points"
+            >
+            </app-set-correct-ans-layout>
+            <app-add-options-layout
+              (pushOptions)="pushOptions($event)"
+              [type]="'option'"
+              [opts]="opts"
+              class="add-opt-btn"
+            >
+            </app-add-options-layout>
+            <div class="col-md-1 col-sm-1 col-1" *ngIf="!dashboardPreviewShow">
+              <button class="btn btn-outline-primary" (click)="editRedirect()">
+                <li class="fa fa-edit"></li>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    <div
+      class="col-md-12 correctResponseDiv"
+      *ngIf="previewShow && showAnsStateFlag && correctAnsPoints < 1"
+    >
+      <app-correct-responses-layout
+        [responses]="selectedAnswersData"
+      ></app-correct-responses-layout>
+    </div>
+  </div>
+</div>

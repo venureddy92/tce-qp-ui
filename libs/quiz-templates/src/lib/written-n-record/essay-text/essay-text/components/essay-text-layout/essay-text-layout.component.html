@@ -1,0 +1,319 @@
+<div [class]="layout" [ngClass]="{
+    mobile: deviceView == 'mobile',
+    'mobile-ls': deviceView == 'mobile_ls'
+  }" class="container p-0">
+  <div class="qb-main-div p-0 m-0">
+    <h5 *ngIf="this.dashboardPreviewState">{{ templateName }}</h5>
+
+    <div class="p-0" [ngClass]="{
+        'qb-dashboard-edit-div': !dashboardPreviewShow,
+        'qb-mcq-div': dashboardPreviewShow
+      }">
+      <div *ngIf="!previewShow" class="qb-cust-quill" id="cust_quill" style="width:100%;">
+        <tce-quill-toolbar></tce-quill-toolbar>
+      </div>
+      <div class="row" [ngClass]="{ 'qb-qstem-border pt-2': previewShow === false }">
+        <div class="qb-qstem m-0 px-2 pb-2" #qstemPreview>
+          <div class="d-flex align-items-center">
+            <div *ngIf="qstem['image'] || this.questionImage" class="qb-qstem-img position-relative">
+              <img [src]="loadQuestionImage()" #qstemImgRef />
+              <div *ngIf="!previewShow">
+                <div class="qb-adjust-img-size" (click)="openImgSizes = !openImgSizes">
+                  <span id="imageResize" class="position-absolute">
+                    <nb-icon icon="arrow-ios-downward-outline"></nb-icon>
+                  </span>
+                </div>
+                <div *ngIf="openImgSizes">
+                  <div class="qb-up-arrow position-absolute"></div>
+                  <div class="qb-size-dropdown position-absolute">
+                    <ul class="mb-0">
+                      <li (click)="getImage('small')">Small</li>
+                      <li (click)="getImage('medium')">Medium</li>
+                      <li (click)="getImage('large')">Large</li>
+                      <li (click)="deleteImage()">Delete</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="w-100">
+              <dc-qstem [qstem]="qstem" [previewState]="previewShow" [stemName]="'qstem'"
+                (onQstemContentUpdate)="onQstemContentUpdate($event)">
+              </dc-qstem>
+              <!-- <div *ngIf="!previewShow" class="qb-feedback-padding-left">
+                <feedback-layout
+                  [showAnsState]="answerState"
+                  [feedback]="qstem"
+                  [previewState]="previewShow"
+                  (feedbackUpdate)="feedbackStemUpdate($event)"
+                  [placeholder]="'Type question’s feedback here..'"
+                >
+                </feedback-layout> -->
+              <!-- </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        <!-- Commented By usman on 8/4/21. Can be used later -->
+        <div class=" w-100 qb-addOptDiv" *ngIf="!previewShow && templateType == 'plain-text'">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="answers">
+              Sample Answer :
+            </div>
+          </div>
+          <div class="mt-3 qb-sample-answer-edit">
+            <feedback-layout [showAnsState]="answerState" [feedback]="sampleAnswerData" [previewState]="previewShow"
+              (feedbackUpdate)="sampleAnswerUpdate($event)" [placeholder]="'Type sample answer here..'">
+            </feedback-layout>
+          </div>
+        </div>
+
+        <ng-container *ngIf="templateType == 'short-text'">
+          <ng-container *ngIf="!previewShow">
+            <div class="col-md-12">
+              <h6>Allow</h6>
+              <select (change)="changeMatch($event)">
+                <option value=""></option>
+                <option value="exactMatch" [selected]="matchType == 'exactMatch'">Exact Match</option>
+                <option value="contains" [selected]="matchType == 'contains'">Any text containing</option>
+              </select>
+            </div>
+          </ng-container>
+
+          <ng-container>
+            <div class="col-md-12">
+              <h6 *ngIf="!previewShow">Value</h6>
+              <input type="text" [value]="textValue" [hidden]="previewShow" (keyup)="changeValueText($event)" />
+              <input type="text" [value]="textValuePreview" [hidden]="!previewShow" (keyup)="changeValueText($event)"
+                [ngClass]="{
+                  'qb-option-correct-div':
+                    showAnsStateFlag && correctAnsPoints == points,
+                  'qb-option-incorrect-div':
+                    showAnsStateFlag && correctAnsPoints != points
+                }" />
+            </div>
+          </ng-container>
+
+          <br />
+          <div class="col-md-12">
+            <div class="shuffle-div-row" *ngIf="!previewShow">
+              <app-set-correct-ans-layout [previewState]="previewState" (pushEnteredPoints)="getPointsValue($event)"
+                [points]="points"></app-set-correct-ans-layout>
+            </div>
+          </div>
+          <br />
+
+          <ng-container *ngIf="previewShow && showAnsStateFlag">
+            <div class="col-md-12">
+              <div class="correctResponseDiv">
+                <app-correct-responses-layout [responses]="selectedAnswer"></app-correct-responses-layout>
+              </div>
+            </div>
+            <br />
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="templateType == 'plain-text'">
+          <!-- May need this part later -->
+          <!-- <div class="col-md-12 plain-text-div" *ngIf="!previewShow">
+        <div class="row">
+          <div class="col-md-3 d-flex radio-div">
+            <input
+              type="checkbox"
+              value="copy"
+              id="copy"
+              name="copy"
+              (change)="changeCopy($event)"
+              [checked]="showCopy"
+            />
+            <label for="copy" class="normal-checkbox">Copy</label>
+          </div>
+          <div class="col-md-3 d-flex radio-div">
+            <input
+              type="checkbox"
+              value="cut"
+              id="cut"
+              name="cut"
+              (change)="changeCut($event)"
+              [checked]="showCut"
+            />
+            <label for="cut" class="normal-checkbox">Cut</label>
+          </div>
+          <div class="col-md-3 d-flex radio-div">
+            <input
+              type="checkbox"
+              value="paste"
+              id="paste"
+              name="paste"
+              (change)="changePaste($event)"
+              [checked]="showPaste"
+            />
+            <label for="paste" class="normal-checkbox">Paste</label>
+          </div>
+        </div>
+        <br />
+      </div> -->
+          <!-- <div class="col-md-12" *ngIf="previewShow">
+        <button class="btn btn-info" *ngIf="showCopy" (click)="copyText()">Copy</button>
+        <button class="btn btn-info" *ngIf="showCut" (click)="cutText()">Cut</button>
+        <button class="btn btn-info" *ngIf="showPaste" (click)="pasteText()">Paste</button>
+      </div>
+      <br> -->
+
+          <div class="w-100 qb-textarea-wrapper" [ngClass]="{ 'qb-over-word-limit': wordLength > wordLimit }">
+            <!-- <div class="col-md-12" *ngIf="previewShow">
+              <div>
+                <div class="btn-list">
+                  <button class="btn" *ngIf="showCopy" (click)="copyText()">
+                    Copy
+                  </button>
+                  <button class="btn" *ngIf="showCut" (click)="cutText()">
+                    Cut
+                  </button>
+                  <button class="btn" *ngIf="showPaste" (click)="pasteText()">
+                    Paste
+                  </button>
+                </div>
+              </div>
+            </div> -->
+            <div *ngIf="previewShow" class="col-md-12">
+              <!-- <textarea (mouseup)="selectText($event)" (keyup)="selectText($event)" id="writtenText"
+                [(ngModel)]="writtenText" contentEditable="true" #usersAnswer></textarea>
+              <div class="qb-word-count position-relative overflow-auto">
+                <p *ngIf="
+                    previewShow &&
+                    (visibleLimit == 'visible' || wordLength > wordLimit) &&
+                    visibleLimit != 'off'
+                  ">
+                  <span>{{ wordLength }}/</span>{{ wordLimit }}
+                </p>
+                <p *ngIf="
+                    previewShow &&
+                    ((visibleLimit == 'onLimit' && wordLength <= wordLimit) ||
+                      visibleLimit == 'off')
+                  ">
+                  {{ wordLength }} Word(s)
+                </p>
+              </div> -->
+
+              <div class="qb-sample-answer">
+                <div>
+                  <p #sampleAnswer>
+                    {{ templateData.sample_answer }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <div *ngIf="templateType == 'rich-text'" class="rich-text-div"
+          [ngClass]="{ 'qb-over-word-limit': wordLength > wordLimit }">
+          <app-stems-layout [templateType]="templateType" [templateMode]="previewShow" [qstem]="previewStem"
+            (onQuillUpdated)="previewQuillUpdate($event)" [formattingOptions]="formattingOptions"
+            [previewState]="previewState">
+          </app-stems-layout>
+        </div>
+
+        <!-- <ng-container> -->
+        <div class="col-md-12">
+          <div class="row" *ngIf="templateType == 'rich-text' && !previewShow" cdkDropList #optsContainer
+            cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropped($event)">
+            <div cdkDrag class="col qb-icons-div" (click)="changeToolbar(tool)" *ngFor="let tool of quillTools">
+              <i class="{{ tool['icon'] }}" title="{{ tool['title'] }}"
+                [ngClass]="{ active: tool['selected'] }"></i><br />
+              <i cdkDragHandle class="fa fa-bars"></i>
+            </div>
+          </div>
+        </div>
+        <!-- </ng-container> -->
+
+        <div *ngIf="previewShow && templateType == 'rich-text'">
+          <div class="col-md-12 col-div-p">
+            <p *ngIf="
+                (visibleLimit == 'visible' || wordLength > wordLimit) &&
+                visibleLimit != 'off'
+              ">
+              <span *ngIf="showWordCount">{{ wordLength }}/</span>{{ wordLimit }} Word Limit
+            </p>
+            <p *ngIf="visibleLimit == 'onLimit' && wordLength <= wordLimit">
+              {{ wordLength }} Word(s)
+            </p>
+          </div>
+          <br />
+        </div>
+
+        <ng-container *ngIf="
+            (templateType == 'plain-text' || templateType == 'rich-text') &&
+            !previewShow
+          ">
+          <!-- <div class="col-md-12 plain-text-div">
+            <div class="row">
+              <div class="col-md-6">
+                <p class="para-div">Word Limit</p>
+                <app-set-correct-ans-layout
+                  [templateType]="templateType"
+                  [previewState]="previewState"
+                  (pushEnteredPoints)="wordLimitValue($event)"
+                  [points]="wordLimit"
+                  class="pull-left"
+                >
+                </app-set-correct-ans-layout>
+              </div>
+              <div class="col-md-6">
+                <p>Word Limit</p>
+                <select
+                  [hidden]="previewShow"
+                  (change)="changeViewLimit($event)"
+                >
+                  <option value=""></option>
+                  <option value="visible" [selected]="visibleLimit == 'visible'"
+                    >Always Visible</option
+                  >
+                  <option value="onLimit" [selected]="visibleLimit == 'onLimit'"
+                    >On Limit</option
+                  >
+                  <option value="off" [selected]="visibleLimit == 'off'"
+                    >Off</option
+                  >
+                </select>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- commented by usman on 8/4/21. Can be used later -->
+          <!-- <div class="row qb-word-settings w-100">
+            <div class="col-md-12 mb-1 pl-0 qb-word-limit">Word Limit</div>
+            <div class="col-md-4 pl-0">
+              <app-set-correct-ans-layout [templateType]="templateType" [previewState]="previewState"
+                (pushEnteredPoints)="wordLimitValue($event)" [points]="wordLimit" class="w-100"
+                [placeholder]="'No Limit'">
+              </app-set-correct-ans-layout>
+            </div>
+            <div class="col-md-8 pl-0 pr-0">
+              <div class="d-flex align-items-center justify-content-between qb-essay-controls">
+                <span>Show Text Box</span>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="customSwitch1" checked />
+                  <label class="custom-control-label" for="customSwitch1"></label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 mt-3 pl-0 pr-0">
+              <div class="d-flex align-items-center justify-content-between qb-essay-controls">
+                <span>Allow Students to See Sample Answer</span>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="customSwitch2"
+                    [checked]="templateData.showSampleAnswer" (change)="changeShowSampleAnswer()" />
+                  <label class="custom-control-label" for="customSwitch2"></label>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

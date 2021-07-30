@@ -1,0 +1,7 @@
+<div [hidden]="mode" class="col-md-12 qb-feedback-div pl-0">
+  <textarea placeholder="{{ placeholder }}" (keyup)="updateFeedback($event)">{{
+    feedback['feedbackInline']
+  }}</textarea>
+</div>
+
+<div class="qb-feedback-correct" [innerHTML]="feedback['feedbackInline']" [hidden]="!mode"></div>

@@ -1,0 +1,151 @@
+@import 'libs/question-bank/src/lib/assets/css/common.scss';
+
+.ql-editor {
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.25) !important;
+  }
+  p {
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 37px;
+    color: $dark-black;
+    word-break: break-word;
+  }
+}
+
+// to make whole option clickable
+.qb-options-label {
+  display: block;
+  overflow: hidden;
+  word-wrap: break-word;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+.qb-opt-container {
+  display: flex;
+  align-items: center;
+}
+.qb-opt-input-order {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 15px;
+  font-size: 18px;
+  color: gray;
+  p {
+    margin: 0;
+    color: $dark-black;
+    border-right: 1px solid #e8e5e5;
+    padding: 7px 20px;
+    position: relative;
+    font-weight: 700;
+  }
+}
+
+.qb-opt-radio-div {
+  input {
+    top: 12px;
+    left: 10px;
+  }
+
+  // @include radio(20px, $white, $blue);
+  @include radiobox(
+    0px,
+    18px,
+    1px,
+    50%,
+    2px,
+    0px,
+    $blue,
+    $white,
+    $white,
+    $blue,
+    $blue,
+    $dark-black,
+    $blue
+  );
+  @include checkbox(
+    0px,
+    18px,
+    1px,
+    3px,
+    2px,
+    0px,
+    $blue,
+    $white,
+    $white,
+    $blue,
+    $blue,
+    $dark-black,
+    $blue
+  );
+
+  label {
+    padding: 0;
+    margin: 0;
+  }
+}
+.hide {
+  visibility: hidden;
+}
+:host ::ng-deep .ql-container {
+  width: 35%;
+}
+
+.qb-opt-radio-div-preview {
+  position: absolute;
+  right: 12px;
+  @include radiobox(
+    0px,
+    18px,
+    1px,
+    50%,
+    2px,
+    0px,
+    $white,
+    $white,
+    $blue,
+    $blue,
+    $blue,
+    $dark-black,
+    $blue
+  );
+  @include checkbox(
+    0px,
+    18px,
+    1px,
+    3px,
+    2px,
+    0px,
+    $white,
+    $white,
+    $blue,
+    $blue,
+    $blue,
+    $dark-black,
+    $blue
+  );
+}
+.qb-image-options-radio-div {
+  bottom: -20px;
+}
+
+.imageQtnPd {
+  .qb-options-label {
+    padding: 5px !important;
+    word-break: break-word;
+  }
+}
+.imageRadioDiv {
+  right: 0px !important;
+  bottom: -30px !important;
+}

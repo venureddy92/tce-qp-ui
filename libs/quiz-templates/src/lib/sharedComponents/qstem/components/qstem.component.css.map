@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,EAAE,CAAA;EAAC,SAAS,EAAC,IAAI;EAAC,WAAW,EAAE,GAAG;CAAG;;AACrC,AAAA,aAAa,CAAA;EACT,MAAM,EAAE,cAAc;EACtB,aAAa,EAAC,IAAI;EAClB,OAAO,EAAC,GAAG;EACX,SAAS,EAAE,KAAK;CAEnB",
+    "sources": [
+        "qstem.component.scss"
+    ],
+    "names": [],
+    "file": "qstem.component.css"
+}

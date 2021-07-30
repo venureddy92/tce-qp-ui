@@ -1,0 +1,15 @@
+<div class="container-fluid pd-0">
+  <div class="shuffle-checkbox" [hidden]="mode">
+    <input
+      type="checkbox"
+      id="{{ inputName }}-shuffle"
+      [name]="inputName"
+      (change)="getShuffleValue($event)"
+      [checked]="shuffleCheck"
+      [hidden]="mode"
+    />
+    <label class="normal-checkbox" for="{{ inputName }}-shuffle">
+      Randomise
+    </label>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div [class]="layout" *ngIf="layout == 'vertical'">
+  <dc-qstem
+    [qstem]="qstem"
+    [previewState]="previewState"
+    (onQstemContentUpdate)="onQstemContentUpdate($event)"
+  >
+  </dc-qstem>
+  <br />
+  <div class="options">
+    <dc-opt
+      *ngFor="let opt of opts"
+      [optData]="opt"
+      [previewState]="previewState"
+      [inputType]="'checkbox'"
+      [inputName]="inputName"
+      (removeOption)="removeOption($event)"
+      (onContentUpdate)="onContentUpdate($event)"
+      [showAnsState]="getShowAnsState"
+      (onSelectedAnswersPreview)="onSelectedAnswersPreview($event)"
+    ></dc-opt>
+    <app-add-options-layout
+      (pushOptions)="pushOptions($event)"
+      [opts]="opts"
+      [previewState]="previewState"
+    >
+    </app-add-options-layout>
+  </div>
+
+  <br />
+
+  <div class="options" *ngIf="!previewShow">
+    <app-set-correct-ans-layout
+      [previewState]="previewState"
+      (pushEnteredPoints)="getPointsValue($event)"
+      [points]="points"
+    ></app-set-correct-ans-layout>
+
+    <app-set-correct-ans-options-layout
+      *ngFor="let opt of opts"
+      (pushSelectedAns)="getSelectedAns($event)"
+      [optData]="opt"
+      [optValue]="selectedAnswers"
+      [previewState]="previewState"
+      [inputType]="'checkbox'"
+      [inputName]="inputName"
+    ></app-set-correct-ans-options-layout>
+  </div>
+</div>
+
+<app-source-json-layout
+  (changeSourceState)="changeSourceState($event)"
+  [sourceModalOpen]="sourceModalOpen"
+  [sourceData]="sourceData"
+></app-source-json-layout>

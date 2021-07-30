@@ -13,12 +13,11 @@
           </span>
       </button>
     </div>
-    <div class="modal-body">
-        <div class="new-question">
-            
+    <div  [formGroup]="myForm" class="modal-body">
+        <div class="new-question">          
 
-            <div class="mb-3">
-                <select class="subject-select">
+            <div class="mb-3"> 
+                <select class="subject-select form-control form-select" formControlName="subject">
                     <option>Maths</option>
                     <option>Science</option>        
                 </select>
@@ -27,14 +26,14 @@
 
             <div class="mb-3">
               <label class="form-label">Question Paper Title</label>
-              <input type="input" class="form-control" value="CBSE Class 10 Science (Standard) Question Paper 2020 Set 1">
+              <input type="input" class="form-control"  formControlName="title" value="CBSE Class 10 Science (Standard) Question Paper 2020 Set 1">
             </div>
             <div class="mb-3">
               <label class="form-label">Question Paper Format</label>
               
-              <select class="form-control form-select">
-                <option>Maths</option>
-                <option>Science</option>
+              <select  formControlName="format" class="form-control form-select">
+                <option>Normal</option>
+                <option>Square Design</option>
               </select>
 
             </div>
@@ -42,7 +41,7 @@
             <div class="row">
               <div class="col">
                 <label class="form-label">Time</label>
-                    <select class="form-control form-select">
+                    <select  formControlName="time" class="form-control form-select">
                         <option>Please Select</option>
                         <option>30 Min</option>
                         <option>60 Min</option>
@@ -50,7 +49,7 @@
               </div>
               <div class="col">
                 <label class="form-label">Marks</label>
-                    <select class="form-control form-select">
+                    <select  formControlName="marks" class="form-control form-select">
                         <option>Please Select</option>
                         <option>Each question 10 marks</option>
                         <option>Each question 5 marks</option>
@@ -63,8 +62,8 @@
         </div> 
     </div>
     <div class="modal-footer justify-content-between">
-        <p>or  <button class="btn btn-sm btn-link fbold btn-link-white" (click)="continueWithoutTemplate();c('Save click')">CONTINUE WITHOUT TEMPLATE</button></p>
-        <button style='text-transform: uppercase;' class="btn btn btn-primary  btn-lg" (click)="defineTemplate(contentqpeditor);c('Save click')">define template</button>
+        <p>or  <button class="btn btn-sm btn-link fbold btn-link-white" [disabled]="!myForm.valid"  (click)="continueWithoutTemplate();c('Save click')">CONTINUE WITHOUT TEMPLATE</button></p>
+        <button style='text-transform: uppercase;' class="btn btn btn-primary  btn-lg" [disabled]="!myForm.valid" (click)="defineTemplate(contentqpeditor);c('Save click')">define template</button>
 
       <!-- <button type="button" class="btn btn btn-primary" (click)="c('Save click')">Save</button> -->
     </div>

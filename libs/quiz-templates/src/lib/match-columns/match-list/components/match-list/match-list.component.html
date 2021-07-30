@@ -1,0 +1,408 @@
+<!-- <svg class="qb-connectors" #qbDrawLine></svg> -->
+<div
+  [class]="layout"
+  [ngClass]="{
+    mobile: deviceView == 'mobile',
+    'mobile-ls': deviceView == 'mobile_ls'
+  }"
+  class="container p-0"
+>
+  <div class="qb-main-div p-0">
+    <h5 *ngIf="this.dashboardPreviewState">{{ templateName }}</h5>
+    <div class="row">
+      <div
+        class="p-0"
+        [ngClass]="{
+          'qb-dashboard-edit-div': !dashboardPreviewShow,
+          'qb-mcq-div mb-0': dashboardPreviewShow
+        }"
+      >
+        <div
+          *ngIf="!previewShow"
+          class="qb-cust-quill"
+          id="cust_quill"
+          style="width:100%;"
+        >
+          <tce-quill-toolbar></tce-quill-toolbar>
+        </div>
+        <div
+          class="row overlap-leader-line"
+          [ngClass]="{ 'qb-qstem-border pt-2': previewShow === false }"
+        >
+          <div class="qb-qstem w-100 m-0 px-2 pb-2">
+            <div class="d-flex align-items-center">
+              <div class="w-100" [ngClass]="{ 'pl-1': previewShow }">
+                <dc-qstem
+                  [qstem]="qstem"
+                  [stemName]="'qStem'"
+                  [previewState]="previewState"
+                  (onQstemContentUpdate)="onQstemContentUpdate($event)"
+                >
+                </dc-qstem>
+                <div *ngIf="!previewShow" class="qb-feedback-padding-left">
+                  <feedback-layout
+                    [showAnsState]="answerState"
+                    [feedback]="qstem"
+                    [previewState]="previewShow"
+                    (feedbackUpdate)="feedbackStemUpdate($event)"
+                    [placeholder]="'Type question’s feedback here..'"
+                  >
+                  </feedback-layout>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="overlap-leader-line">
+          <div
+            class="d-flex align-items-center justify-content-between w-100 qb-addOptDiv "
+            [ngClass]="{ 'pt-0': previewShow }"
+          >
+            <div class="qb-answers">
+              Link the column on the left to the right answers on the right.
+            </div>
+          </div>
+        </div>
+        <div
+          class="row qb-addOptDiv pt-4 position-relative overlap-leader-line"
+          [ngClass]="{ 'pt-4': !previewShow }"
+          [ngClass]="{ 'pt-3 pb-2': previewShow }"
+          #answersDiv
+        >
+          <div class="col-md-5 qb-questions p-0">
+            Stimulus List
+          </div>
+          <div class="offset-md-2 col-md-5 qb-questions pl-0">
+            Possible Responses
+          </div>
+        </div>
+
+        <div
+          class="qb-qstem qb-addOptDiv pt-2 overflow-auto qb-options-div-maxht"
+          cdkDropListGroup
+          #optionsDivMaxHt
+          (scroll)="scrollHandler($event)"
+        >
+          <div *ngFor="let opt of opts; index as oIndex" class="row">
+            <div class="col-md-5 mb-3 qb-qstem-question-list pd-0">
+              <ng-container *ngIf="stems[oIndex]">
+                <div
+                  class="w-100 qb-question-list-innerdiv d-flex align-items-center justify-content-between"
+                  [ngClass]="{
+                    'border-0 qstem-match-list-preview-bg': previewShow
+                  }"
+                >
+                  <dc-qstem
+                    [qstem]="stems[oIndex]"
+                    [stemName]="'qstem-' + oIndex"
+                    [previewState]="previewState"
+                    (onQstemContentUpdate)="onStemContentUpdate($event, oIndex)"
+                    class="w-100"
+                  >
+                  </dc-qstem>
+                  <div class="qb-opt-dropdown">
+                    <svg
+                      version="1.1"
+                      id="Capa_1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 512 512"
+                      style="enable-background:new 0 0 512 512;"
+                      xml:space="preserve"
+                    >
+                      <g>
+                        <g>
+                          <g>
+                            <circle cx="256" cy="256" r="64" />
+                            <circle cx="256" cy="448" r="64" />
+                            <circle cx="256" cy="64" r="64" />
+                          </g>
+                        </g>
+                      </g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                    </svg>
+                  </div>
+                  <div class="qb-select-circle">
+                    <span
+                      *ngIf="!previewShow"
+                      (click)="getCoordinates($event)"
+                      #startingElement
+                      id="l-{{ oIndex }}"
+                    ></span>
+                    <span
+                      *ngIf="previewShow"
+                      (click)="getCoordinates($event)"
+                      #startingElementPreview
+                      id="preview-l-{{ oIndex }}"
+                    ></span>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            <div
+              class="col-md-2 pd-0"
+              [ngClass]="{ line: 'previewShow', 'pt-35': !previewShow }"
+            >
+              <!-- <div *ngIf="stems[oIndex]" class="lrn_arrow"></div> -->
+            </div>
+            <div class="col-md-5 pd-0 qb-match-opt-div mb-3">
+              <div class="qb-match-preview-div d-flex align-items-center">
+                <div class="qb-options-div w-100" *ngIf="!previewShow">
+                  <div
+                    *ngFor="let item of dragOpts[oIndex]"
+                    class="w-100 qb-match-list-opt-innerdiv d-flex align-items-center justify-content-between"
+                    [ngClass]="{ 'border-0': previewShow }"
+                  >
+                    <div class="qb-select-circle">
+                      <span
+                        (click)="getCoordinates($event)"
+                        #endingElement
+                        id="r-{{ oIndex }}"
+                      ></span>
+                    </div>
+                    <div class="qb-opt-dropdown">
+                      <svg
+                        version="1.1"
+                        id="Capa_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 512 512"
+                        style="enable-background:new 0 0 512 512;"
+                        xml:space="preserve"
+                      >
+                        <g>
+                          <g>
+                            <g>
+                              <circle cx="256" cy="256" r="64" />
+                              <circle cx="256" cy="448" r="64" />
+                              <circle cx="256" cy="64" r="64" />
+                            </g>
+                          </g>
+                        </g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                      </svg>
+                    </div>
+                    <match-opt
+                      [optData]="item"
+                      [previewState]="previewState"
+                      [inputName]="inputName"
+                      [optArray]="opts"
+                      [optValue]="selectedAnswers"
+                      [showAnsState]="getShowAnsState"
+                      (onContentUpdate)="onContentUpdate($event)"
+                      class="w-100 qb-match-option"
+                    >
+                    </match-opt>
+                    <div
+                      class="qb-icon-div"
+                      (click)="removeOption(oIndex, item)"
+                      *ngIf="!mode"
+                    >
+                      Dlt
+                      <!-- <i
+                        class="fa fa-trash remove-icon"
+                        [hidden]="quillLoaded"
+                        (click)="removeOption(oIndex, item)"
+                        *ngIf="!mode"
+                      ></i>
+                      &nbsp;&nbsp;
+                      <i
+                        cdkDragHandle
+                        [hidden]="quillLoaded"
+                        class="fa fa-bars drag-icon"
+                      ></i> -->
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  *ngIf="previewShow"
+                  class="qb-options-div w-100"
+                  [ngClass]="{ 'qstem-match-list-preview-bg': previewShow }"
+                >
+                  <div
+                    *ngFor="let item of dragAns[oIndex]; index as itemIndex"
+                    class="w-100 qb-match-list-opt-innerdiv d-flex align-items-center justify-content-between"
+                    [ngClass]="{ 'border-0 p-0': previewShow }"
+                  >
+                    <div class="qb-select-circle">
+                      <span
+                        (click)="getCoordinates($event)"
+                        #endingElementPreview
+                        id="preview-r-{{ oIndex }}"
+                      ></span>
+                    </div>
+                    <div class="qb-opt-dropdown">
+                      <svg
+                        version="1.1"
+                        id="Capa_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 512 512"
+                        style="enable-background:new 0 0 512 512;"
+                        xml:space="preserve"
+                      >
+                        <g>
+                          <g>
+                            <g>
+                              <circle cx="256" cy="256" r="64" />
+                              <circle cx="256" cy="448" r="64" />
+                              <circle cx="256" cy="64" r="64" />
+                            </g>
+                          </g>
+                        </g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                        <g></g>
+                      </svg>
+                    </div>
+
+                    <match-opt
+                      [optData]="item"
+                      [index]="oIndex"
+                      [stemLength]="stems.length"
+                      [previewState]="previewState"
+                      [inputName]="inputName"
+                      [optArray]="optsAns"
+                      [optValue]="selectedAnswers"
+                      [showAnsState]="getShowAnsState"
+                      (onContentUpdate)="onContentUpdate($event)"
+                      class="w-100 qb-match-option"
+                    >
+                    </match-opt>
+                    <!-- <div class="qb-icon-div">
+                      <i
+                        cdkDragHandle
+                        [hidden]="quillLoaded"
+                        class="fa fa-bars drag-icon"
+                      ></i>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="!previewShow">
+            <div class="col-md-5 mt-15 mb-3 pl-0 d-flex">
+              <!-- <div class="qb-match-list-points-div pull-left pd-0"> -->
+              <!-- <app-set-correct-ans-layout
+                  [previewState]="previewState"
+                  (pushEnteredPoints)="getPointsValue($event)"
+                  [points]="points"
+                >
+                </app-set-correct-ans-layout> -->
+              <!-- </div> -->
+              <div class="qb-match-list-points-div pull-left pd-0">
+                <app-add-options-layout
+                  (pushOptions)="pushOptions($event)"
+                  (pushStems)="pushStem($event)"
+                  [opts]="opts"
+                  [type]="'stem'"
+                  class="qb-add-opt-btn"
+                >
+                </app-add-options-layout>
+                <div
+                  class="col-md-1 col-sm-1 col-1"
+                  *ngIf="!dashboardPreviewShow"
+                >
+                  <button
+                    class="btn btn-outline-primary"
+                    (click)="editRedirect()"
+                  >
+                    <li class="fa fa-edit"></li>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-5 mb-3 mt-15 shuffle-div-row pl-0">
+              <!-- <dc-shuffle
+                [inputName]="inputName"
+                [mode]="mode"
+                [shuffleCheck]="shuffleCheck"
+                (onShuffleChange)="onShuffleChange($event)"
+              ></dc-shuffle> -->
+              <div class="qb-match-list-points-div pull-left">
+                <app-add-options-layout
+                  (pushOptions)="pushOptions($event)"
+                  [type]="'match-option'"
+                  [opts]="opts"
+                  class="add-opt-btn"
+                >
+                </app-add-options-layout>
+                <div
+                  class="col-md-1 col-sm-1 col-1"
+                  *ngIf="!dashboardPreviewShow"
+                >
+                  <button
+                    class="btn btn-outline-primary"
+                    (click)="editRedirect()"
+                  >
+                    <li class="fa fa-edit"></li>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="row pt-2 qb-addOptDiv"
+          *ngIf="previewShow && showAnsStateFlag && correctAnsPoints < 1"
+        >
+          <div class="col-md-12 correctResponseDiv">
+            <app-correct-responses-layout
+              [responses]="templateData.data.matches"
+            ></app-correct-responses-layout>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

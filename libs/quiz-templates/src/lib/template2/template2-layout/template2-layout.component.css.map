@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,CAAC,CAAC;EACE,KAAK,EAAE,IAAI;EACX,UAAU,EAAE,OAAO;EACnB,OAAO,EAAE,IAAI;EACb,MAAM,EAAE,CAAC;EACT,aAAa,EAAE,KAAK;EACpB,aAAa,EAAE,KAAK;CACvB;;AACD,AAAA,aAAa,CAAC;EACV,OAAO,EAAE,IAAI;EACb,qBAAqB,EAAE,WAAW;CACrC",
+    "sources": [
+        "template2-layout.component.scss"
+    ],
+    "names": [],
+    "file": "template2-layout.component.css"
+}

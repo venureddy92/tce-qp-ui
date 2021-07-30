@@ -1,0 +1,76 @@
+@import 'libs/question-bank/src/lib/assets/css/common.scss';
+
+.qb-quill-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  background: #f9f8f8;
+  padding: 5px;
+  div {
+    svg {
+      margin: 10px;
+      cursor: pointer;
+      --tooltip-background-color: red;
+    }
+    .qb-active-tool {
+      background: #9abcdd;
+      border-radius: 2px;
+    }
+  }
+  .qb-tool-divider {
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 8px 0px;
+    height: 21px;
+  }
+  .qb-quill-colorpicker {
+    position: absolute;
+    width: 24px;
+    height: 20px;
+    left: 8px;
+    top: 10px;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .qb-quill-link,
+  .qb-quill-math-formula {
+    position: absolute;
+    top: 40px;
+    left: -125px;
+    padding: 8px 10px;
+    background: $white;
+    border-radius: 5px;
+    font-size: 13px;
+    z-index: 1;
+    input {
+      border: 1px solid $off-white;
+      border-radius: 2px;
+      width: 250px;
+      height: 36px;
+      padding-left: 5px;
+    }
+    span {
+      cursor: pointer;
+      color: #25408f;
+      text-decoration: underline;
+    }
+  }
+
+  .qb-quill-options-layout {
+    font-size: 12px;
+    margin-left: 4px;
+
+    select {
+      border-radius: 5px;
+      border: 1px solid #cccccc47;
+      color: #999;
+      height: 23px;
+    }
+  }
+}
+::ng-deep .ql-container.ql-bubble:not(.ql-disabled) a:hover::before,
+::ng-deep .ql-container.ql-bubble:not(.ql-disabled) a:hover::after {
+  visibility: hidden !important;
+}
+.overlap-leader-line {
+  position: relative;
+  z-index: 1;
+}

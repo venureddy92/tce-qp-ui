@@ -1,0 +1,258 @@
+<div [class]="layout">
+  <div class="container">
+    <div class="main-div">
+      <br />
+      <h5 *ngIf="this.dashboardPreviewState">{{ templateName }}</h5>
+      <div class="row">
+        <div
+          [ngClass]="{
+            'dashboard-edit-div': !dashboardPreviewShow,
+            'mcq-div': dashboardPreviewShow
+          }"
+        >
+          <div class="row">
+            <div class="col-md-12 pd-0">
+              <br />
+              <dc-qstem
+                [qstem]="qstem"
+                [stemName]="'qStem'"
+                [previewState]="previewState"
+                (onQstemContentUpdate)="onQstemContentUpdate($event)"
+              >
+              </dc-qstem>
+              <br />
+            </div>
+          </div>
+          <!-- <div class="options" *ngIf="previewShow">
+
+        <app-choice-matrix-layout [optData]="opts" [type]="'standard'" [stemData]="stems" [previewState]="previewState"
+          [inputType]="inputType" [inputName]="inputName">
+        </app-choice-matrix-layout> -->
+
+          <!-- <div *ngFor="let stem of stems">{{ stem.label }}
+          <dc-opt *ngFor="let opt of opts" [optData]="opt" [previewState]="previewState" [inputType]="'radio'"
+            [inputName]="inputName" (removeOption)="removeOption($event)"></dc-opt>
+        </div> -->
+
+          <!-- </div> -->
+
+          <!-- <div *ngIf="!previewShow">
+        <h4>Stems</h4>
+
+        <app-stems-layout *ngFor="let stem of stems; let sIndex of index" [stemData]="stem" [previewState]="previewState"
+          [inputType]="'radio'" [inputName]="inputName" (removeStem)="removeStem(sIndex,$event)"></app-stems-layout>
+
+      </div> -->
+
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-responsive custom-table">
+                <tr>
+                  <td [hidden]="matrixType == 'inline' && previewShow"></td>
+                  <!-- <td *ngFor="let opt of opts">{{ opt.label }}</td> -->
+                  <td
+                    *ngFor="let opt of opts; let i = index"
+                    [hidden]="matrixType == 'inline' && previewShow"
+                  >
+                    <row-col-titles
+                      [matrixData]="opt"
+                      [data]="'opt-' + i"
+                      [previewState]="previewState"
+                      (onContentUpdate)="onRowColUpdate($event, i)"
+                    >
+                    </row-col-titles>
+                    <i
+                      class="fa fa-trash remove-icon col-remove-icon"
+                      [hidden]="quillLoaded"
+                      (click)="removeOption(opt, i)"
+                      *ngIf="!previewShow && i > 1"
+                    ></i>
+                  </td>
+                  <td
+                    style="padding-top: 40px;border:0px;width: 10%;"
+                    [hidden]="previewShow"
+                  >
+                    <app-add-options-layout
+                      (pushOptions)="pushOptions($event)"
+                      [type]="'option'"
+                      [opts]="opts"
+                      [previewState]="previewState"
+                    >
+                    </app-add-options-layout>
+                  </td>
+                </tr>
+                <tr *ngFor="let stem of stems; let i = index">
+                  <td>
+                    <div
+                      style="display:flex;align-items: center;word-break: break-all;"
+                    >
+                      <span *ngIf="matrixType == 'labels'">{{
+                        labels[i]
+                      }}</span>
+                      <!-- {{ stem.text }} -->
+                      <dc-qstem
+                        [qstem]="stem"
+                        [stemName]="'qstem-' + i"
+                        [previewState]="previewState"
+                        (onQstemContentUpdate)="onStemContentUpdate($event, i)"
+                      >
+                      </dc-qstem>
+                      <i
+                        class="fa fa-trash remove-icon"
+                        [hidden]="quillLoaded"
+                        (click)="removeStem(i, stem)"
+                        *ngIf="!previewShow && i > 1"
+                      ></i>
+                    </div>
+                  </td>
+                  <td
+                    *ngFor="let opt of opts; let colIndex = index"
+                    [hidden]="previewShow"
+                    class="option-matrix-div"
+                  >
+                    <div class="radio-div">
+                      <input
+                        [type]="inputType"
+                        (change)="getSelectedAns(i, $event)"
+                        name="{{ stem.label }}-{{ stem.value }}-mcq"
+                        id="{{ stem.value }}-mcq-{{ opt.value }}"
+                        value="{{ opt.value }}"
+                        [checked]="getInputStatus(i, opt.value)"
+                      />
+                      <label
+                        *ngIf="inputType == 'radio'"
+                        for="{{ stem.value }}-mcq-{{ opt.value }}"
+                        class="radio-label"
+                      >
+                      </label>
+                      <div
+                        [innerHTML]="opt.label"
+                        *ngIf="matrixType == 'inline'"
+                        class="label-text"
+                      ></div>
+                    </div>
+
+                    <!-- </div> -->
+                    <!-- <label class="options-label" #myContent (click)="onContainerClick()"></label> -->
+                  </td>
+                  <td
+                    *ngFor="let optp of optsPreview; let colIndex = index"
+                    [hidden]="!previewShow"
+                    class="option-matrix-div"
+                  >
+                    <div class="radio-div" *ngIf="previewShow">
+                      <input
+                        [type]="inputType"
+                        (change)="getSelectedAns(i, $event)"
+                        name="p-{{ stem.text }}-{{ stem.value }}-mcq"
+                        id="p-{{ stem.value }}-mcq-{{ optp.value }}"
+                        value="{{ optp.value }}"
+                      />
+                      <label
+                        *ngIf="inputType == 'radio' && classes"
+                        for="p-{{ stem.value }}-mcq-{{ optp.value }}"
+                        [ngClass]="{
+                          'radio-label':
+                            getOptionClass(
+                              i,
+                              'p-' + stem.value + '-mcq-' + optp.value,
+                              optp.value
+                            ) == 'radio-label',
+                          'radio-tick-label':
+                            getOptionClass(
+                              i,
+                              'p-' + stem.value + '-mcq-' + optp.value,
+                              optp.value
+                            ) == 'radio-tick-label',
+                          'radio-cross-label':
+                            getOptionClass(
+                              i,
+                              'p-' + stem.value + '-mcq-' + optp.value,
+                              optp.value
+                            ) == 'radio-cross-label'
+                        }"
+                      >
+                      </label>
+                      <!-- 'radio-tick-label' radio-cross-label-->
+                      <div
+                        [innerHTML]="optp.label"
+                        *ngIf="matrixType == 'inline'"
+                        class="label-text"
+                      ></div>
+                    </div>
+
+                    <!-- </div> -->
+                    <!-- <label class="options-label" #myContent *ngIf="!data"
+                          (click)="onContainerClick()">&nbsp;&nbsp;&nbsp;&nbsp;</label> -->
+                  </td>
+                </tr>
+                <tr [hidden]="previewShow">
+                  <td style="padding-left: 30px;padding-top: 20px;border:0px;">
+                    <app-add-options-layout
+                      (pushStems)="pushStems($event)"
+                      [type]="'stem'"
+                      [opts]="stems"
+                      [previewState]="previewState"
+                    >
+                    </app-add-options-layout>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <br />
+
+          <div class="col-md-12" [hidden]="previewShow">
+            <div class="row shuffle-div-row">
+              <div class="pointsDiv pull-left">
+                <!-- <app-add-options-layout (pushStems)="pushStems($event)" [type]="'stem'" [opts]="stems" [previewState]="previewState">
+                </app-add-options-layout> -->
+                <app-set-correct-ans-layout
+                  [previewState]="previewState"
+                  (pushEnteredPoints)="getPointsValue($event)"
+                  [points]="points"
+                >
+                </app-set-correct-ans-layout>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-md-1 col-sm-1 col-1 pd-0 qb-col-dashboard-edit-div"
+          *ngIf="!dashboardPreviewShow"
+        >
+          <button
+            class="btn btn-outline-primary qb-edit-btn"
+            (click)="editRedirect()"
+          >
+            <li class="fa fa-edit"></li></button
+          ><br />
+        </div>
+      </div>
+      <!-- <br> -->
+    </div>
+  </div>
+
+  <!-- <div *ngIf="!previewShow">
+    <h4>Options</h4> -->
+  <!-- <dc-opt *ngFor="let opt of opts" [optData]="opt" [previewState]="previewState" [inputType]="'radio'"
+      [inputName]="inputName" (removeOption)="removeOption($event)"></dc-opt> -->
+  <!-- <dc-opt [optData]="opt" [previewState]="previewState" [inputType]="inputType" [inputName]="inputName"
+      [optValue]="selectedAnswers" [showAnsState]="getShowAnsState">
+    </dc-opt> -->
+  <!-- </div> -->
+</div>
+<br />
+
+<app-source-json-layout
+  (changeSourceState)="changeSourceState($event)"
+  [sourceModalOpen]="sourceModalOpen"
+  [sourceData]="sourceData"
+></app-source-json-layout>
+
+<app-metadata-layout
+  [metaData]="metaData"
+  (toggleSidebar)="toggleSidebar($event)"
+  [sidebarShow]="navbarOpen"
+>
+</app-metadata-layout>

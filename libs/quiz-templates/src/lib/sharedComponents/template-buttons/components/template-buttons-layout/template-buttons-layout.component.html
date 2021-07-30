@@ -1,0 +1,94 @@
+<!-- <h4>{{layout | titlecase}} View</h4>  -->
+
+<!-- <span *ngIf="previewState">{{correctAnsPoints}}/{{ points }}</span> -->
+<!-- <h4>{{layout | titlecase}} View</h4> -->
+<div>
+  <div
+    class="btn-group btn-group-toggle "
+    ngbRadioGroup
+    name="radioBasic"
+    [(ngModel)]="deviceView"
+  >
+    <label ngbButtonLabel title="Laptop" class="btn-outline-primary btn-sm">
+      <input
+        ngbButton
+        type="radio"
+        value="laptop"
+        (click)="onDeviceViewChange($event)"
+      />
+      <i class="fa fa-laptop"></i>
+    </label>
+    <label ngbButtonLabel title="Mobile" class="btn-outline-primary btn-sm">
+      <input
+        ngbButton
+        type="radio"
+        value="mobile"
+        (click)="onDeviceViewChange($event)"
+      /><i class="fa fa-mobile"></i>
+    </label>
+    <label
+      ngbButtonLabel
+      title="Mobile Landscape"
+      class="btn-outline-primary btn-sm"
+    >
+      <input
+        ngbButton
+        type="radio"
+        value="mobile_ls"
+        (click)="onDeviceViewChange($event)"
+      /><i class="fa fa-mobile fa-rotate-90"></i>
+    </label>
+  </div>
+  &nbsp;
+  <div
+    class="btn-group btn-group-toggle"
+    ngbRadioGroup
+    name="radioBasic"
+    [(ngModel)]="layout"
+    *ngIf="!previewShow"
+  >
+    <label ngbButtonLabel class="btn-outline-primary btn-sm">
+      <input
+        ngbButton
+        type="radio"
+        value="vertical"
+        (click)="onLayoutChange($event)"
+      />
+      Vertical
+    </label>
+    <label ngbButtonLabel class="btn-outline-primary btn-sm">
+      <input
+        ngbButton
+        type="radio"
+        value="horizontal"
+        (click)="onLayoutChange($event)"
+      />
+      Horizontal
+    </label>
+    <label ngbButtonLabel class="btn-outline-primary btn-sm">
+      <input
+        ngbButton
+        type="radio"
+        value="grid"
+        (click)="onLayoutChange($event)"
+      />
+      Grid
+    </label>
+  </div>
+
+  <!-- <div class="text-right"> -->
+  <button
+    class="btn btn-primary btn-sm pull-right"
+    *ngIf="!previewShow"
+    (click)="onSave()"
+  >
+    Save
+  </button>
+  <button
+    class="btn btn-outline-primary btn-sm pull-right mr-20"
+    *ngIf="!previewShow"
+    (click)="toggle()"
+  >
+    Metadata
+  </button>
+</div>

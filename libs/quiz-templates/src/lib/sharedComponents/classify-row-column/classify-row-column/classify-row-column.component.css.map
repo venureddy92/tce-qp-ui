@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "classify-row-column.component.scss"
+    ],
+    "names": [],
+    "file": "classify-row-column.component.css"
+}

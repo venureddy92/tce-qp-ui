@@ -1,0 +1,30 @@
+@import 'libs/question-bank/src/lib/assets/css/common.scss';
+
+.shuffle-checkbox {
+  position: relative;
+  input {
+    top: 12px;
+    left: 12px;
+  }
+  @include checkbox(
+    2px,
+    18px,
+    2px,
+    2px,
+    2px,
+    2px,
+    #fff,
+    #fff,
+    $blue,
+    $blue,
+    $blue,
+    #000,
+    $blue
+  );
+}
+.normal-checkbox:before {
+  margin-top: -3px;
+}
+.normal-checkbox:after {
+  margin-top: -6px;
+}

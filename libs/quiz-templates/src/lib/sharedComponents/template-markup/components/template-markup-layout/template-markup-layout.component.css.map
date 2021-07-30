@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,QAAQ,CAAC;EACL,KAAK,EAAE,IACX;CAAC;;AACD,AAAA,IAAI,CAAA;EACA,QAAQ,EAAC,QAAQ;CACpB;;AAED,AAAA,UAAU,CAAC;EACP,gBAAgB,EAAE,OAAO;CAE5B;;AAED,AAAA,KAAK,CAAA;EACD,QAAQ,EAAE,QAAQ;EAClB,MAAM,EAAE,cAAc;EACtB,OAAO,EAAE,QAAQ;EACjB,WAAW,EAAE,IAAI;EACjB,aAAa,EAAE,IAAI;CAEtB",
+    "sources": [
+        "template-markup-layout.component.scss"
+    ],
+    "names": [],
+    "file": "template-markup-layout.component.css"
+}

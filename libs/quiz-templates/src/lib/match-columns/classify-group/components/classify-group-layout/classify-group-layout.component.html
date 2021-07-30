@@ -1,0 +1,372 @@
+<div
+  [class]="layout"
+  [ngClass]="{
+    mobile: deviceView == 'mobile',
+    'mobile-ls': deviceView == 'mobile_ls'
+  }"
+  class="container"
+>
+  <!-- <app-template-buttons-layout *ngIf="!dashboardPreviewState" [layout]="layout" [deviceView]="deviceView"
+        (saveData)="saveData()" (layoutChange)="onLayoutChange($event)" (toggleSidebar)="toggleSidebar($event)"
+        (deviceViewChange)="deviceViewChange($event)" [previewShow]="previewShow">
+    </app-template-buttons-layout> -->
+
+  <div class="main-div">
+    <br />
+    <h2 *ngIf="this.dashboardPreviewState">{{ templateName }}</h2>
+    <br />
+    <div class="row">
+      <div class="qstem">
+        <dc-qstem
+          [qstem]="qstem"
+          [previewState]="previewState"
+          (onQstemContentUpdate)="onQstemContentUpdate($event)"
+        >
+        </dc-qstem>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div class="row pd-15">
+      <div
+        class="optionsDiv"
+        cdkDropList
+        #optsContainer
+        cdkDropListOrientation="{{ layout }}"
+        (cdkDropListDropped)="dropped($event)"
+      >
+        <div *ngIf="!previewShow">
+          <div class="row">
+            <div
+              cdkDrag
+              *ngFor="let opt of opts; index as oIndex"
+              class="options"
+            >
+              <div class="opt-innerdiv">
+                <match-opt
+                  [optData]="opt"
+                  [previewState]="previewState"
+                  [inputName]="inputName"
+                  [optArray]="opts"
+                  [optValue]="selectedAnswers"
+                  [showAnsState]="getShowAnsState"
+                  (onContentUpdate)="onContentUpdate($event)"
+                  (onSelectedAnswersPreview)="onSelectedAnswersPreview($event)"
+                >
+                </match-opt>
+                <div class="icon-div">
+                  <i
+                    class="fa fa-trash remove-icon"
+                    [hidden]="quillLoaded"
+                    (click)="removeOption(opt)"
+                    *ngIf="!mode"
+                  ></i>
+                  &nbsp;&nbsp;
+                  <i
+                    cdkDragHandle
+                    [hidden]="quillLoaded"
+                    class="fa fa-bars drag-icon"
+                  ></i>
+                </div>
+              </div>
+              <br />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row pd-15" *ngIf="!previewShow">
+      <div class="col-md-12 shuffle-col-div">
+        <div class="row shuffle-div-row">
+          <div class="pointsDiv pull-left">
+            <app-set-correct-ans-layout
+              [previewState]="previewState"
+              (pushEnteredPoints)="getPointsValue($event)"
+              [points]="points"
+            >
+            </app-set-correct-ans-layout>
+            <br />
+            <app-add-options-layout
+              (pushOptions)="pushOptions($event)"
+              [type]="'option'"
+              [opts]="opts"
+              [previewState]="previewState"
+            >
+            </app-add-options-layout>
+            <div class="col-md-1 col-sm-1 col-1" *ngIf="!dashboardPreviewShow">
+              <button class="btn btn-outline-primary" (click)="editRedirect()">
+                <li class="fa fa-edit"></li></button
+              ><br />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+
+    <table
+      class="table table-responsive"
+      [ngClass]="{ 'classify-preview-table': previewShow }"
+    >
+      <tr>
+        <td>
+          &nbsp;&nbsp;&nbsp;
+        </td>
+        <td
+          *ngFor="let col of columns; let colIndex = index; trackBy: trackByFn"
+          style="flex: 1;"
+          class="coloumn-divs"
+        >
+          <row-col-titles
+            [data]="col"
+            [previewState]="previewState"
+            (onContentUpdate)="onRowColUpdate('col', $event, colIndex)"
+          ></row-col-titles>
+          <button
+            class="btn btn-primary remove"
+            *ngIf="colIndex > 1 && !previewShow"
+            (click)="removeCols(colIndex)"
+          >
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
+        </td>
+
+        <td>
+          <button
+            class="btn btn-primary classify-add-btn"
+            (click)="addCols()"
+            *ngIf="!previewShow"
+          >
+            +
+          </button>
+        </td>
+      </tr>
+      <tr *ngFor="let row of rows; let rowIndex = index; trackBy: trackByFn">
+        <td>
+          <row-col-titles
+            [data]="row"
+            [previewState]="previewState"
+            (onContentUpdate)="onRowColUpdate('row', $event, rowIndex)"
+          ></row-col-titles>
+          <button
+            class="btn btn-primary remove"
+            *ngIf="rowIndex > 0 && !previewShow"
+            (click)="removeRows(rowIndex)"
+          >
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
+        </td>
+        <ng-container *ngIf="!previewShow">
+          <td
+            class="classify-border-dashed cols"
+            [ngClass]="{
+              'classify-border':
+                tempData['value'] && tempData['value'].length > 0
+            }"
+            *ngFor="let option of optionValue[rowIndex]; let colIndex = index"
+            (click)="clickComp(rowIndex, colIndex); clickComponentStatus = true"
+          >
+            <div *ngIf="option.length > 0" class="optionComp">
+              <div *ngFor="let opt of option" (click)="clickOpt(opt)">
+                <app-classify-option
+                  [optData]="getOpts(opt)"
+                  [tempData]="tempData"
+                  [previewState]="previewState"
+                  [optArray]="opts"
+                  [optValue]="selectedAnswers"
+                  [showAnsState]="getShowAnsState"
+                  (onSelectedAnswersPreview)="onSelectedAnswersPreview($event)"
+                ></app-classify-option>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container *ngIf="previewShow">
+          <td
+            class="classify-border-dashed cols"
+            [ngClass]="{
+              'classify-border':
+                tempData['value'] && tempData['value'].length > 0
+            }"
+            *ngFor="
+              let option of previewTemplateOptionValue[rowIndex];
+              let colIndex = index
+            "
+            (click)="
+              clickComp(rowIndex, colIndex, columns.length, rows.length);
+              clickComponentStatus = true
+            "
+            [ngStyle]="{ width: 80 / columns.length + '%' }"
+          >
+            <div *ngIf="option.length > 0" class="optionComp">
+              <div *ngFor="let opt of option" (click)="clickOpt(opt)">
+                <app-classify-option
+                  [optData]="getOpts(opt)"
+                  [tempData]="tempData"
+                  [previewState]="previewState"
+                  [optArray]="opts"
+                  [optValue]="optionValue"
+                  [previewTemplateOptionValue]="previewTemplateOptionValue"
+                  [showAnsState]="getShowAnsState"
+                  (onSelectedAnswersPreview)="onSelectedAnswersPreview($event)"
+                ></app-classify-option>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+      </tr>
+      <tr *ngIf="!previewShow">
+        <td>
+          <button class="btn btn-primary" (click)="addRows()">+</button>
+        </td>
+      </tr>
+    </table>
+
+    <!-- <div class="row">
+            <div class="cols">
+                &nbsp;&nbsp;&nbsp;
+            </div>
+            <div class="cols" *ngFor="let col of columns, let colIndex = index;" style="flex: 1;">
+                <row-col-titles [data]="col" [previewState]="previewState"
+                    (onContentUpdateFocus)="onRowColUpdate('col',$event, colIndex)"></row-col-titles>
+                <button class="btn btn-primary remove" *ngIf="colIndex > 1 && !previewShow"
+                    (click)="removeCols(colIndex)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </div>
+            <div style="position:relative;">
+                <button class="btn btn-primary classify-add-btn" (click)="addCols()" *ngIf="!previewShow">+</button>
+            </div>
+        </div>
+
+        <div class="row pd-r-60" *ngFor="let row of rows, let rowIndex = index;">
+            <div class="cols" style=" max-width:140px;">
+                <row-col-titles [data]="row" [previewState]="previewState"
+                    (onContentUpdateFocus)="onRowColUpdate('row',$event, rowIndex)"></row-col-titles>
+                <button class="btn btn-primary remove" *ngIf="rowIndex > 0 && !previewShow"
+                    (click)="removeRows(rowIndex)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </div>
+            
+            <ng-container *ngIf="!previewShow">
+                <div class="classify-border-dashed cols"  [ngClass]="{'classify-border': tempData['value'] && tempData['value'].length > 0}" *ngFor="let option of optionValue[rowIndex], let colIndex = index;" (click)="clickComp(rowIndex, colIndex); clickComponentStatus = true">
+                    <div *ngIf="option.length > 0" class="optionComp">
+                        <div *ngFor="let opt of option" (click)="clickOpt(opt)">
+                            <app-classify-option [optData]="getOpts(opt)" [tempData]="tempData" [previewState]="previewState" [optArray]="opts" [optValue]="selectedAnswers" [showAnsState]="getShowAnsState" (onSelectedAnswersPreview)="onSelectedAnswersPreview($event)"></app-classify-option>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="previewShow">
+                <div class="classify-border-dashed cols" [ngClass]="{'classify-border': tempData['value'] && tempData['value'].length > 0}"
+                    *ngFor="let option of previewTemplateOptionValue[rowIndex], let colIndex = index;"
+                    (click)="clickComp(rowIndex, colIndex, columns.length, rows.length); clickComponentStatus = true">
+                    <div *ngIf="option.length > 0" class="optionComp">
+                        <div *ngFor="let opt of option" (click)="clickOpt(opt)">
+                            <app-classify-option [optData]="getOpts(opt)" [tempData]="tempData" [previewState]="previewState" [optArray]="opts" [optValue]="optionValue" [previewTemplateOptionValue]="previewTemplateOptionValue" [showAnsState]="getShowAnsState" (onSelectedAnswersPreview)="onSelectedAnswersPreview($event)"></app-classify-option>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div class="row" *ngIf="!previewShow">
+            <div class="col-md-12 col-btn" style="padding-top:10px;">
+                <button class="btn btn-primary" (click)="addRows()">+</button>
+            </div>
+        </div> -->
+
+    <div
+      class="container-fluid options-row"
+      (click)="
+        clickOptionRow(); clickOptionStatus = true; clickComponentStatus = true
+      "
+    >
+      <div class="row options-row-innerdiv">
+        <ng-container *ngIf="!previewShow">
+          <div
+            *ngFor="let opt of optsEdit; let rowIndex = index"
+            class="choice-list-div"
+          >
+            <app-classify-option
+              [optData]="opt"
+              [tempData]="tempData"
+              [previewState]="previewState"
+              [optArray]="optsEdit"
+              [optValue]="selectedAnswers"
+              [showAnsState]="getShowAnsState"
+              (onContentUpdate)="onOptionsUpdate($event)"
+              (onSelectedAnswersPreview)="onSelectedAnswersPreview($event)"
+            ></app-classify-option>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="previewShow">
+          <div
+            *ngFor="let opt of optsPreview; let rowIndex = index"
+            class="choice-list-div"
+          >
+            <app-classify-option
+              [optData]="opt"
+              [previewState]="previewState"
+              [tempData]="tempData"
+              [optArray]="optsPreview"
+              [optValue]="selectedAnswers"
+              [showAnsState]="getShowAnsState"
+              (onContentUpdate)="onOptionsUpdate($event)"
+              (onSelectedAnswersPreview)="onSelectedAnswersPreview($event)"
+            ></app-classify-option>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div
+      class="correct-answer-table"
+      *ngIf="showAnsStateFlag && previewShow && correctAnsPoints < 1"
+    >
+      <h5>Correct Answer</h5>
+      <table
+        class=" table table-responsive"
+        [ngClass]="{ 'classify-preview-table': previewShow }"
+      >
+        <tr *ngFor="let row of rows; let rowIndex = index">
+          <td
+            class="classify-border-dashed cols"
+            [ngClass]="{
+              'classify-border':
+                tempData['value'] && tempData['value'].length > 0
+            }"
+            *ngFor="let option of optionValue[rowIndex]; let colIndex = index"
+          >
+            <!-- {{ option | json }} -------- -->
+            <div *ngIf="option.length > 0" class="optionComp">
+              <div *ngFor="let opt of option">
+                <!-- {{ opt }} -->
+                <app-classify-option
+                  [type]="'fib'"
+                  [optData]="getOpts(opt)"
+                  [tempData]="tempData"
+                  [previewState]="previewState"
+                  [optArray]="opts"
+                  [optValue]="selectedAnswers"
+                  [showAnsState]="getShowAnsState"
+                  (onSelectedAnswersPreview)="onSelectedAnswersPreview($event)"
+                ></app-classify-option>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<app-source-json-layout
+  (changeSourceState)="changeSourceState($event)"
+  [sourceModalOpen]="sourceModalOpen"
+  [sourceData]="sourceData"
+></app-source-json-layout>
+<app-metadata-layout
+  [metaData]="metaData"
+  (toggleSidebar)="toggleSidebar($event)"
+  [sidebarShow]="navbarOpen"
+>
+</app-metadata-layout>

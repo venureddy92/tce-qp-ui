@@ -1,0 +1,14 @@
+.upload-btn-wrapper input[type='file'] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 100%;
+  padding: 2px;
+}
+
+.modal-title,
+.modal-body {
+  color: black !important;
+}
+/*# sourceMappingURL=image-upload-modal-layout.component.css.map */

@@ -1,0 +1,21 @@
+@import 'libs/question-bank/src/lib/assets/css/common.scss';
+
+.options-label {
+  display: block;
+  overflow: hidden;
+  word-wrap: break-word;
+  // text-align: center;
+  padding: 0px 0px;
+}
+.row-title-div {
+  // border: 1px solid #ddd;
+  // border-radius: 10px;
+  min-height: 40px;
+  width: auto;
+  text-transform: capitalize;
+}
+.optDiv {
+  padding: 5px 5px;
+  word-break: break-word;
+  // max-width: 75%;
+}

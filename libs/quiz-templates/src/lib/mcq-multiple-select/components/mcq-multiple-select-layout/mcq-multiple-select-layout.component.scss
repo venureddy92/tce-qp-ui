@@ -1,0 +1,15 @@
+p {
+  color: #fff;
+  background: #4caf50;
+  padding: 1rem;
+  margin: 0;
+  margin-bottom: 0.2rem;
+  border-radius: 0.2rem;
+}
+
+.horizontal {
+  .options {
+    display: grid;
+    grid-template-columns: 150px 150px;
+  }
+}

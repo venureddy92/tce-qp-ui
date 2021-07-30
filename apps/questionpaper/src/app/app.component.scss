@@ -150,3 +150,87 @@ tece-qp-rrot{
   left: 45%;
   top:1%;
 }
+
+
+.qp-form-side-sec-hidden {
+  min-width: 50px;
+  display: block;
+  padding: 25px 0;
+  .qp-form-side-wrapper {
+    opacity: 0;
+    // transition: all 0.15s; // check qb-animation.scss
+  }
+}
+.qp-form-side-sec {    background: #22262a;
+  padding: 390px 28px 76px 54px;
+  min-width: 365px;
+  width: 0;
+  margin-top: -293px;
+  /* margin-right: -90px; */
+  position: relative;
+  overflow: hidden;
+  right: -1090px;
+  z-index: 12;
+  box-shadow: 0px 2px 30px rgb(0 0 0 / 30%);
+  .qp-form-side-wrapper {
+    opacity: 1;
+    // transition: all 1s 0.2s; // check qb-animation.scss
+  }
+}
+
+.qp-toggle-controller {
+  top: 0;
+  left: 0;
+  background: #000;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  svg {
+    top: 14px;
+  }
+}
+
+.hide-leader-line {
+  opacity: 0;
+  display: none;
+}
+
+.add-qsn-forms-sections {
+  height: calc(100vh - 100px);
+}
+
+.template{
+  top: 54px;
+  position: absolute;
+  width: 94%;
+  left: 2px;
+}
+.qp-child-template{
+  display: inline-flex;;
+}
+
+.right-side{
+    float: right;
+    width: 37px;
+    top: 101px;
+    color: white;
+    right: -1px;
+}
+
+.section-content{
+  height: 100px;
+    text-align: center;
+}
+.section-header{
+  text-align: center;
+  background-color: gray;
+  border: 8px solid black;
+  color: white;
+}
+
+.bg-sec{
+   overflow: auto;
+   margin-bottom: 6%;
+}

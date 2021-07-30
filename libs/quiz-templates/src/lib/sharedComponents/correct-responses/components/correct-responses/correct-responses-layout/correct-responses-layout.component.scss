@@ -1,0 +1,30 @@
+h6 {
+  margin-bottom: 8px;
+}
+.qb-correct-answers-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 85px;
+  overflow: auto;
+  .responseSpan {
+    padding: 0 7px 0 0;
+    border: 1px solid;
+    border-color: #ddd;
+    margin-right: 14px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 7px;
+    span:first-child {
+      background: linear-gradient(90deg, #6d71ff 0%, #248ef6 100%) !important;
+      color: #fff;
+      padding: 8px 11px;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+    span:last-child {
+      padding-left: 6px;
+    }
+  }
+}

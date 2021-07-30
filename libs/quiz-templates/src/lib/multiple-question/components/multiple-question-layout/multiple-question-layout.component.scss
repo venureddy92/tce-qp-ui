@@ -1,0 +1,335 @@
+@import 'bootstrap';
+@import '../../../../../apps/tce-app/src/assets/themes/common.scss';
+.mb-15 {
+  margin-bottom: 15px;
+}
+input {
+  width: 100%;
+  margin-right: -3px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  min-height: 20px;
+  padding: 7px 5px;
+  outline: 0 !important;
+}
+.mb-25 {
+  margin-bottom: 25px;
+}
+.pd-0 {
+  padding: 0px;
+}
+p {
+  color: #fff;
+  background: #4caf50;
+  padding: 1rem;
+  margin: 0;
+  margin-bottom: 0.2rem;
+  border-radius: 0.2rem;
+}
+.multi-qtns-col-div {
+  align-items: center;
+  // padding-right:15px !important;
+  .icon-div {
+    position: absolute;
+    top: -15px;
+    right: 15px;
+    padding: 0 5px;
+    background: #fff;
+    font-size: 20px;
+  }
+}
+.option-row-div {
+  border: 1px solid #dddddd;
+  margin: 2px;
+  margin-bottom: 25px;
+  padding: 0px 0px;
+  padding-top: 20px;
+  margin-top: -5px;
+  border-top: 0;
+}
+.col-8-div {
+  border-bottom: 1px solid #f0f0f0;
+  h6 {
+    font-weight: normal;
+    font-size: 16px;
+    margin-bottom: 15px;
+    // padding: 0px 15px;
+  }
+}
+.col-8-div:last-child {
+  border-bottom: 0px;
+}
+.optn-col-4 {
+  align-items: center;
+}
+.add-btn {
+  float: right;
+  background: $white !important;
+}
+.add-btn:hover {
+  color: $blue;
+}
+.pointer {
+  color: $red;
+}
+.drag-icon {
+  color: $blue;
+}
+.quizDiv {
+  margin-left: 5px;
+}
+// .correct {
+//   border: 1px solid green;
+// }
+// .incorrect {
+//   border: 1px solid red;
+// }
+.option-div {
+  position: relative;
+  min-height: 40px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 20px 40px;
+  .correct-div,
+  .incorrect-div {
+    display: none;
+  }
+}
+.option-correct-div {
+  @extend .option-div;
+  border: 1px solid green;
+  .correct-div {
+    font-size: 13px;
+    color: green;
+    position: absolute;
+    display: block;
+    top: -10px;
+    left: 20px;
+    padding: 0;
+    background: #fff;
+    font-weight: 700;
+  }
+}
+.option-incorrect-div {
+  @extend .option-div;
+  border: 1px solid red;
+  .incorrect-div {
+    font-size: 13px;
+    color: red;
+    position: absolute;
+    display: block;
+    top: -10px;
+    left: 20px;
+    padding: 0;
+    background: #fff;
+    font-weight: 700;
+  }
+}
+.correct {
+  border: 1px solid green !important;
+}
+.incorrect {
+  border: 1px solid red !important;
+}
+.gButtons {
+  padding-left: 10%;
+}
+.qstem {
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  @extend .col-md-8, .pd-0;
+  @extend .col-sm-12, .pd-0;
+  @extend .col-12;
+}
+.q-image {
+  @extend .col-md-6;
+  @extend .col-sm-6;
+  @extend .col-12;
+}
+.add-opt-btn {
+  width: 40%;
+  margin-top: -3px;
+}
+.shuffle-div-row,
+.pointsDiv {
+  display: flex;
+  justify-content: space-between;
+}
+.shuffle-div-row {
+  background: #f0f0f0;
+  padding: 20px 50px 12px 5px;
+}
+.vertical {
+  position: relative;
+  .mobile-image-div {
+    display: table;
+    margin: 0 auto;
+    padding-bottom: 25px;
+  }
+  // padding:2%;
+  .optionsDiv {
+    @extend .col-md-8;
+    @extend .col-sm-12;
+    @extend .col-8;
+    .options {
+      @extend .col-md-12;
+      @extend .col-sm-12;
+      @extend .col-12;
+    }
+  }
+  .o-image {
+    @extend .col-md-4;
+    @extend .col-sm-4;
+    @extend .col-6;
+  }
+  .pointsDiv {
+    @extend .col-md-3;
+    @extend .col-sm-4;
+    @extend .col-4;
+    .add-opt-btn {
+      width: 55%;
+      margin-top: -3px;
+    }
+  }
+}
+.horizontal {
+  position: relative;
+  .mobile-image-div {
+    display: table;
+    margin: 0 auto;
+    padding-bottom: 25px;
+  }
+  // padding:2%;
+  .optionsDiv {
+    @extend .col-md-12;
+    @extend .col-sm-12;
+    @extend .col-12;
+    @extend .order-last;
+    .options {
+      @extend .col-md-3;
+      @extend .col-sm-3;
+      @extend .col-12;
+    }
+  }
+  .qstem {
+    @extend .col-md-12, .pd-0;
+  }
+  .o-image {
+    @extend .col-md-6;
+    @extend .col-sm-6;
+    @extend .col-6;
+    display: flex;
+  }
+  .pointsDiv {
+    @extend .col-md-3;
+    @extend .col-sm-3;
+    @extend .col-3;
+  }
+}
+.grid {
+  position: relative;
+  .mobile-image-div {
+    display: table;
+    margin: 0 auto;
+    padding-bottom: 25px;
+  }
+  // padding:2%;
+  .optionsDiv {
+    @extend .col-md-12;
+    @extend .col-sm-12;
+    @extend .col-12;
+    @extend .order-last;
+    .options {
+      @extend .col-md-6;
+      @extend .col-sm-6;
+      @extend .col-12;
+    }
+  }
+  .qstem {
+    @extend .col-md-12, .pd-0;
+  }
+  .o-image {
+    @extend .col-md-4;
+    @extend .col-sm-4;
+    @extend .col-6;
+    display: flex;
+  }
+  .pointsDiv {
+    @extend .col-md-3;
+    @extend .col-sm-3;
+    @extend .col-3;
+  }
+}
+.mobile {
+  @extend .col-md-4;
+  @extend .offset-md-4;
+  -webkit-box-shadow: 0px 0px 27px -22px rgba(0, 0, 0, 0.72);
+  -moz-box-shadow: 0px 0px 27px -22px rgba(0, 0, 0, 0.72);
+  box-shadow: 0px 0px 27px -22px rgba(0, 0, 0, 0.72);
+  // border: 1px solid;
+  // border-radius: 10px;
+  .mobile-image-div {
+    display: table;
+    margin: 0 auto;
+    padding-bottom: 25px;
+  }
+  // padding: 5px;
+  .qstem {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    @extend .col-md-12, .pd-0;
+  }
+  .optionsDiv {
+    @extend .col-md-12;
+    @extend .order-last;
+    // padding-left: 20px;
+    .options {
+      @extend .col-md-6;
+      @extend .col-12;
+      // margin-bottom: 10px;
+    }
+  }
+  .o-image {
+    @extend .col-md-12;
+  }
+  .pointsDiv {
+    @extend .col-md-12;
+    @extend .col-sm-12;
+    @extend .col-12;
+    margin-top: 15px;
+  }
+}
+.mobile-ls {
+  @extend .col-md-8;
+  @extend .offset-md-2;
+  -webkit-box-shadow: 0px 0px 27px -22px rgba(0, 0, 0, 0.72);
+  -moz-box-shadow: 0px 0px 27px -22px rgba(0, 0, 0, 0.72);
+  box-shadow: 0px 0px 27px -22px rgba(0, 0, 0, 0.72);
+  padding: 10px;
+  .mobile-image-div {
+    display: table;
+    margin: 0 auto;
+    padding-bottom: 25px;
+  }
+  .qstem {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    @extend .col-md-12, .pd-0;
+  }
+  .optionsDiv {
+    @extend .col-md-12;
+    @extend .order-last;
+    padding-left: 20px;
+    .options {
+      @extend .col-md-6;
+    }
+  }
+  .o-image {
+    @extend .col-md-6;
+  }
+  .shuffle-div-row {
+    background: #f0f0f0;
+    padding: 20px 130px 12px 0;
+  }
+}

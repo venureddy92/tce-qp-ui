@@ -1,0 +1,111 @@
+html,
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.grab {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.mar10-r {
+  margin-right: 10px;
+}
+
+.marb-35 {
+  margin-bottom: 35px;
+}
+
+.mar40-tb {
+  margin: 40px 0;
+}
+
+.padd20-all {
+  padding: 20px;
+}
+
+.light {
+  background: #fff;
+  color: #000 !important;
+}
+
+.light .btn {
+  color: #0069d9;
+  background-color: gainsboro;
+  border-color: #0069d9;
+}
+
+.light .remove-icon {
+  color: red;
+}
+
+.dark {
+  background: #fff;
+  color: #000 !important;
+}
+
+.dark .btn {
+  color: #0069d9;
+  background-color: gainsboro;
+  border-color: #0069d9;
+}
+
+.dark .remove-icon {
+  color: red;
+}
+
+.fib-answers-div {
+  border-bottom: 1px solid #e7e7e7;
+  border-top: 1px solid #e7e7e7;
+  padding-top: 20px;
+  margin-bottom: 15px;
+}
+
+input {
+  margin-bottom: 10px !important;
+  margin-right: -3px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  min-height: 20px;
+  padding: 0px 5px;
+  outline: 0px !important;
+}
+
+.correct-div:after {
+  content: 'CORRECT';
+  position: absolute;
+  top: -11px;
+  left: 12px;
+  font-size: 10px;
+  color: green;
+  background: #fff;
+  padding: 0px 2px;
+}
+
+.incorrect-div:after {
+  content: 'INCORRECT';
+  position: absolute;
+  top: -11px;
+  left: 12px;
+  font-size: 10px;
+  color: red;
+  background: #fff;
+  padding: 0px 2px;
+}
+
+.correct {
+  border: 2px solid green;
+}
+
+.incorrect {
+  border: 2px solid red;
+}
+/*# sourceMappingURL=fib-set-correct-ans-options-layout.component.css.map */

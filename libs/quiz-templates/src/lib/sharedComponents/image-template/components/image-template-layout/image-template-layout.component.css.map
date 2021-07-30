@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,GAAG,CAAA;EACD,SAAS,EAAE,IAAI;EACf,UAAU,EAAE,IAAI;CACjB",
+    "sources": [
+        "image-template-layout.component.scss"
+    ],
+    "names": [],
+    "file": "image-template-layout.component.css"
+}

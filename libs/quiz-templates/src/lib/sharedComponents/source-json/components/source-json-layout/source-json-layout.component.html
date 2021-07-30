@@ -1,0 +1,18 @@
+<ngx-smart-modal #sourceModal identifier="sourceModal" (onClose)="closeModal()">
+  <div class="modal-header">
+    <h4 class="modal-title">Source</h4>
+  </div>
+  <div class="modal-body adjust-vh">
+    <div class="row">
+      <div class="form-group col-md-12">
+        <textarea rows="20" cols="40" [(ngModel)]="sourceInput"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="updateSource()">
+      Apply
+    </button>
+    <button (click)="sourceModal.close()" class="btn btn-default">Close</button>
+  </div>
+</ngx-smart-modal>

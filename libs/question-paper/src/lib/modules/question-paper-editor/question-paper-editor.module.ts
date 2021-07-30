@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { QpEditorComponent } from './components/qp-editor/qp-editor.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { QuestionPaperTemplateEditiorComponent } from './components/question-paper-template-editior/question-paper-template-editior.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -11,12 +12,16 @@ import { QuestionPaperTemplateEditiorComponent } from './components/question-pap
     QuestionPaperTemplateEditiorComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[
     QpEditorComponent,
     QuestionPaperTemplateEditiorComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class QuestionPaperEditorModule { }

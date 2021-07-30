@@ -1,0 +1,23 @@
+<div *ngIf="sidebarShow" class="metaData">
+  <button class="btn btn-outline-primary" (click)="hideSidebar()">
+    <i class="fa fa-arrow-right"></i>
+  </button>
+  <br /><br />
+
+  Name: {{ metaData.name }}<br />
+  template_reference: {{ metaData.template_reference }}
+
+  <!-- <tag-input [(ngModel)]='item' autocompleteItems = "items" ></tag-input> -->
+  <!-- <tag-input [ngModel]="item">
+    <tag-input-dropdown [autocompleteItems]="[{display: 'Item1', value: 0}, 'item2', 'item3']">
+    </tag-input-dropdown>
+  </tag-input> -->
+
+  <ng-select
+    [items]="subjects"
+    [addTag]="true"
+    multiple="true"
+    [(ngModel)]="subjects"
+  >
+  </ng-select>
+</div>

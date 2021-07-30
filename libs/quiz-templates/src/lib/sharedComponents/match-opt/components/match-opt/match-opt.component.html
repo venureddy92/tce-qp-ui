@@ -1,0 +1,40 @@
+<div
+  class="row qb-match-opt-div p-0"
+  [ngClass]="{
+    original: getOptionClass() == 'original' && mode,
+    correct: getOptionClass() == 'correct' && mode,
+    incorrect: getOptionClass() == 'incorrect' && mode,
+    'ql-editor': mode
+  }"
+>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
+    <div [hidden]="!mode">
+      <label
+        class="qb-options-label"
+        #myContent
+        (click)="onContainerClick()"
+      ></label>
+      <!-- <label
+        class="qb-options-label"
+        #myContent
+        *ngIf="!optData.label"
+        (click)="onContainerClick()"
+        >&nbsp;&nbsp;&nbsp;&nbsp;</label
+      > -->
+      <!-- <i cdkDragHandle [hidden]="quillLoaded" class="fa fa-bars drag-icon"></i> -->
+    </div>
+    <div [hidden]="mode">
+      <ng-template #quillContainer></ng-template>
+    </div>
+  </div>
+  <span *ngIf="mode" class="pull-right qb-match-opt-span-div">
+    <i
+      class="fa fa-check"
+      *ngIf="getOptionClass() == 'correct' && showCorrectAnswer"
+    ></i>
+    <i
+      class="fa fa-times"
+      *ngIf="getOptionClass() == 'incorrect' && showCorrectAnswer"
+    ></i>
+  </span>
+</div>

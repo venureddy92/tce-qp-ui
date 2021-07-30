@@ -1,0 +1,33 @@
+@import 'libs/question-bank/src/lib/assets/css/common.scss';
+
+textarea {
+  width: 100%;
+}
+span {
+  position: relative;
+}
+
+.span-text {
+  background-color: #d3d3d3;
+}
+
+label {
+  position: relative;
+  border: 1px solid $light-white-one;
+  padding: 0px 10px;
+  padding-top: 15px;
+  border-radius: 10px;
+}
+::ng-deep .ql-editor.ql-blank::before,
+::ng-deep .ql-editor p{
+  font-size: 16px!important;
+}
+
+::ng-deep .ql-bubble .ql-editor code{
+font-size: 16px!important;
+    padding: 5px!important;
+    height: auto!important;
+    line-height: 22px;
+    margin: 0 5px;
+    border-radius: 5px!important;
+}

@@ -1,0 +1,17 @@
+<div *ngIf="!mode" class="correct-points">
+  <label
+    for="points"
+    [hidden]="templateType == 'plain-text' || templateType == 'rich-text'"
+    >Point(s):</label
+  >
+  <input
+    type="text"
+    id="points"
+    class="form-control shadow-none"
+    id="points"
+    [(ngModel)]="points"
+    (ngModelChange)="getPointsValue($event)"
+    mask="000000"
+    placeholder="{{ placeholder }}"
+  />
+</div>

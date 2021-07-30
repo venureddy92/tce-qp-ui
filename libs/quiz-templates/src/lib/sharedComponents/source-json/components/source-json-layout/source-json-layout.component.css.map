@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,QAAQ,CAAA;EACJ,UAAU,EAAE,mCAAmC;EAC/C,qBAAqB,EAAE,KAAK;EAC5B,iBAAiB,EAAE,SAAS;EAC5B,YAAY,EAAE,IAAI;EAClB,WAAW,EAAE,IAAI;EACjB,YAAY,EAAC,IAAI;CACpB;;AAED,AAAA,YAAY,CAAA;EACR,KAAK,EAAE,gBAAgB;CAC1B",
+    "sources": [
+        "source-json-layout.component.scss"
+    ],
+    "names": [],
+    "file": "source-json-layout.component.css"
+}

@@ -1,0 +1,203 @@
+<div
+  [class]="layout"
+  [ngClass]="{
+    mobile: deviceView == 'mobile',
+    'mobile-ls': deviceView == 'mobile_ls'
+  }"
+  class="container"
+>
+  <!-- <app-template-buttons-layout *ngIf="!dashboardPreviewState" [layout]="layout" [deviceView]="deviceView"
+        (saveData)="saveData()" (layoutChange)="onLayoutChange($event)" (toggleSidebar)="toggleSidebar($event)"
+        (deviceViewChange)="deviceViewChange($event)" [previewShow]="previewShow">
+    </app-template-buttons-layout> -->
+
+  <div class="main-div">
+    <br />
+    <h5 *ngIf="this.dashboardPreviewState">{{ templateName }}</h5>
+    <br />
+    <div class="row">
+      <div class="qstem">
+        <dc-qstem
+          [qstem]="qstem"
+          [previewState]="previewState"
+          [stemName]="'qstem'"
+          (onQstemContentUpdate)="onQstemContentUpdate($event)"
+        >
+        </dc-qstem>
+      </div>
+    </div>
+
+    <br /><br />
+    <div class="row">
+      <div class="optionsDiv" #optsContainer>
+        <div
+          *ngIf="!previewShow"
+          cdkDropList
+          cdkDropListOrientation="{{ layout }}"
+          (cdkDropListDropped)="droppedEdit($event)"
+        >
+          <!-- <div class="row"> -->
+          <div
+            cdkDrag
+            *ngFor="let ans of answers; index as oIndex"
+            class="options"
+          >
+            <div class="opt-innerdiv">
+              <match-opt
+                [optData]="ans"
+                [previewState]="previewState"
+                [inputName]="inputName"
+                [optArray]="answers"
+                [optValue]="selectedAnswers"
+                [showAnsState]="getShowAnsState"
+                (onContentUpdate)="onContentUpdate($event)"
+                (onSelectedAnswersPreview)="onSelectedAnswersPreview($event)"
+              >
+              </match-opt>
+              <div class="icon-div">
+                <i
+                  class="fa fa-trash remove-icon"
+                  [hidden]="quillLoaded"
+                  (click)="removeOption(ans)"
+                  *ngIf="!mode"
+                ></i>
+                &nbsp;&nbsp;
+
+                <i
+                  cdkDragHandle
+                  [hidden]="quillLoaded"
+                  class="fa fa-bars drag-icon"
+                ></i>
+              </div>
+            </div>
+            <br />
+          </div>
+          <!-- <dc-shuffle [inputName]="inputName" [mode]="mode" [shuffleCheck]="shuffleCheck"
+                        (onShuffleChange)="onShuffleChange($event)"></dc-shuffle> -->
+          <!-- </div> -->
+        </div>
+
+        <div *ngIf="previewShow">
+          <div class="row">
+            <div
+              class="col-md-6 col-sm-6 col-6 col-div-6 col-6-common"
+              cdkDropList
+              cdkDropListOrientation="{{ layout }}"
+              (cdkDropListDropped)="droppedPreviewLeft($event)"
+            >
+              <div
+                cdkDrag
+                *ngFor="let opt of optsPreview; let i = index"
+                class="options options-overflow"
+                (click)="getOption(i, opt, 'left')"
+              >
+                <match-opt
+                  [optData]="opt"
+                  [previewState]="previewState"
+                  [inputName]="inputName"
+                  [optArray]="opts"
+                  [optValue]="selectedAnswers"
+                  [showAnsState]="getShowAnsState"
+                  (onContentUpdate)="onContentUpdate($event)"
+                >
+                </match-opt>
+                <!-- <i cdkDragHandle [hidden]="quillLoaded" class="fa fa-bars drag-icon pull-right padding-10"></i> -->
+              </div>
+            </div>
+
+            <div
+              class="col-md-6 col-sm-6 col-6 col-sortdiv-6 col-6-common"
+              cdkDropList
+              cdkDropListOrientation="{{ layout }}"
+              (cdkDropListDropped)="droppedPreviewRight($event)"
+            >
+              <div
+                cdkDrag
+                *ngFor="let opt of answerOptions; let i = index"
+                class="options"
+                (click)="getOption(i, opt, 'right')"
+              >
+                <!-- <div *ngIf="opt.label">{{opt.label}}</div>
+                            <div *ngIf="!opt.label">&nbsp;&nbsp;</div> -->
+                <match-opt
+                  [optData]="opt"
+                  [index]="i"
+                  [previewState]="previewState"
+                  [inputName]="inputName"
+                  [optArray]="answerOptions"
+                  [optValue]="selectedAnswers"
+                  [showAnsState]="getShowAnsState"
+                  (onContentUpdate)="onContentUpdate($event)"
+                  (onSelectedAnswersPreview)="onSelectedAnswersPreview($event)"
+                >
+                </match-opt>
+                <div class="icon-div">
+                  <i
+                    cdkDragHandle
+                    [hidden]="quillLoaded"
+                    class="fa fa-bars drag-icon pull-right padding-10"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12" *ngIf="!previewShow">
+      <div class="row shuffle-div-row">
+        <dc-shuffle
+          [inputName]="inputName"
+          [mode]="mode"
+          [shuffleCheck]="shuffleCheck"
+          (onShuffleChange)="onShuffleChange($event)"
+        ></dc-shuffle>
+        <div class="pointsDiv pull-left">
+          <app-set-correct-ans-layout
+            [previewState]="previewState"
+            (pushEnteredPoints)="getPointsValue($event)"
+            [points]="points"
+          >
+          </app-set-correct-ans-layout>
+          <app-add-options-layout
+            (pushOptions)="pushOptions($event)"
+            [type]="'option'"
+            [opts]="opts"
+            [previewState]="previewState"
+            class="add-opt-btn"
+          >
+          </app-add-options-layout>
+          <div class="col-md-1 col-sm-1 col-1" *ngIf="!dashboardPreviewShow">
+            <button class="btn btn-outline-primary" (click)="editRedirect()">
+              <li class="fa fa-edit"></li></button
+            ><br />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div
+      class="col-md-12 correctResponseDiv"
+      *ngIf="previewShow && showAnsStateFlag && correctAnsPoints < 1"
+    >
+      <app-correct-responses-layout
+        [responses]="selectedAnswersData"
+      ></app-correct-responses-layout>
+    </div>
+  </div>
+</div>
+
+<app-source-json-layout
+  (changeSourceState)="changeSourceState($event)"
+  [sourceModalOpen]="sourceModalOpen"
+  [sourceData]="sourceData"
+></app-source-json-layout>
+
+<app-metadata-layout
+  [metaData]="metaData"
+  (toggleSidebar)="toggleSidebar($event)"
+  [sidebarShow]="navbarOpen"
+>
+</app-metadata-layout>

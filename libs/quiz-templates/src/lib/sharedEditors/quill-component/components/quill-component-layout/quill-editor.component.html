@@ -1,0 +1,20 @@
+<div [hidden]="templateMode">
+  <quill-editor [(ngModel)]="quillHtmlData" [modules]="modules" [placeholder]="quillConfig.placeholder"
+    (click)="clickKey($event)" (onContentChanged)="onContentChanged($event)" theme="bubble" [readOnly]="readOnly"
+    (onFocus)="onFocusInput($event)" (onBlur)="onBlur($event)" (onKeyPress)="keyPress($event)"
+    (onEditorCreated)="onEditorCreated($event)" [styles]="{ border: 'none', fontSize: '400%' }" [ngClass]="{
+      'qb-qstem-font': this.quillConfig.quillLoc == 'qstem',
+      'qb-opt-font':
+        this.quillConfig.quillLoc == 'opt' || this.quillConfig.quillLoc == null
+    }">
+  </quill-editor>
+</div>
+
+<div [hidden]="!templateMode || templateType !== 'token-highlight'">
+  <quill-editor [(ngModel)]="updateQuillData" [modules]="modules" theme="snow"
+    (onContentChanged)="previewQuillChanged($event)">
+  </quill-editor>
+</div>
+
+<app-image-upload-modal-layout [name]="quillConfig.name">
+</app-image-upload-modal-layout>

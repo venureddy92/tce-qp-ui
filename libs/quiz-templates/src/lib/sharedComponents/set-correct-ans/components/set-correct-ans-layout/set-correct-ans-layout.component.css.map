@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;IAEI;AAEJ,AAAA,eAAe,CAAA;EACX,OAAO,EAAC,IAAI;EACZ,eAAe,EAAE,QAAQ;CAS5B;;AAXD,AAGI,eAHW,CAGX,KAAK,CAAA;EACD,YAAY,EAAE,IAAI;CACrB;;AALL,AAMI,eANW,CAMX,aAAa,CAAC;EACV,KAAK,EAAE,KAAK;EACZ,YAAY,EAAE,IAAI;EAClB,UAAU,EAAE,IAAI;CACnB",
+    "sources": [
+        "set-correct-ans-layout.component.scss"
+    ],
+    "names": [],
+    "file": "set-correct-ans-layout.component.css"
+}

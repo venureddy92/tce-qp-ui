@@ -1,0 +1,16 @@
+.options-label {
+  display: block;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.optDiv {
+  min-width: 70%;
+  float: left;
+  word-break: break-word;
+}
+
+.mt20 {
+  margin-top: 20px;
+}
+/*# sourceMappingURL=row-col-titles-layout.component.css.map */
