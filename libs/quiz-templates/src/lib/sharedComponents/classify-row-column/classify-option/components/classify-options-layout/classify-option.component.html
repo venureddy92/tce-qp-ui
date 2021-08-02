@@ -1,4 +1,4 @@
-<div *ngFor="let opt of optData">
+<div *ngFor="let opt of optData; let i = index">
   <!-- {{ opt.label}} opt.selected}} -->
   <div *ngIf="optData && !optData[0].selected" class="border-black cols" (click)="onContainerClick(opt)"
     [innerHTML]="opt.label" [ngClass]="{select: getSelected(opt) == 'select'}">
@@ -6,3 +6,4 @@
     <!-- {{optData.label}} -->
     <!-- </div> -->
   </div>
+</div>

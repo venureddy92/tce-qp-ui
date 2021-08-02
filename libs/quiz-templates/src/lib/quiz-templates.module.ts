@@ -12,6 +12,7 @@ import { TokenHighlightModule } from './highlight-drawing/token-highlight/token-
 import { MatchListModule } from './match-columns/match-list/match-list.module';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NbIconModule } from '@nebular/theme';
 import { QuillToolbarModule } from './sharedComponents/quill-toolbar/quill-toolbar.module';
 import { FeedbackModule } from './sharedComponents/feedback/feedback.module';
 import { QstemModule } from './sharedComponents/qstem/qstem.module';

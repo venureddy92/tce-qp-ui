@@ -1,5 +1,5 @@
-import { QuizStimulus } from 'libs/question-bank/src/lib/question-bank/models/quiz-template/quiz-stimulus.model';
-import { QuizUI } from 'libs/question-bank/src/lib/question-bank/models/quiz-template/quiz-ui.model';
+// import { QuizStimulus } from 'libs/question-bank/src/lib/question-bank/models/quiz-template/quiz-stimulus.model';
+// import { QuizUI } from 'libs/question-bank/src/lib/question-bank/models/quiz-template/quiz-ui.model';
 
 export interface TemplateMcqOption {
   label: string;
@@ -300,7 +300,7 @@ export interface shortText {
       image: string;
       imageUrl: string;
     };
-    ui_style: QuizUI;
+    // ui_style: QuizUI;
     metadata: {
       name: string;
       template_reference: string;
@@ -339,7 +339,7 @@ export interface TemplateHotspot {
       name: string;
       template_reference: string;
     };
-    ui_style: QuizUI;
+    // ui_style: QuizUI;
   };
   type: string;
   name: string;
@@ -368,7 +368,7 @@ export interface TemplateToken {
       name: string;
       template_reference: string;
     };
-    ui_style: QuizUI;
+    // ui_style: QuizUI;
   };
   type: string;
   name: string;

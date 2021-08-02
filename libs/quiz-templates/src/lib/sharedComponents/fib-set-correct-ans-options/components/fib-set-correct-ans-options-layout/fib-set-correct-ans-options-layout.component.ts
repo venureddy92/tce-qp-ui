@@ -38,6 +38,7 @@ export class FibSetCorrectAnsOptionsLayoutComponent
   public possibleResponsesPreview: Array<Array<string>>;
 
   // @Input() public sourceState: BehaviorSubject<boolean>;
+  // @Input() public updateResponse: boolean;
   @Input() public updateResponse: BehaviorSubject<boolean>;
   @ViewChild('correctAnsContainer', { static: true }) container: ElementRef;
   public defaultHtml: any = '';
@@ -68,7 +69,7 @@ export class FibSetCorrectAnsOptionsLayoutComponent
   public responseIds: Array<any>;
   destroy$: Subject<boolean> = new Subject<boolean>();
   private listenFunc: Function;
-  private fibDragResponse = null;
+  @Input() private fibDragResponse;
   private selectedResponses = [];
   private fibDragResponseClassify: any;
 
@@ -83,13 +84,13 @@ export class FibSetCorrectAnsOptionsLayoutComponent
 
   ngOnInit() {
     // console.log('on init in set correct', this.showAnsState);
-    this.sharedComponentService
-      .getFibDragResponse()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(res => {
-        this.fibDragResponse = res;
-        // console.log('dragresponses', this.responses, res);
-      });
+    // this.sharedComponentService
+    //   .getFibDragResponse()
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe(res => {
+    //     this.fibDragResponse = res;
+    //     // console.log('dragresponses', this.responses, res);
+    //   });
 
     this.questionEdtorService
       .getResponses()
@@ -162,6 +163,9 @@ export class FibSetCorrectAnsOptionsLayoutComponent
     this.correctAnswer = this.showAnsState['selectedAnswers'];
     // });
 
+    // if (this.updateResponse) {
+    //   this.render();
+    // }
     this.updateResponse.pipe(takeUntil(this.destroy$)).subscribe(data => {
       this.render();
     });
@@ -511,13 +515,13 @@ export class FibSetCorrectAnsOptionsLayoutComponent
   }
 
   clickComp(event) {
-    console.log(
-      'this.clickedResponse 1',
-      event,
-      event.target.id,
-      this.responseIds,
-      this.fibDragResponse
-    );
+    // console.log(
+    //   'this.clickedResponse 1',
+    //   event,
+    //   event.target.id,
+    //   this.responseIds,
+    //   this.fibDragResponse
+    // );
     let divId = '';
     if (event.target.parentNode && event.target.parentNode.id) {
       divId = event.target.parentNode.id;

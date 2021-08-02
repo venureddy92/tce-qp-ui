@@ -1,3 +1,4 @@
+@import 'bootstrap';
 @import 'libs/question-bank/src/lib/assets/css/common.scss';
 
 ::ng-deep .ql-editor {
@@ -589,7 +590,7 @@ select {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
-
+  word-break: break-all;
   p {
     font-size: 16px;
   }

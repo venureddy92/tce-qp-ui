@@ -9,7 +9,9 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/question-paper"],
+          "outputs": [
+            "coverage/libs/question-paper"
+          ],
           "options": {
             "jestConfig": "libs/question-paper/jest.config.js",
             "passWithNoTests": true
@@ -25,35 +27,31 @@
           }
         }
       }
-    },   "quiz-templates": {
+    },
+    "quiz-templates": {
       "projectType": "library",
       "root": "libs/quiz-templates",
       "sourceRoot": "libs/quiz-templates/src",
-      "prefix": "tce",
+      "prefix": "tce-qp",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/quiz-templates/tsconfig.lib.json",
-              "libs/quiz-templates/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/quiz-templates/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/quiz-templates"
+          ],
           "options": {
             "jestConfig": "libs/quiz-templates/jest.config.js",
-            "tsConfig": "libs/quiz-templates/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/quiz-templates/src/test-setup.ts"
+            "passWithNoTests": true
           }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/quiz-templates/src/**/*.ts",
+              "libs/quiz-templates/src/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -65,7 +63,9 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/questionpaper",
             "index": "apps/questionpaper/src/index.html",
@@ -77,7 +77,9 @@
               "apps/questionpaper/src/favicon.ico",
               "apps/questionpaper/src/assets"
             ],
-            "styles": ["apps/questionpaper/src/styles.scss"],
+            "styles": [
+              "apps/questionpaper/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -142,7 +144,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/questionpaper"],
+          "outputs": [
+            "coverage/apps/questionpaper"
+          ],
           "options": {
             "jestConfig": "apps/questionpaper/jest.config.js",
             "passWithNoTests": true
@@ -171,7 +175,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/questionpaper-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/questionpaper-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }

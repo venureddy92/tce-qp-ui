@@ -9,22 +9,22 @@ import {
   Input,
   Output,
   EventEmitter,
-  HostListener
+  HostListener,
 } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import {
   TemplateMcqData,
-  FibTextDropdown
-} from 'libs/quiz-templates/src/lib/core/interface/quiz-player-template.interface';
+  FibTextDropdown,
+} from '../../../../core/interface/quiz-player-template.interface';
 import { SharedComponentService } from '../../../core/services/shared-component.service';
-import { QuestionEditorService } from '@tce/template-editor';
-import { QuillEditorComponent } from 'libs/quiz-templates/src/lib/sharedEditors/quill-component/components/quill-component-layout/quill-editor.component';
+import { QuestionEditorService } from '../../../core/services/question-editor.service';
+import { QuillEditorComponent } from '../../../../sharedEditors/quill-component/components/quill-component-layout/quill-editor.component';
 import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-template-markup-layout',
   templateUrl: './template-markup-layout.component.html',
-  styleUrls: ['./template-markup-layout.component.scss']
+  styleUrls: ['./template-markup-layout.component.scss'],
 })
 export class TemplateMarkupLayoutComponent implements OnInit {
   @ViewChild('quillMarkUpContainer', { static: false, read: ViewContainerRef })
@@ -79,33 +79,33 @@ export class TemplateMarkupLayoutComponent implements OnInit {
     this.questionEdtorService
       .getResponses()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(res => {
+      .subscribe((res) => {
         // console.log('responses mark', res);
         this.responses = res;
       });
     this.questionEdtorService
       .getResponseIds()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(ids => {
+      .subscribe((ids) => {
         this.responseIds = ids;
       });
     this.inputData = this.templateData;
 
-    window.addEventListener('click', e => {
+    window.addEventListener('click', (e) => {
       this.renderData();
     });
 
     this.questionEdtorService
       .getInstance()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(instance => {
+      .subscribe((instance) => {
         this.quillInstance = instance;
       });
 
     this.questionEdtorService
       .getNewResponseId()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(res => {
+      .subscribe((res) => {
         this.newResponseId = res;
       });
 
@@ -150,7 +150,7 @@ export class TemplateMarkupLayoutComponent implements OnInit {
           this.listenFunc = this.renderer.listen(
             this.elementRef.nativeElement,
             'click',
-            event => {
+            (event) => {
               this.clickComp(event);
             }
           );
@@ -207,7 +207,7 @@ export class TemplateMarkupLayoutComponent implements OnInit {
       let length = res.length - 1;
       let choice = [
         { parentId: this.newResponseId, label: 'Choice A', value: '0' },
-        { parentId: this.newResponseId, label: 'Choice B', value: '1' }
+        { parentId: this.newResponseId, label: 'Choice B', value: '1' },
       ];
       // if (this.type == 'fib-dropdown') {
       //   // this.source.data.possible_responses.splice(length, 0, choice);
@@ -282,21 +282,22 @@ export class TemplateMarkupLayoutComponent implements OnInit {
         this.comp.instance.quillConfig = {
           name: this.type,
           placeholder: 'Type the sentence here',
-          quillLoc: 'template-markup'
+          quillLoc: 'template-markup',
         };
         this.comp.instance.quillHtmlData = this.defaultHtml;
         this.comp.instance.templateType = this.templateType;
         this.comp.instance.allowResponseTag = true;
-        this.comp.instance.possibleResponses = this.source.data.possible_responses;
+        this.comp.instance.possibleResponses =
+          this.source.data.possible_responses;
         this.comp.instance.getUpdatedContent
           .pipe(takeUntil(this.destroy$))
-          .subscribe(data => {
+          .subscribe((data) => {
             console.log('updatedData ', data);
 
             let range = this.quillInstance.getSelection(true);
 
             let quillData = data;
-            let length = data.length;
+            // let length = data.length;
             // quillData = quillData.replace('<p>', '');
             // quillData = quillData.replace('</p>', '');
             // let n = quillData.split(' ');
@@ -359,7 +360,7 @@ export class TemplateMarkupLayoutComponent implements OnInit {
                 //   this.responseIds,
                 //   possibleResIds
                 // );
-                codeRef.forEach(code => {
+                codeRef.forEach((code) => {
                   codeRefIds.push(code.id);
                   // this.responses[code.id] = code.innerText;
                   // if(code.id.includes)
@@ -386,7 +387,7 @@ export class TemplateMarkupLayoutComponent implements OnInit {
                     ] != '' &&
                     this.type === 'fib-drag-drop'
                   ) {
-                    this.possibleResponses.forEach(response => {
+                    this.possibleResponses.forEach((response) => {
                       if (
                         this.source.data.validation.valid_response.value[
                           dltIndex
@@ -395,13 +396,15 @@ export class TemplateMarkupLayoutComponent implements OnInit {
                         response[0].selected = false;
                       }
                     });
-                    this.source.data.possible_responses = this.possibleResponses;
+                    this.source.data.possible_responses =
+                      this.possibleResponses;
                   } else {
                     let newResponses = [];
                     this.possibleResponses.forEach((val, index) => {
                       if (index != dltIndex) newResponses.push(val);
                     });
-                    this.source.data.possible_responses = this.possibleResponses;
+                    this.source.data.possible_responses =
+                      this.possibleResponses;
                   }
                   let newValues = [];
                   this.source.data.validation.valid_response.value.forEach(
@@ -423,7 +426,7 @@ export class TemplateMarkupLayoutComponent implements OnInit {
 
                 if (this.type === 'fib-text') {
                   this.responses = {};
-                  codeRef.forEach(code => {
+                  codeRef.forEach((code) => {
                     this.responses[code.id] = code.innerText;
                     // if(code.id.includes)
                   });
@@ -433,7 +436,7 @@ export class TemplateMarkupLayoutComponent implements OnInit {
                   let res = [];
 
                   if (codeRef[0].id) {
-                    codeRef.forEach(code => {
+                    codeRef.forEach((code) => {
                       if (code.id) {
                         res.push(this.responses[code.id]);
                       }
@@ -511,7 +514,7 @@ export class TemplateMarkupLayoutComponent implements OnInit {
                     this.source.data.validation.valid_response.value[index] =
                       codeRef[index].innerText;
                   } else {
-                    currentText = ' RESPONSE ';
+                    currentText = ` RESPONSE `;
                   }
                   // else if (this.type === 'fib-drag-drop') {
                   //   currentText = ' ';
@@ -554,7 +557,7 @@ export class TemplateMarkupLayoutComponent implements OnInit {
 
               let totalData = {
                 rdata: data,
-                response: this.source.data.possible_responses
+                response: this.source.data.possible_responses,
               };
               this.templateData = data;
               this.onContentUpdate.emit(totalData);
@@ -566,13 +569,13 @@ export class TemplateMarkupLayoutComponent implements OnInit {
 
         this.comp.instance.getIndex
           .pipe(takeUntil(this.destroy$))
-          .subscribe(index => {
+          .subscribe((index) => {
             this.indexPosition = index;
           });
 
         this.comp.instance.addTag
           .pipe(takeUntil(this.destroy$))
-          .subscribe(e => {
+          .subscribe((e) => {
             this.addTags(e);
           });
         // this.comp.addUids();
@@ -598,7 +601,7 @@ export class TemplateMarkupLayoutComponent implements OnInit {
 
   @HostListener('window:keydown', ['$event'])
   onKeyPress($event: KeyboardEvent) {
-    console.log('keydown ', $event);
+    // console.log('keydown ', $event);
     let element: any;
     if (this.selectedResponseId) {
       element = document.getElementById(this.selectedResponseId);
@@ -607,7 +610,7 @@ export class TemplateMarkupLayoutComponent implements OnInit {
       //   if(code.id === $event.target);
       // });
       // = document.getElementById(this.selectedResponseId);
-      console.log('element ', element);
+      // console.log('element ', element);
     }
     if (($event.ctrlKey || $event.metaKey) && $event.code === 'KeyC')
       console.log('CTRL + C');

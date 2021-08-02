@@ -149,7 +149,7 @@ export class ClassifyOptionComponent implements OnInit, AfterViewInit {
     // this.onContentUpdate.emit(value);
     // console.log('container ', value);
     this.fibDragResponse = value;
-    this.sharedComponentService.setFibDragResponse(value);
+    // this.sharedComponentService.setFibDragResponse(value);
   }
 
   count: 0;

@@ -17,7 +17,7 @@
           <div class="qb-qstem m-0 px-2 pb-2">
             <div class="d-flex align-items-center">
               <div *ngIf="qstem['image'] || this.questionImage" class="qb-qstem-img position-relative">
-                <img [src]="loadQuestionImage()" #qstemImgRef />
+                <img [hidden]="!loadedImg" [src]="loadQuestionImage()" #qstemImgRef />
                 <div *ngIf="!previewShow">
                   <div class="qb-adjust-img-size" (click)="openImgSizes = !openImgSizes">
                     <span id="imageResize" class="position-absolute">
@@ -130,28 +130,29 @@
               <h6 class="heading" *ngIf="templateMarkUpData && !previewShow">Set Correct Answer(s)</h6>
               <h6 class="heading" *ngIf="templateMarkUpData && previewShow">Select Correct Answer(s)</h6>
               <app-fib-set-correct-ans-options-layout [possibleResponses]="possibleResponses"
-                (possibleResPreviewEmitter)="updatePreviewRes($event)" (allowSubmit)="allowSubmitFunc($event)"
-                [updateResponse]="updateResponse" (pushSelectedAns)="getSelectedAns($event)"
-                [showAnsState]="getShowAnsState" (correctPoints)="correctPoints($event)" [type]="templateType"
-                [templateMarkUpData]="templateMarkUpData" [sourceData]="sourceData" [previewState]="previewState"
-                [inputName]="inputName">
+                [fibDragResponse]="fibDragResponse" (possibleResPreviewEmitter)="updatePreviewRes($event)"
+                (allowSubmit)="allowSubmitFunc($event)" [updateResponse]="updateResponse"
+                (pushSelectedAns)="getSelectedAns($event)" [showAnsState]="getShowAnsState"
+                (correctPoints)="correctPoints($event)" [type]="templateType" [templateMarkUpData]="templateMarkUpData"
+                [sourceData]="sourceData" [previewState]="previewState" [inputName]="inputName">
               </app-fib-set-correct-ans-options-layout>
             </div>
             <div class="col-md-12 responsesDiv" id="responsesDiv"
               *ngIf="templateType === 'fib-drag-drop' && possibleResponses.length>0" (click)="classifyClick($event)">
               <!-- <div class="qb-options-row" > -->
               <div *ngIf="!previewShow" class="items">
-                <div *ngFor="let response of possibleResponses" (click)="clickOpt(response)">
+                <div *ngFor="let response of possibleResponses; let i= index">
+
                   <app-classify-option [totalOPTData]="templateData" [optData]="response"
-                    (onContentUpdate)="onResponseClick($event)">
+                    (click)="onResponseClick(response[0])">
                   </app-classify-option>
 
                 </div>
               </div>
               <div *ngIf="previewShow" class="items">
-                <div *ngFor="let response of possibleResponsesPreview" (click)="clickOpt(response)">
+                <div *ngFor="let response of possibleResponsesPreview">
                   <app-classify-option [totalOPTData]="templateData" [optData]="response"
-                    (onContentUpdate)="onResponseClick($event)">
+                    (click)="onResponseClick(response[0])">
                   </app-classify-option>
 
                 </div>

@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@tce-qp/question-paper": ["libs/question-paper/src/index.ts"]
+      "@tce-qp/question-paper": ["libs/question-paper/src/index.ts"],
+      "@tce-qp/quiz-templates": ["libs/quiz-templates/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

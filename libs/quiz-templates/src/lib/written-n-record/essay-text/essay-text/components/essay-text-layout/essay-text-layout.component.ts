@@ -7,24 +7,24 @@ import {
   Renderer2,
   ViewChild,
   ElementRef,
-  ChangeDetectorRef
+  ChangeDetectorRef,
 } from '@angular/core';
 // import { shortText } from 'libs/quiz-player-templates/src/core/interface/quiz-player-template.interface';
-import { shortText } from 'libs/quiz-templates/src/lib/core/interface/quiz-player-template.interface';
+import { shortText } from '../../../../../core/interface/quiz-player-template.interface';
 
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { EventEmitter } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 // import { SharedComponentService } from 'libs/quiz-player-templates/src/sharedComponents/core/services/shared-component.service';
-import { SharedComponentService } from 'libs/quiz-templates/src/lib/sharedComponents/core/services/shared-component.service';
-import { QuestionEditorService } from '@tce/template-editor';
+import { SharedComponentService } from '../../../../../sharedComponents/core/services/shared-component.service';
+import { QuestionEditorService } from '../../../../../sharedComponents/core/services/question-editor.service';
 
 // import { start } from 'repl';
 
 @Component({
   selector: 'app-essay-text-layout',
   templateUrl: './essay-text-layout.component.html',
-  styleUrls: ['./essay-text-layout.component.scss']
+  styleUrls: ['./essay-text-layout.component.scss'],
 })
 export class EssayTextLayoutComponent implements OnInit {
   @Input() public templateData: shortText;
@@ -37,17 +37,14 @@ export class EssayTextLayoutComponent implements OnInit {
   @Output() public showAnswers = new EventEmitter();
   @Output() public getAnswers = new EventEmitter();
   @Output() public updatePoints = new EventEmitter();
-  @Output() public editQuestion: BehaviorSubject<object> = new BehaviorSubject<
-    object
-  >({});
+  @Output() public editQuestion: BehaviorSubject<object> =
+    new BehaviorSubject<object>({});
   private showAnsSubscription: Subscription;
 
-  public sourceModalOpen: BehaviorSubject<boolean> = new BehaviorSubject<
-    boolean
-  >(true);
-  public updateResponse: BehaviorSubject<boolean> = new BehaviorSubject<
-    boolean
-  >(false);
+  public sourceModalOpen: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(true);
+  public updateResponse: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
   public points: number;
   public previewShow: boolean = false;
   public sourceData: shortText;
@@ -119,6 +116,7 @@ export class EssayTextLayoutComponent implements OnInit {
   public stemImgMode: string; // by default medium
   private qstemDataSubscription: Subscription;
   public qstemData: string = '';
+  loadedImg: boolean;
 
   constructor(
     private sharedComponentService: SharedComponentService,
@@ -135,25 +133,25 @@ export class EssayTextLayoutComponent implements OnInit {
         name: 'underline',
         icon: 'fa fa-underline',
         selected: true,
-        title: 'Underline'
+        title: 'Underline',
       },
       {
         name: 'strike',
         icon: 'fa fa-strikethrough',
         selected: true,
-        title: 'Strike'
+        title: 'Strike',
       },
       {
         name: 'blockquote',
         icon: 'fa fa-quote-left',
         selected: false,
-        title: 'Blockquote'
+        title: 'Blockquote',
       },
       {
         name: 'code-block',
         icon: 'fa fa-code',
         selected: false,
-        title: 'Code-Block'
+        title: 'Code-Block',
       },
       // { name: { header: 1 }, icon: 'fa fa-header', selected: false },
       // { name: { header: 2 }, icon: 'fa fa-header', selected: false },
@@ -161,56 +159,56 @@ export class EssayTextLayoutComponent implements OnInit {
         name: { list: 'ordered' },
         icon: 'fa fa-list',
         selected: false,
-        title: 'Bullet List'
+        title: 'Bullet List',
       },
       {
         name: { list: 'bullet' },
         icon: 'fa fa-list-ol',
         selected: false,
-        title: 'Numbered List'
+        title: 'Numbered List',
       },
       {
         name: { script: 'sub' },
         icon: 'fa fa-subscript',
         selected: false,
-        title: 'Subscript'
+        title: 'Subscript',
       },
       {
         name: { script: 'super' },
         icon: 'fa fa-superscript',
         selected: false,
-        title: 'Superscript'
+        title: 'Superscript',
       },
       {
         name: { indent: '-1' },
         icon: 'fa fa-outdent',
         selected: false,
-        title: 'Decrease indent'
+        title: 'Decrease indent',
       },
       {
         name: { indent: '+1' },
         icon: 'fa fa-indent ',
         selected: false,
-        title: 'Increase indent'
+        title: 'Increase indent',
       },
       {
         name: { direction: 'ltr' },
         icon: 'fa fa-bars',
         selected: false,
-        title: 'Text direction from left to right'
+        title: 'Text direction from left to right',
       },
       {
         name: { direction: 'rtl' },
         icon: 'fa fa-bars',
         selected: false,
-        title: 'Text direction from right to left'
+        title: 'Text direction from right to left',
       },
       {
         name: { align: [] },
         icon: 'fa fa-align-left',
         selected: false,
-        title: 'Alignment'
-      }
+        title: 'Alignment',
+      },
       // class="fa "
       // [
       //   { list: 'ordered', selected: false },
@@ -224,7 +222,7 @@ export class EssayTextLayoutComponent implements OnInit {
 
     if (this.dashboardPreviewState) {
       this.dashboardPreviewSubscription = this.dashboardPreviewState.subscribe(
-        state => {
+        (state) => {
           this.dashboardPreviewShow = state;
         }
       );
@@ -255,23 +253,23 @@ export class EssayTextLayoutComponent implements OnInit {
 
     this.previewSubscription = this.questionEditorService
       .getPreviewState()
-      .subscribe(state => {
+      .subscribe((state) => {
         this.globalPreviewState = state;
         //console.log('global ', this.globalPreviewState);
       });
     this.showAnsState = this.questionEditorService
       .getSubmitAnsShow()
-      .subscribe(state => {
+      .subscribe((state) => {
         this.showAnsStateFlag = state;
         //console.log('showAnsStateFlag ', this.showAnsStateFlag);
       });
     this.quillInstanceSubscription = this.questionEditorService
       .getInstance()
-      .subscribe(instance => {
+      .subscribe((instance) => {
         this.quillInstance = instance;
       });
 
-    this.sharedComponentService.getImageData$.subscribe(image => {
+    this.sharedComponentService.getImageData$.subscribe((image) => {
       //console.log('file in ', image);
       if (image) {
         this.uploadImageName = image['fileName'];
@@ -307,7 +305,7 @@ export class EssayTextLayoutComponent implements OnInit {
   initState() {
     this.qstemDataSubscription = this.questionEditorService
       .getQstem()
-      .subscribe(stem => {
+      .subscribe((stem) => {
         if (stem && stem != this.qstemData) {
           this.qstemData = stem;
           this.templateData.data.stimulus.label = this.qstemData;
@@ -326,19 +324,21 @@ export class EssayTextLayoutComponent implements OnInit {
       placeholder: 'Compose The Question...',
       imageUrl: this.templateData.data.stimulus.imageUrl,
       image: this.templateData.data.stimulus.image,
-      imgMode: 'medium'
+      imgMode: 'medium',
     };
     this.previewStem = {
       text: '',
-      value: ''
+      value: '',
     };
     this.sourceData = this.templateData as shortText;
     //console.log('SData: ', this.sourceData, this.qstem);
     if (this.templateType == 'short-text') {
-      this.templateValue = this.templateData.data.validation.valid_response.value;
+      this.templateValue =
+        this.templateData.data.validation.valid_response.value;
       this.textValue = this.templateValue;
       this.selectedAnswer = [this.templateValue];
-      this.matchType = this.templateData.data.validation.valid_response.matching_rule;
+      this.matchType =
+        this.templateData.data.validation.valid_response.matching_rule;
       this.points = this.templateData.data.validation.valid_response.score;
       //console.log('essay text tempData ', this.qstem, this.sampleAnswerData);
     } else if (this.templateType == 'plain-text') {
@@ -348,7 +348,7 @@ export class EssayTextLayoutComponent implements OnInit {
       this.wordLimit = this.templateData.max_length;
       this.visibleLimit = this.templateData.show_word_limit;
       this.sampleAnswerData = {
-        feedbackInline: this.templateData.sample_answer
+        feedbackInline: this.templateData.sample_answer,
       };
     } else {
       this.showWordCount = this.templateData.show_word_count;
@@ -362,7 +362,7 @@ export class EssayTextLayoutComponent implements OnInit {
     this.getShowAnsState.next({
       state: this.showAnsStateFlag,
       points: this.points,
-      correctAnsPoints: this.correctAnsPoints
+      correctAnsPoints: this.correctAnsPoints,
     });
     // this.getOptionClass();
   }
@@ -370,7 +370,7 @@ export class EssayTextLayoutComponent implements OnInit {
   emitPoints() {
     this.showAnswers.emit({
       points: this.points,
-      correctAnsPoints: this.correctAnsPoints
+      correctAnsPoints: this.correctAnsPoints,
     });
   }
 
@@ -458,7 +458,7 @@ export class EssayTextLayoutComponent implements OnInit {
     this.renderer.setProperty(div, 'innerHTML', evt);
     let newVar = div.textContent || div.innerText || '';
     //console.log('NEwVar: ', newVar);
-    var wordCount = newVar.split(' ').filter(function(str) {
+    var wordCount = newVar.split(' ').filter(function (str) {
       return str != '';
     });
     //@ts-ignore
@@ -549,7 +549,7 @@ export class EssayTextLayoutComponent implements OnInit {
     this.wordLength = 0;
     let textIndex = evt.target.selectionStart;
     this.index = textIndex;
-    var wordCount = this.writtenText.split(' ').filter(function(str) {
+    var wordCount = this.writtenText.split(' ').filter(function (str) {
       return str != '';
     });
     //@ts-ignore
@@ -655,6 +655,7 @@ export class EssayTextLayoutComponent implements OnInit {
       );
       setTimeout(() => {
         this.calculateOptionsDivHeight();
+        this.loadedImg = true;
       }, 2000);
     }
   }

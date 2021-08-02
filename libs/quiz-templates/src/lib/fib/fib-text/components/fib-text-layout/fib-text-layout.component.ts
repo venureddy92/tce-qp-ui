@@ -42,6 +42,7 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
     object
   >({});
   private showAnsSubscription: Subscription;
+  // public updateResponse: boolean;
   public updateResponse: BehaviorSubject<boolean> = new BehaviorSubject<
     boolean
   >(false);
@@ -114,6 +115,7 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
   public uploadImageFolder: string;
   public stemImgMode: string;
   uploadedImage: boolean = false;
+  loadedImg: boolean;
 
   constructor(
     public renderer: Renderer2,
@@ -185,6 +187,16 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
         // console.log('qstem from ser ', stem);
         this.qstemData = stem;
       });
+    this.questionEditorService
+      .getTemplateText()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(text => {
+        console.log('tempText ', text);
+        if (text != '') {
+          this.templateMarkUpData = text;
+          this.templateData.data.template = this.templateMarkUpData;
+        }
+      });
     this.initState();
     this.emitAns();
     // this.tempMarkup.renderData();
@@ -239,15 +251,15 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
     //     this.showAnsStateFlag = state;
     //     // console.log('showAnsStateFlag ', this.showAnsStateFlag);
     //   });
-    this.sharedComponentService
-      .getFibDragResponse()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(response => {
-        // console.log('fibDragResponse sub ', response);
+    // this.sharedComponentService
+    //   .getFibDragResponse()
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe(response => {
+    //     // console.log('fibDragResponse sub ', response);
 
-        this.fibDragResponse = response;
-        // console.log('showAnsStateFlag ', this.showAnsStateFlag);
-      });
+    //     this.fibDragResponse = response;
+    //     // console.log('showAnsStateFlag ', this.showAnsStateFlag);
+    //   });
     setTimeout(() => {
       this.getImage(this.templateData.data.stimulus.imgMode);
       this.calculateOptionsDivHeight();
@@ -307,7 +319,7 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
     this.selectedAnswers = this.templateData.data.validation.valid_response.value;
     this.templateName = this.templateData.name;
     this.templateMainType = this.templateData.data.type;
-
+    this.questionEditorService.updateTemplateText(this.templateMarkUpData);
     if (
       this.templateType == 'fib-dropdown' ||
       this.templateType == 'fib-drag-drop'
@@ -337,6 +349,8 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
         });
     }
     if (this.templateType != 'fib-text') this.labels();
+    // if (this.tempMarkup)
+    // this.tempMarkup.loadQuill();
   }
 
   labels() {
@@ -374,7 +388,7 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
   //Output function which retrieves the source json from the app-source-json-layout component
   changeSourceState(sourceJson) {
     this.templateData = sourceJson as FibTextDropdown;
-    // console.log('SOUrceData: ', this.templateData);
+    console.log('SOUrceData: ', this.templateData);
     let oldValues = this.templateData.data.validation.valid_response.value;
     let newValues = sourceJson.data.validation.valid_response.value;
     if (
@@ -386,6 +400,10 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
     this.selectedAnswers = sourceJson.data.validation.valid_response.value;
     // this.labels();
     this.templateData = sourceJson as FibTextDropdown;
+    this.questionEditorService.updateTemplateText(
+      this.templateData.data.template
+    );
+    // this.updateResponse = true;
     this.updateResponse.next(true);
     this.initState();
     this.sourceStateChange.emit(false);
@@ -418,6 +436,7 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
       event.currentIndex
     );
     this.sourceData = this.templateData;
+    // this.updateResponse = true;
     this.updateResponse.next(true);
     this.initState();
 
@@ -461,6 +480,7 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
       this.templateData.data.possible_responses = this.possibleResponses;
     this.sourceData = this.templateData;
     this.initState();
+    // this.updateResponse = true;
     this.updateResponse.next(true);
     // console.log('This is source data ', this.sourceData);
   }
@@ -545,6 +565,7 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
       value: incrementedVal
     });
     // }
+    // this.updateResponse = true;
     this.updateResponse.next(true);
   }
 
@@ -584,6 +605,7 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
     this.sourceData = this.templateData;
     this.initState();
     // console.log('this.possibleResponses: ', this.possibleResponses);
+    // this.updateResponse = true;
     this.updateResponse.next(true);
   }
 
@@ -596,6 +618,7 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
   onContentUpdate(updatedContent) {
     // console.log('updated: ', updatedContent);
     this.templateMarkUpData = updatedContent.rdata;
+    this.questionEditorService.updateTemplateText(this.templateMarkUpData);
     this.templateData.data.template = this.templateMarkUpData;
     this.templateData.data.possible_responses = updatedContent.response;
     this.possibleResponses = updatedContent.response;
@@ -635,8 +658,9 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
 
   //Function to retrieve the updated value from the dc-opt component and update the source json
   onResponseClick(updatedContent: string): void {
-    this.clickedResponse = updatedContent;
-    // console.log('this.clickedResponse ', this.clickedResponse);
+    this.fibDragResponse = updatedContent;
+    // this.clickedResponse = updatedContent;
+    console.log('this.clickedResponse ', updatedContent);
   }
 
   //Function to get updated content from the dc-qstem
@@ -661,6 +685,7 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
       event.previousIndex,
       event.currentIndex
     );
+    // this.updateResponse = true;
     this.updateResponse.next(true);
   }
 
@@ -695,6 +720,17 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
     // console.log('myNode ', my_node);
 
     let quillData = this.quillInstance.root.innerHTML;
+    let range1 = this.quillInstance.getSelection(true);
+    // let subStr = this.quillInstance.root.innerHTML.replace('<p>', '');
+    let subString1 = this.quillInstance.root.innerText.substring(
+      0,
+      range1.index
+    );
+
+    let pRes = subString1.match(/RESPONSE/g)
+      ? subString1.match(/RESPONSE/g)
+      : [];
+    let priorResponses = pRes.length;
     if (this.responseIds.length > 0 && this.templateType === 'fib-dropdown') {
       let newQuillData: any;
       this.responseIds.forEach(resId => {
@@ -703,17 +739,6 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
           '~'
         );
       });
-      let range1 = this.quillInstance.getSelection(true);
-      // let subStr = this.quillInstance.root.innerHTML.replace('<p>', '');
-      let subString1 = this.quillInstance.root.innerText.substring(
-        0,
-        range1.index
-      );
-
-      let pRes = subString1.match(/RESPONSE/g)
-        ? subString1.match(/RESPONSE/g)
-        : [];
-      let priorResponses = pRes.length;
 
       let uid = Math.floor(100000 + Math.random() * 900000);
       this.responseIds.splice(priorResponses, 0, uid);
@@ -745,7 +770,9 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
       // );
 
       // if (this.templateType != 'fib-drag-drop') {
+      // if (this.templateType != 'fib-text')
       spanText = this.renderer.createText(` RESPONSE `);
+      // else spanText = this.renderer.createText(` RESPONSE `);
       // }
       this.renderer.appendChild(responseSpan, spanText);
       let spanOuterHtml = responseSpan.outerHTML + '<span>&nbsp;</span>';
@@ -901,6 +928,7 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
     this.possibleResponses = [...this.possibleResponses];
     this.sourceData.data.possible_responses = [...this.possibleResponses];
     // }
+    // this.updateResponse = true;
     this.updateResponse.next(true);
     this.initState();
     // console.log('possiblepossible ', this.possibleResponses);
@@ -962,6 +990,7 @@ export class FibTextLayoutComponent implements OnInit, OnChanges {
       );
       setTimeout(() => {
         this.calculateOptionsDivHeight();
+        this.loadedImg = true;
       }, 2000);
     }
   }

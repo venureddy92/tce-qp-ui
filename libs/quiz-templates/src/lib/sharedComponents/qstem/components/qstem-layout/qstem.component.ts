@@ -66,6 +66,8 @@ export class QstemComponent implements OnInit, AfterViewInit {
     if (this.qstem['image']) {
       this.qstemImage = this.qstem['imageUrl'] + this.qstem['image'];
     }
+    if (this.qstem.text)
+      this.questionEditorService.updateQstem(this.qstem.text);
   }
 
   ngAfterViewInit(): void {

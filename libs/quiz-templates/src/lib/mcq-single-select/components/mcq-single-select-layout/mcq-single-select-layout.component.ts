@@ -127,6 +127,7 @@ export class McqSingleSelectLayoutComponent
   public qstemData: string = '';
   public optionsData: Array<any> = [];
   public editingOpt: number = null;
+  loadedImg = false;
 
   public stemImgMode: string; // by default medium
   public imgWidth: number = 250; // TODO: uploaded image original width will come here
@@ -414,7 +415,6 @@ export class McqSingleSelectLayoutComponent
       this.opts[0].placeholder = 'Type The First Answer Option Here...';
     this.optsPreview = [...this.opts];
     //console.log('optsPreview ', this.optsPreview);
-
     this.layout = this.getLayoutType(this.templateData.data.ui_style.type);
     // this.questionEditorService.setOptionLayout(this.layout);
     if (this.templateData.data.ui_style.type === 'optionImage') {
@@ -439,6 +439,8 @@ export class McqSingleSelectLayoutComponent
     if (this.previewShow) {
       this.selectedAnswersPreview = [];
     }
+    if (this.templateType != 'mcq-tf')
+      this.questionEditorService.updateOptions(this.opts);
 
     this.optsPreview.forEach((options: TemplateMcqOption) => {
       if (options.selected) {
@@ -1026,6 +1028,7 @@ export class McqSingleSelectLayoutComponent
       );
       setTimeout(() => {
         this.calculateOptionsDivHeight();
+        this.loadedImg = true;
       }, 2000);
     }
   }

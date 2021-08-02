@@ -16,7 +16,7 @@
         <div class="qb-qstem m-0 px-2 pb-2" #qstemPreview>
           <div class="d-flex align-items-center">
             <div *ngIf="qstem['image'] || this.questionImage" class="qb-qstem-img position-relative">
-              <img [src]="loadQuestionImage()" #qstemImgRef />
+              <img [hidden]="!loadedImg" [src]="loadQuestionImage()" #qstemImgRef />
               <div *ngIf="!previewShow">
                 <div class="qb-adjust-img-size" (click)="openImgSizes = !openImgSizes">
                   <span id="imageResize" class="position-absolute">
